@@ -10,7 +10,8 @@
     "serve:ssr:festiVAL": "node dist/festiVAL/server/server.mjs",
     "lint": "ng lint",
     "i18n:sync": "node scripts/i18n-sync.mjs",
-    "i18n:check": "node scripts/i18n-sync.mjs --check"
+    "i18n:check": "node scripts/i18n-sync.mjs --check",
+    "branches:update-from-develop": "bash scripts/update-branches-from-develop.sh"
   },
   "prettier": {
     "printWidth": 100,
@@ -38,6 +39,7 @@
     "@jsverse/transloco": "^8.3.0",
     "@lucide/angular": "^1.17.0",
     "@sanity/client": "^7.22.1",
+    "@sentry/angular": "^10.57.0",
     "date-fns": "^4.4.0",
     "express": "^5.1.0",
     "maplibre-gl": "^5.24.0",

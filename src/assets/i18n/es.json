@@ -6,7 +6,10 @@
     "explore": "Explorar",
     "about": "Sobre nosotros",
     "search": "Buscar",
-    "theme": "Cambiar tema",
+    "theme": {
+      "toDark": "Activar modo oscuro",
+      "toLight": "Activar modo claro"
+    },
     "menu": "Abrir menú",
     "aria": {
       "primary": "Navegación principal"
@@ -293,5 +296,11 @@
     "bottom": {
       "copyright": "© 2026 festiVAL. Todos los derechos reservados."
     }
+  },
+  "error": {
+    "network": "Error de red. Comprueba tu conexión e inténtalo de nuevo.",
+    "notFound": "El contenido solicitado no se encontró.",
+    "unknown": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo.",
+    "dismiss": "Cerrar"
   }
 }

@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { HreflangService } from '@core/platform/hreflang.service';
+import { ThemeService } from '@core/platform/theme.service';
 import { NavBar } from '@layout/nav-bar/nav-bar';
 import { Footer } from '@layout/footer/footer';
+import { NotificationBannerComponent } from '@shared/ui/notification-banner/notification-banner';
 
 @Component({
   selector: 'fv-root',
-  imports: [RouterOutlet, NavBar, Footer],
+  imports: [RouterOutlet, NavBar, Footer, NotificationBannerComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,5 +17,6 @@ import { Footer } from '@layout/footer/footer';
 export class App {
   constructor() {
     inject(HreflangService).apply();
+    inject(ThemeService); // instantiate early so theme state stays in sync
   }
 }

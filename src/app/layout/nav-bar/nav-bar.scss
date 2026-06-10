@@ -126,18 +126,16 @@
   cursor: pointer;
   padding: 0;
 
-  &:hover {
-    background: var(--fv-bg-nav-icon-hover);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--fv-bg-nav-icon-hover);
+    }
   }
 
   @include from(md) {
     width: var(--nav-icon-size-md);
     height: var(--nav-icon-size-md);
   }
-}
-
-.nav-bar__theme-toggle {
-  display: none; // desktop-only per spec
 }
 
 .nav-bar__menu {
@@ -165,10 +163,6 @@
 
   .nav-bar__actions {
     justify-self: end;
-  }
-
-  .nav-bar__theme-toggle {
-    display: inline-grid;
   }
 
   .nav-bar__menu {

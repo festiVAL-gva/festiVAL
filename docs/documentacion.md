@@ -25,7 +25,6 @@ festiVAL/
 ├── public/             → Ficheros estáticos servidos tal cual (favicon, fuentes runtime)
 ├── src/                → Código fuente de la aplicación
 ├── scripts/            → Scripts de utilidad Node.js no relacionados con el build de Angular
-├── tasks/              → Workflow por tarea (current-task, backlog, completed) + planificación (roadmap, progreso)
 ├── .editorconfig       → Reglas de formato del editor (indentación, charset, trailing whitespace)
 ├── angular.json        → Configuración de Angular CLI (build, serve, test, lint, budgets, SSR)
 ├── eslint.config.js    → Configuración de ESLint (Angular ESLint + template accessibility)
@@ -54,7 +53,9 @@ Contiene la configuración específica de Codex para agentes, skills y comandos 
 │   └── vistas.toml         → Agente de UI: componentes, theming y responsive
 ├── commands/               → Comandos de workflow y automatización
 │   ├── audit-structure.md  → Auditoría automatizada de arquitectura y estructura
-│   └── autocommit.md       → Workflow de commits semánticos con pre-commit gate
+│   ├── autocommit.md       → Workflow de commits semánticos con pre-commit gate
+│   ├── new-branch.md       → Crea rama git desde main (tipo/slug normalizado)
+│   └── update-branches-from-develop.md → Fusiona develop en ramas remotas (excepto main/develop)
 └── skills/                 → Skills reutilizables (mismo conjunto y formato SKILL.md que `.claude/skills/`, en paridad)
     ├── <skill>/SKILL.md                       → Frontmatter (name, description) + cuerpo; espejo 1:1 de `.claude/skills/`
     └── <skill>/references/                    → (opcional) Material de referencia pesado extraído del SKILL.md
@@ -79,8 +80,9 @@ Contiene la configuración de agentes especializados, skills reutilizables y wor
 │   └── vistas.md            → Agente de UI: componentes, design system, theming, responsive, accesibilidad
 ├── commands/                → Comandos de workflow y automatización
 │   ├── audit-structure.md    → Auditoría automatizada de arquitectura: valida estructura, tokens, skills
-│   ├── autocommit.md        → Workflow de commits semánticos (Conventional Commits + pre-commit gate). Pregunta nombre de tarea + nº de issue (0 para terminar), separa los cambios por tarea (un commit por tarea) y añade (#n)
-│   └── new-task.md          → Inicia tarea activa: pregunta nº de issue + nombre de tarea, lee el issue y puebla tasks/current-task.md (Status: In Progress)
+│   ├── autocommit.md        → Workflow de commits semánticos (Conventional Commits + pre-commit gate). Pregunta nº de issue (0 para terminar o omitir) y añade (#n) al resumen
+│   ├── new-branch.md        → Crea una rama git desde la base actual: pregunta el nombre, lo normaliza, actualiza main y hace checkout de la nueva rama
+│   └── update-branches-from-develop.md → Fusiona develop en todas las ramas remotas (excepto main/develop); script en scripts/update-branches-from-develop.sh
 └── skills/                  → Skills reutilizables (formato Agent Skill: SKILL.md con frontmatter name/description)
     ├── <skill>/SKILL.md                 → Cada skill tiene su SKILL.md con frontmatter (name, description) y cuerpo
     ├── <skill>/references/              → (opcional) Material de referencia pesado extraído del SKILL.md
@@ -93,6 +95,7 @@ Contiene la configuración de agentes especializados, skills reutilizables y wor
     ├── forms-validation/SKILL.md        → Reactive Forms tipados, validadores custom, errores inline
     ├── i18n-commit-policy/SKILL.md      → Política de traducción en commits: sólo es.json en desarrollo, propagación a ca/en al cerrar
     ├── internationalization/SKILL.md    → Transloco, date-fns, locales es/ca/en, ICU MessageFormat
+    ├── light-dark-mode/SKILL.md         → Adaptación obligatoria de UI nueva a temas claro/oscuro/sistema
     ├── liquid-glass/SKILL.md            → Sistema Liquid Glass premium: superficies semitransparentes con blur,
     │                                      capas de profundidad, edge glow y accesibilidad
     ├── maps/SKILL.md                    → MapLibre GL JS + Protomaps, lazy-loading, estilo dark custom
@@ -148,10 +151,13 @@ Scripts Node.js ESM que complementan los comandos de Angular CLI. No forman part
 
 ```
 scripts/
-└── i18n-sync.mjs   → Sincronizador de locales: lee es.json y propaga claves ausentes a ca.json
-                       y en.json usando el valor español como placeholder. Acepta --check para
-                       modo de sólo lectura (exit 1 si hay divergencias, útil en CI).
-                       Uso: npm run i18n:sync | npm run i18n:check
+├── i18n-sync.mjs                      → Sincronizador de locales: lee es.json y propaga claves ausentes a ca.json
+│                                        y en.json usando el valor español como placeholder. Acepta --check para
+│                                        modo de sólo lectura (exit 1 si hay divergencias, útil en CI).
+│                                        Uso: npm run i18n:sync | npm run i18n:check
+└── update-branches-from-develop.sh    → Fusiona develop en cada rama remota (excepto main/develop/HEAD),
+                                         empuja a origin y restaura la rama original. Requiere working tree limpio.
+                                         Uso: npm run branches:update-from-develop
 ```
 
 ---
@@ -161,23 +167,6 @@ scripts/
 ```
 docs/
 └── documentacion.md     → Este fichero. Propósito de cada carpeta y función de cada fichero del proyecto.
-```
-
----
-
-## `tasks/` — Planificación y seguimiento
-
-Fuente única de verdad para la planificación y la ejecución del trabajo, mediante un **workflow por tarea** (en inglés): cada tarea parte de la plantilla, se ejecuta desde `current-task.md`, se encola en `backlog/` y se archiva en `completed/` (GitHub Issue → `current-task.md` → autocommit → PR → done). Reemplaza el roadmap inline en `README.md`. Documentado en `tasks/README.md` y cableado en `CLAUDE.md` / `AGENTS.md`.
-
-```
-tasks/
-├── README.md            → Workflow de tareas (Issue → current-task → autocommit → PR → done) y guía de carpetas.
-├── current-task.md      → Tarea activa única, en formato plantilla. Fuente de verdad del alcance en curso.
-├── test-workflow.md     → Marcador no funcional de validación del workflow (Issue #1). Temporal.
-├── templates/
-│   └── task-template.md → Plantilla canónica de tarea: título, issue, descripción, requisitos, criterios de aceptación, ficheros afectados, checklist, estado, notas y resumen.
-├── backlog/             → Tareas en cola, una por fichero (basadas en la plantilla). `.gitkeep` mientras está vacía.
-└── completed/           → Tareas finalizadas, archivadas con su Completion Summary. `.gitkeep` mientras está vacía.
 ```
 
 ---
@@ -208,7 +197,9 @@ public/
 ```
 src/
 ├── index.html           → Documento HTML principal. `lang="es-ES"`, título `festiVAL`,
-│                          meta theme-color (#07070C), favicon SVG + .ico, monta <fv-root>.
+│                          meta theme-color, favicon SVG + .ico, monta <fv-root>. Incluye un
+│                          script inline bloqueante anti-parpadeo que aplica `data-theme` desde
+│                          localStorage('fv-theme') antes del primer pintado (ver ThemeService).
 ├── main.ts              → Punto de entrada del cliente. Llama a bootstrapApplication con la
 │                          configuración de app.config.ts.
 ├── main.server.ts       → Punto de entrada del servidor SSR. Bootstrap de la app con la
@@ -229,6 +220,10 @@ src/styles/
 ├── _tokens.scss         → Tokens primitivos SCSS (paleta cruda $fv-gray-*, $fv-violet-*, …). No expone CSS vars.
 ├── _semantic.scss       → Tokens semánticos como CSS custom properties --fv-bg-*, --fv-text-*, --fv-accent-*,
 │                          --fv-border-*, --fv-gradient-*. Son los que consumen los componentes.
+│                          `:root` es el tema CLARO; el mixin `fv-theme-dark` redefine los tokens
+│                          de "chrome" (page/nav/footer/card-light/tile-dark…) y se aplica en
+│                          `:root[data-theme="dark"]` y en `@media (prefers-color-scheme: dark)`
+│                          cuando no hay `data-theme` (modo system).
 ├── _typography.scss     → Escala tipográfica: --fv-text-*, --fv-leading-*, --fv-tracking-*.
 ├── _fonts.scss          → @font-face de Inter, Sora y JetBrains Mono (variable fonts self-hosted).
 │                          Tokens de rol --fv-font-ui/heading/hero/hero-emphasis/festival-name/mono/brand,
@@ -251,11 +246,12 @@ src/styles/
 src/environments/
 ├── environment.ts       → Entorno por defecto (development). `production: false`, `defaultLocale: 'es-ES'`,
 │                          `baseUrl: 'http://localhost:4200'`, bloque `sanity`, bloque `maps`
-│                          (styleUrl CARTO dark, center/zoom sobre la Comunidad Valenciana).
-│                          Exporta el tipo `Environment`.
+│                          (styleUrl CARTO dark, center/zoom sobre la Comunidad Valenciana),
+│                          bloque `sentry: { dsn: '' }` (vacío en dev). Exporta el tipo `Environment`.
 └── environment.prod.ts  → Entorno de producción. `production: true`, `baseUrl: 'https://festival.example.com'`,
                            `useCdn: true`, `dataset: 'production'`. Bloque `maps`: styleUrl apunta
                            a `/assets/maps/festival-dark.json` (self-hosted Protomaps).
+                           Bloque `sentry: { dsn: '' }` (rellenar con el DSN real antes del deploy).
 ```
 
 ### `src/assets/` — Recursos estáticos
@@ -263,7 +259,9 @@ src/environments/
 ```
 src/assets/
 ├── branding/            → Assets de marca servidos en runtime
-│   ├── festi-val-logo.webp → Logo principal (versión rasterizada usada por la cabecera)
+│   ├── festi-val-logo.webp → Logo principal (letras navy) usado por la cabecera en tema claro
+│   ├── festi-val-logo-dark.webp → Variante del logo con letras blancas para el tema oscuro
+│   │                              (mismo icono en color; conmutado por ThemeService en nav-bar/footer)
 │   └── favicon.svg         → Favicon vectorial
 ├── i18n/                → Ficheros de traducción JSON. `es.json` es la fuente de verdad; el resto
 │   │                      mantiene paridad de claves. La propagación a los locales soportados
@@ -317,18 +315,18 @@ src/assets/
 ```
 src/app/
 ├── app.ts               → Componente raíz (selector: fv-root, OnPush). Importa RouterOutlet,
-│                          NavBar y Footer. En el constructor inyecta HreflangService.apply() para
-│                          registrar las etiquetas hreflang en <head> al arrancar.
-├── app.html             → Template del componente raíz: <fv-nav-bar /> + <main> con
-│                          <router-outlet /> + <fv-footer /> (pie global del shell).
+│                          NavBar, Footer y NotificationBannerComponent. En el constructor inyecta
+│                          HreflangService.apply() y ThemeService.
+├── app.html             → Template del componente raíz: <fv-notification-banner /> (banner de
+│                          errores) + <fv-nav-bar /> + <main> con <router-outlet /> + <fv-footer />.
 ├── app.scss             → Estilos del componente raíz. Define el fondo de página
 │                          (--app-page-bg) sand sobre el que se asienta el mockup del header.
 ├── app.spec.ts          → Tests del componente raíz. Verifica creación y presencia de router-outlet.
 ├── app.config.ts        → Configuración de la aplicación cliente: registra es-ES (LOCALE_ID +
 │                          registerLocaleData), provideRouter, provideClientHydration, provideHttpClient
 │                          (withFetch), provideTransloco (availableLangs: es/ca/en, defaultLang: es,
-│                          loader: TranslocoHttpLoader) y APP_INITIALIZER que precarga 'es' antes del
-│                          primer render para evitar parpadeo de claves sin traducir.
+│                          loader: TranslocoHttpLoader) y APP_INITIALIZER que precarga 'es'. Inicializa
+│                          Sentry con el DSN de environment.sentry.dsn si está presente.
 ├── app.config.server.ts → Configuración de la aplicación servidor. Extiende app.config.ts con
 │                          provideServerRendering y las rutas de SSR.
 ├── app.routes.ts        → Definición de rutas top-level. Cada feature se carga con loadChildren
@@ -349,8 +347,13 @@ src/app/core/
 │                               provideHttpClient(withInterceptors([errorInterceptor])).
 ├── handlers/
 │   └── festival-error.handler.ts → FestivalErrorHandler (implements ErrorHandler): loguea
-│                                    FestivalError en dev con código y mensaje; en producción
-│                                    delega a Sentry (TODO). Registrado en app.config.ts.
+│                                    FestivalError en dev; en producción llama a
+│                                    Sentry.captureException y muestra un mensaje i18n al usuario
+│                                    vía NotificationService. Registrado en app.config.ts.
+├── notifications/
+│   └── notification.service.ts   → NotificationService (providedIn: 'root'): signal<AppNotification|null>
+│                                    que expone show() y dismiss(). Desacoplado de ErrorHandler para
+│                                    permitir notificaciones desde cualquier punto de la app.
 ├── initializers/        → Factorías APP_INITIALIZER: carga del catálogo desde Sanity, registro de
 │   │                      locale, hidratación de preferencias de tema desde localStorage.
 │   └── transloco.loader.ts → TranslocoHttpLoader: carga los ficheros JSON de traducción desde
@@ -358,9 +361,18 @@ src/app/core/
 ├── tokens/              → InjectionTokens tipados para configuración inyectable.
 │   └── .gitkeep
 └── platform/            → Helpers de SSR: wrappers de isPlatformBrowser, guardas para APIs
-    └── hreflang.service.ts → HreflangService: inyecta <link rel="alternate" hreflang="…"> para
-                              es/ca/en y x-default en <head>. Usa environment.baseUrl. Llamado una
-                              vez en el constructor de App.
+    ├── hreflang.service.ts → HreflangService: inyecta <link rel="alternate" hreflang="…"> para
+    │                         es/ca/en y x-default en <head>. Usa environment.baseUrl. Llamado una
+    │                         vez en el constructor de App.
+    ├── theme.service.ts   → ThemeService: fuente de verdad del tema (signals, SSR-safe). Estados
+    │                         light/dark/system (por defecto system → prefers-color-scheme). Aplica
+    │                         `data-theme` en <html> para elecciones manuales, lo elimina en system,
+    │                         persiste en localStorage('fv-theme'), reacciona a cambios de
+    │                         matchMedia y sincroniza <meta name="theme-color">. Expone mode,
+    │                         resolvedTheme, setMode() y toggle().
+    └── theme.service.spec.ts → Tests del ThemeService: default system (device light/dark),
+                              cambio de dispositivo en runtime, toggle + persistencia, restauración
+                              tras recarga y elección explícita por encima del dispositivo.
 ```
 
 ### `src/app/layout/` — Shell de la aplicación
@@ -375,8 +387,10 @@ src/app/layout/
 ├── nav-bar/             → Cabecera estática del sitio (sticky). Logo `assets/branding/festi-val-logo.webp`
 │   ├── nav-bar.ts         vía `NgOptimizedImage` (`priority`), navegación principal (Home,
 │   ├── nav-bar.html       Festivals, Calendar, Explore, About), icono de búsqueda y toggle de
-│   ├── nav-bar.scss       tema. Mobile-first: en <1024 px sólo aparecen logo, búsqueda y
-│   └── nav-bar.spec.ts    hamburguesa. aria-current="page" en el enlace activo vía
+│   ├── nav-bar.scss       tema (cableado a ThemeService: icono sol/luna, aria-pressed y
+│   └── nav-bar.spec.ts    aria-label i18n nav.theme.toDark/toLight; visible también en móvil).
+│                          Mobile-first: en <1024 px aparecen logo, búsqueda, toggle de tema y
+│                          hamburguesa. aria-current="page" en el enlace activo vía
 │                          routerLinkActive. (El selector de idioma ES/CA/EN está en el roadmap
 │                          de la fase multilingüe; aún no existe.)
 └── footer/              → Pie de página premium (superficie clara #F4F4FA). Divisoria superior sutil
@@ -459,7 +473,10 @@ src/app/features/
 │   │       └── home-festival-map.spec.ts → Tests de render, pins, festival por defecto, activación
 │   │                                      y ciclo automático (vi.useFakeTimers).
 │   ├── data-access/
-│   │   └── .gitkeep
+│   │   └── home-catalogue.ts → Catálogo estático de la home: FEATURED_FESTIVALS, CALENDAR_MONTH_SEGMENTS
+│   │                           y CALENDAR_FESTIVALS. Exporta también los tipos FeaturedFestivalEntry,
+│   │                           CalendarMonthData, CalendarFestivalEntry, CalendarTone, CalendarCardAlign.
+│   │                           Extraído de los componentes ui/ para separar datos de presentación.
 │   └── home.routes.ts   → Superficie pública de la feature. Expone HOME_ROUTES con loadComponent
 └── festivales-map/      → Mapa interactivo de festivales. MapLibre GL JS + sidebar ordenable con
                            los 7 festivales semilla. Ruta: /mapa.
@@ -490,8 +507,12 @@ Código reutilizado por **2 o más features**. Nunca importa de `features/` ni d
 
 ```
 src/app/shared/
-├── ui/                  → Componentes presentacionales compartidos por ≥ 2 features. Vacío hoy:
-│   └── .gitkeep           `festivales-map` volvió a su feature al quedarse con un único consumidor.
+├── ui/                  → Componentes presentacionales compartidos por ≥ 2 features.
+│   └── notification-banner/  → Banner de notificación accesible para mostrar errores al usuario.
+│       ├── notification-banner.ts   → NotificationBannerComponent: lee NotificationService (signal),
+│       │                              renderiza el banner con role="alert" y aria-live="polite".
+│       ├── notification-banner.html → Renderiza el mensaje (i18n key | t) y botón de cierre.
+│       └── notification-banner.scss → Tokens semánticos: --fv-accent-danger, focus-ring mixin.
 ├── data-access/         → Servicios, datos y stores compartidos por ≥ 2 features. Hoy contiene los
 │   │                      datos de localización del mapa, el cargador diferido de MapLibre y la capa
 │   │                      i18n. Los servicios de catálogo (FestivalService, SearchService, stores…)
@@ -605,6 +626,9 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 
 | Fecha      | Cambio                                                  | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ---------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-06-10 | Auditoría completa: limpieza y optimización             | Eliminado `src/.DS_Store` (archivo de sistema no versionable ya cubierto por `.gitignore`). Corregido `focus-ring` double-nesting en 7 localizaciones SCSS (notification-banner, home.page, featured-festivals, home-festival-map ×2, festivales-map ×4). Retirado `@keyframes fv-featured-marquee` duplicado de `_animations.scss` (el componente `featured-festivals` define su propia versión correcta). Tokens `--fv-radius-1`/`--fv-radius-2` en `_liquid-glass.scss` reemplazados por `--fv-radius-sm`/`--fv-radius-lg`. Eliminada declaración redundante `standalone: true` en 4 componentes (`festival-calendar`, `featured-festivals`, `home-festival-map`, `notification-banner`) — Angular 19+ la asume por defecto. Hover guard añadido al marcador del mapa en `festivales-map.scss`. Traducidas las secciones `home.calendar` y `footer` de `ca.json` y `en.json` que contenían texto en español. |
+| 2026-06-10 | Skill `light-dark-mode`                                 | Creada `.claude/skills/light-dark-mode/SKILL.md` (espejo en `.codex/skills/`): gate obligatorio para que cualquier UI nueva se adapte a los temas claro/oscuro/sistema vía tokens semánticos (`--fv-bg-page`, `--fv-bg-card-light`, `--fv-text-nav`…), sin overrides `[data-theme]` en componentes. Incluye árbol de decisión, checklist, ejemplos y validación visual. Registrada en `CLAUDE.md`, `AGENTS.md`, agente `vistas` y skill `theming-styling`. |
+| 2026-06-10 | Sistema de temas (light / dark / system)                | Creado `src/app/core/platform/theme.service.ts` (+ `theme.service.spec.ts`): servicio Signals SSR-safe que gestiona `light/dark/system` (por defecto system → `prefers-color-scheme`), aplica `data-theme` en `<html>`, persiste en `localStorage('fv-theme')`, reacciona a `matchMedia` y sincroniza `<meta name="theme-color">`. Nuevo bloque de tema oscuro en `_semantic.scss` (mixin `fv-theme-dark` aplicado en `:root[data-theme="dark"]` y en `@media (prefers-color-scheme: dark)` sin `data-theme`) que redefine solo los tokens de chrome (page/nav/footer/card-light/tile-dark, textos y bordes) reutilizando primitivos; el tema claro queda intacto. Script inline anti-parpadeo en `index.html`. Botón existente de la nav-bar cableado a `ThemeService` (icono sol/luna, `aria-pressed`, `aria-label` i18n `nav.theme.toDark`/`toLight`, visible también en móvil); `app.ts` instancia el servicio. Restructurada la clave i18n `nav.theme` a objeto `{ toDark, toLight }` en es/ca/en. Nuevo asset `src/assets/branding/festi-val-logo-dark.webp` (logo con letras blancas) conmutado por CSS según `data-theme` para que la marca sea legible en oscuro. Contrato actualizado: skill `theming-styling` (regla #7 + sección "Theme switching") y descripción en `AGENTS.md`/`CLAUDE.md`. |
 | 2026-06-10 | Footer premium del shell                                | Implementado `src/app/layout/footer/` (`footer.{ts,html,scss,spec.ts}`), sustituyendo el placeholder `.gitkeep`. Pie editorial sobre superficie clara `#F4F4FA` con divisoria superior sutil y grid de 4 columnas: marca (logo `NgOptimizedImage` + claim + iconos sociales monocromos Instagram/X/YouTube/Spotify) y columnas Explora / Información / Legal con `routerLink`; barra inferior con copyright. Nuevos tokens semánticos `--fv-bg-footer`, `--fv-bg-footer-hover`, `--fv-text-footer`, `--fv-text-footer-muted`, `--fv-text-footer-faint` y `--fv-border-footer` en `_semantic.scss`. Claves i18n `footer.*` en `es.json`. Cableado `<fv-footer />` en `app.html`/`app.ts`. Mobile-first (1 → 2 → 4 columnas). |
 | 2026-06-10 | Auditoría `/audit-structure`: realineación estructura ↔ docs | `shared/ui/festivales-map/` movido a `features/festivales-map/ui/festivales-map/` (un único consumidor; la promoción a shared exige ≥ 2). Creados `features/festivales-map/data-access/.gitkeep` y `shared/ui/.gitkeep`. `home-festival-map` ahora recibe las localizaciones por `input.required('locations')` desde `home.page` (ui/ presentacional). `aria-label` de la home pasa por i18n (`home.ariaLabel` en es/ca/en). Eliminado el directorio vacío `output/`. Documentación sincronizada: budgets reales de `angular.json` (360/400, 80/120, 8/12 KB) aquí y en `CLAUDE.md`, ruta `/mapa` añadida al esquema de URLs de `CLAUDE.md`, tabla de aliases y entry SCSS corregidos en la skill `project-structure` (.claude y .codex), retiradas las menciones a `setLang()`/selector de idioma y los `.gitkeep` fantasma, y backlog actualizado con MiniSearch y Sentry pendientes. |
 | 2026-06-08 | Refactor `festival-calendar` y limpieza de scaffolds    | `src/app/features/home/ui/festival-calendar/` rediseñado: retirada del icono del header, fila de meses proporcional (15/31/18 días), rail gradiente con tokens `--fv-accent-*`, círculos de día destacados como pseudo-elementos absolutos (no expanden el grid), y carrusel auto-rotativo (3 s) con `(mouseenter)` sobre los días destacados para enfocar uno concreto y reanudar. Nuevo token semántico `--fv-bg-tile-dark` en `src/styles/_semantic.scss`. Tests del carrusel añadidos con `vi.useFakeTimers`. Eliminados los scaffolds vacíos `features/{about,artist-detail,festival-detail,festival-list,search}/` y el `.gitkeep` redundante en `shared/domain/` para alinear el árbol con el código realmente implementado.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -670,4 +694,9 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 | 2026-06-10 | Validación del workflow de tareas (Issue #1)            | Prueba end-to-end del sistema de tareas: `tasks/current-task.md` poblado desde el Issue #1 ("Prueba") y añadido `tasks/test-workflow.md` (marcador no funcional, temporal). Sin cambios de desarrollo ni en `src/`. |
 | 2026-06-10 | Comando `new-task`                                      | Añadido `.claude/commands/new-task.md` (pregunta el nº de issue, lo lee, rechaza si no existe y puebla `tasks/current-task.md` desde la plantilla con `Status: In Progress`). Integrado con el sistema de tareas; no duplica ni elude las reglas de `autocommit.md`. |
 | 2026-06-10 | Referencia de issue integrada en `autocommit`           | Eliminado `.claude/commands/commit-task.md`; su comportamiento se integra en `autocommit.md` (`.claude` y `.codex`): el paso 2 pasa de "detectar issue key" a **preguntar los números de issue de forma repetida hasta que el usuario introduce `0`** y añadir las referencias `(#n)` / `(#n, #m)` al resumen de cada commit. Formato y ejemplos de commit actualizados al estilo sufijo `(#n)` (antes prefijo `<issue-key>:`). README actualizado. |
+| 2026-06-10 | Eliminación del sistema `tasks/` y `/new-task`          | Eliminada la carpeta `tasks/` (README, current-task, backlog, completed, templates, test-workflow) y el comando `.claude/commands/new-task.md`. Retirada la sección "Active task workflow" de `CLAUDE.md` y `AGENTS.md`. `README.md` simplificado a flujo Issue → desarrollo → `/autocommit` → PR. Actualizado el árbol raíz y la sección de commands en esta documentación. |
+| 2026-06-10 | Simplificación de `/autocommit`                         | `autocommit.md` (`.claude` y `.codex`): eliminada la pregunta por nombre de tarea y la separación de cambios por tarea; ahora solo pregunta el nº de issue de GitHub (repetido hasta `0`) y agrupa commits por propósito semántico. Actualizados `docs/documentacion.md` y `tasks/README.md`. |
 | 2026-06-10 | Separación de commits por tarea (nombre de tarea)       | `/new-task` pasa a preguntar también el **nombre de la tarea** (slug) además del nº de issue, y lo guarda en `tasks/current-task.md` (fila "Task name" añadida a `tasks/templates/task-template.md`, usada como `Task ID` y scope por defecto). `autocommit.md` (`.claude` y `.codex`) paso 2 actualizado: pregunta **pares nombre-de-tarea + nº de issue** hasta `0` y usa el nombre para **separar los cambios por tarea y crear un commit por tarea** (permite commitear varias tareas a la vez), atribuyendo ficheros vía _Files Expected To Change_. Corregidas las referencias obsoletas a `/commit-task` en `new-task.md`. README actualizado. |
+| 2026-06-10 | Comando `/update-branches-from-develop`                 | Añadidos `scripts/update-branches-from-develop.sh`, `.claude/commands/update-branches-from-develop.md` y espejo en `.codex/commands/`. Fusiona `develop` en cada rama remota (excluye main/develop/HEAD), empuja a origin, aborta en conflictos y restaura la rama original. Script npm `branches:update-from-develop`. Documentado en `docs/documentacion.md` y `AGENTS.md`. |
+| 2026-06-10 | Comando `new-branch` (Issue #6)                          | Añadidos `.claude/commands/new-branch.md` y `.codex/commands/new-branch.md`: comando que pregunta el nombre de rama, lo normaliza (tipo/slug), actualiza la base desde `main` con `--ff-only` y hace checkout de la nueva rama. Sin cambios en `src/`. |
+| 2026-06-10 | Auditoría `/audit-structure`: health score 75 → 100 | **Error handling completo**: creado `core/notifications/notification.service.ts` (signal `AppNotification|null`, `show()`/`dismiss()`); `festival-error.handler.ts` actualizado (inyecta `NotificationService`, llama `Sentry.captureException` en producción, mapea `FestivalErrorCode` a claves i18n `error.*`); `app.config.ts` inicializa Sentry con `environment.sentry.dsn`; bloque `sentry: { dsn }` añadido a ambos `environment*.ts`. **Shell**: creado `shared/ui/notification-banner/` (`NotificationBannerComponent`), cableado en `app.ts`/`app.html`. **i18n**: claves `error.network/notFound/unknown/dismiss` añadidas a `es.json`, `ca.json` y `en.json`. **Datos en data-access**: creado `features/home/data-access/home-catalogue.ts` (extrae `FEATURED_FESTIVALS`, `CALENDAR_MONTH_SEGMENTS`, `CALENDAR_FESTIVALS` y sus tipos de los componentes `ui/`); `featured-festivals.ts` y `festival-calendar.ts` actualizados para importar desde `data-access/`. **SCSS (hover guards)**: `nav-bar.scss` y `festivales-map.scss` envuelven sus `:hover` en `@media (hover: hover) and (pointer: fine)`. **SCSS (font-size tokens)**: `festival-calendar.scss` extrae 5 tamaños literales a custom properties en `:host`; `home-festival-map.scss` extrae `10px`/`9px` a `:host`. **Limpieza**: eliminados los `.gitkeep` redundantes de `features/home/data-access/` y `shared/ui/` (ambos reemplazados por ficheros reales). |

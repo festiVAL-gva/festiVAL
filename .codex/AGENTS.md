@@ -58,19 +58,8 @@ When working as Claude Code, use the `.claude/` folder as the source of truth fo
 ## Slash commands
 
 When the user writes `/autocommit`, load and follow `/Users/rares/Desktop/festiVAL/.codex/commands/autocommit.md`.
-Treat it as a workflow instruction for the current turn, not as plain text to acknowledge.
-
-## Active task workflow (MANDATORY)
-
-Day-to-day work is driven by a single active task file. **Before** doing any requested work:
-
-1. **Read `tasks/current-task.md` first** and treat it as the active task — the single source of truth for the current scope.
-2. **Stay in scope.** Only touch what the task's _Requirements_ and _Files Expected To Change_ allow. Anything else requires updating the task first (or opening a new one); never work outside the defined task scope.
-3. **Follow `commands/autocommit.md`** for every commit. The pre-commit gate, the architecture audit gate (`100/100`), the i18n commit policy, and the documentation rule below all still apply — do not duplicate or weaken them here.
-4. **Keep the task live.** Tick the _Progress Checklist_ as you implement and keep the _Status_ field current as it moves `Backlog → In Progress → In Review → Done` (or `Blocked`).
-5. **On completion:** check every _Acceptance Criteria_ box, write the _Completion Summary_, move the file to `tasks/completed/`, then reset `tasks/current-task.md` from `tasks/templates/task-template.md` so the repository is ready for the next task.
-
-If `tasks/current-task.md` is in the `Example` state, there is no active task: ask the user to define one or promote a file from `tasks/backlog/`. The full lifecycle is documented in `tasks/README.md`.
+When the user writes `/update-branches-from-develop`, load and follow `/Users/rares/Desktop/festiVAL/.codex/commands/update-branches-from-develop.md`.
+Treat slash commands as workflow instructions for the current turn, not as plain text to acknowledge.
 
 ## Pre-commit gate (MANDATORY)
 
@@ -147,6 +136,7 @@ The project defines reusable skills in `.Codex/skills/` that document patterns s
 - **`accessibility`** — WCAG 2.1 AA, contrast, visible focus, minimal ARIA, keyboard navigation.
 - **`asset-organization`** — **MANDATORY when touching images or image folders.** Folder structure, naming rules, duplicate cleanup, and audit expectations for repository assets.
 - **`theming-styling`** — Primitive and semantic tokens (`--fv-*` namespace), premium Mediterranean light surfaces with a deep-navy dark theme. **Theming is active**: `light / dark / system` via `data-theme` on `<html>` + `prefers-color-scheme`, owned by the `ThemeService` (`@core/platform/`).
+- **`light-dark-mode`** 🌓 — **MANDATORY when creating any new UI.** Ensures components, pages, SCSS and assets adapt to light, dark and system themes via semantic tokens — never hardcoded per-theme colors in components.
 - **`liquid-glass`** — Premium Liquid Glass visual system: semi-transparent surfaces with soft blur, layered depth, edge glow, and atmospheric effects. Use when implementing glassmorphic components, overlays, or translucent surfaces requiring premium appearance.
 - **`cross-device-compat`** — Cross-browser and cross-device compatibility layer: browser targets (`.browserslistrc`), `-webkit-backdrop-filter` rule, `color-mix()` fallback strategy with the `@compat` marker, hover guards for touch, `prefers-reduced-motion`, touch targets. Consulted automatically by the autocommit gate (B.10–B.11). Use whenever touching SCSS that uses `backdrop-filter`, `color-mix()`, animations, or hover effects.
 - **`seo-meta`** — Title/description per route, JSON-LD `Event`, canonicals, sitemap, Open Graph.

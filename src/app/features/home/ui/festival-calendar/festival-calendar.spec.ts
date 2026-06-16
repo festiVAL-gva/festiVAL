@@ -24,7 +24,7 @@ describe('FestivalCalendarComponent', () => {
     vi.useRealTimers();
   });
 
-  it('renders the timeline title and four festival cards', () => {
+  it('renders the timeline title and five festival cards', () => {
     const root = fixture.nativeElement as HTMLElement;
 
     expect(
@@ -39,6 +39,15 @@ describe('FestivalCalendarComponent', () => {
     expect(root.querySelectorAll('.festival-calendar__month')).toHaveLength(3);
     expect(root.querySelector('.festival-calendar__rail')).not.toBeNull();
     expect(root.querySelectorAll('.festival-calendar__day').length).toBeGreaterThan(60);
+  });
+
+  it('only labels the reference days in the visual day scale', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const labelledDays = root.querySelectorAll('.festival-calendar__day--labelled');
+
+    expect(labelledDays.length).toBe(20);
+    expect(component.isLabelledDay('july', '4')).toBe(true);
+    expect(component.isLabelledDay('july', '5')).toBe(false);
   });
 
   it('marks the first festival as the initially active card', () => {

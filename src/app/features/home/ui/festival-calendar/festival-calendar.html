@@ -41,6 +41,7 @@
                 @let festivalOfDay = festivalForDay(month.key, day);
                 <span
                   class="festival-calendar__day"
+                  [class.festival-calendar__day--labelled]="isLabelledDay(month.key, day)"
                   [class.festival-calendar__day--featured]="festivalOfDay"
                   [class.festival-calendar__day--med-blue]="festivalOfDay?.tone === 'med-blue'"
                   [class.festival-calendar__day--coral]="festivalOfDay?.tone === 'coral'"

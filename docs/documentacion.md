@@ -535,18 +535,19 @@ src/app/features/
 │   │   ├── festival-calendar/
 │   │   │   ├── festival-calendar.ts      → Componente local standalone del calendario editorial:
 │   │   │   │                               carrusel auto-rotativo (3 s) con `activeIndex: signal`,
-│   │   │   │                               `focusFestival()` para hover sobre días destacados y
-│   │   │   │                               `afterNextRender` + `DestroyRef` para SSR-safety.
+│   │   │   │                               `focusFestival()` para hover sobre días destacados,
+│   │   │   │                               selección tipada de días rotulados y `afterNextRender` +
+│   │   │   │                               `DestroyRef` para SSR-safety.
 │   │   │   ├── festival-calendar.html    → Header con título + subtítulo, fila de meses proporcional
-│   │   │   │                               (JUNIO/JULIO/AGOSTO 15/31/18), rail gradiente, fila de días
-│   │   │   │                               con círculos destacados y 4 cards posicionadas en absoluto
-│   │   │   │                               bajo su fecha.
-│   │   │   ├── festival-calendar.scss    → Línea temporal horizontal con tokens semánticos, día
-│   │   │   │                               destacado decorado con ::before absoluto (no expande el
-│   │   │   │                               grid), cards 10rem con fade entre slides y fallback
-│   │   │   │                               apilado en tablet/mobile.
-│   │   │   └── festival-calendar.spec.ts → Tests de render, índice activo, transición por
-│   │   │                                   `focusFestival()` y semántica del autoplay con fake timers.
+│   │   │   │                               (JUNIO/JULIO/AGOSTO 15/31/18), rail gradiente, ruler con
+│   │   │   │                               ticks + fechas de referencia y 5 cards posicionadas bajo
+│   │   │   │                               su fecha en desktop.
+│   │   │   ├── festival-calendar.scss    → Línea temporal horizontal con tokens semánticos, ticks
+│   │   │   │                               secundarios, días destacados decorados con ::before absoluto
+│   │   │   │                               (no expanden el grid), cards 10rem con fade entre slides y
+│   │   │   │                               fallback en grid para tablet/mobile.
+│   │   │   └── festival-calendar.spec.ts → Tests de render, días rotulados, índice activo, transición
+│   │   │                                   por `focusFestival()` y semántica del autoplay con fake timers.
 │   │   ├── featured-festivals/
 │   │   │   ├── featured-festivals.ts      → Componente local standalone con datos de festivales
 │   │   │   │                                destacados. Importa RouterLink: cada tarjeta enlaza a

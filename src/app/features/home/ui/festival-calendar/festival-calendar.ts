@@ -23,6 +23,30 @@ import {
 const AUTOPLAY_INTERVAL_MS = 3000;
 
 type FestivalDayLookup = Record<string, CalendarFestivalEntry>;
+type CalendarDayKey = `${CalendarMonth}:${string}`;
+
+const CALENDAR_LABELLED_DAYS = [
+  'june:16',
+  'june:20',
+  'june:24',
+  'june:28',
+  'june:30',
+  'july:1',
+  'july:4',
+  'july:8',
+  'july:12',
+  'july:17',
+  'july:21',
+  'july:24',
+  'july:28',
+  'july:31',
+  'august:1',
+  'august:4',
+  'august:8',
+  'august:12',
+  'august:16',
+  'august:18',
+] as const satisfies readonly CalendarDayKey[];
 
 @Component({
   selector: 'fv-festival-calendar',
@@ -35,6 +59,8 @@ export class FestivalCalendarComponent {
   readonly monthSegments = CALENDAR_MONTH_SEGMENTS;
 
   readonly festivals = CALENDAR_FESTIVALS;
+
+  readonly labelledDays = new Set<CalendarDayKey>(CALENDAR_LABELLED_DAYS);
 
   readonly festivalDays = this.festivals.reduce<FestivalDayLookup>((lookup, festival) => {
     lookup[`${festival.month}:${festival.dayLabel}`] = festival;
@@ -93,5 +119,9 @@ export class FestivalCalendarComponent {
 
   festivalForDay(month: CalendarMonth, day: string): CalendarFestivalEntry | null {
     return this.festivalDays[`${month}:${day}`] ?? null;
+  }
+
+  isLabelledDay(month: CalendarMonth, day: string): boolean {
+    return this.labelledDays.has(`${month}:${day}` as CalendarDayKey);
   }
 }

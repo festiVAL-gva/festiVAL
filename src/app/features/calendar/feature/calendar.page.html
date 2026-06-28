@@ -1,135 +1,203 @@
-<main class="cal" data-testid="calendar-page">
-  <!-- ─── Header ─── -->
-  <header class="cal__header">
-    <div class="cal__header-left">
-      <h1 class="cal__month-title">{{ monthLabel() }}</h1>
-      <p class="cal__subtitle">{{ 'calendarPage.subtitle' | t }}</p>
+<main class="calendar-page" data-testid="calendar-page">
+  <section class="calendar-page__hero" [attr.aria-label]="'calendarPage.hero.ariaLabel' | t">
+    <div class="calendar-page__hero-copy">
+      <p class="calendar-page__eyebrow">{{ 'calendarPage.hero.eyebrow' | t }}</p>
+      <h1 class="calendar-page__title">{{ 'calendarPage.hero.title' | t }}</h1>
+      <p class="calendar-page__description">{{ 'calendarPage.hero.description' | t }}</p>
     </div>
 
-    <nav class="cal__nav" aria-label="Navegación del calendario">
-      <button
-        class="cal__nav-btn"
-        (click)="previousMonth()"
-        [attr.aria-label]="'Mes anterior'"
-        type="button">
-        <svg lucideChevronLeft aria-hidden="true" focusable="false" size="18" strokeWidth="2"></svg>
-      </button>
-
-      <button
-        class="cal__nav-btn cal__nav-btn--today"
-        (click)="goToday()"
-        type="button">
-        Hoy
-      </button>
-
-      <button
-        class="cal__nav-btn"
-        (click)="nextMonth()"
-        [attr.aria-label]="'Mes siguiente'"
-        type="button">
-        <svg lucideChevronRight aria-hidden="true" focusable="false" size="18" strokeWidth="2"></svg>
-      </button>
-    </nav>
-  </header>
-
-  <!-- ─── Desktop: Monthly Grid ─── -->
-  <section class="cal__grid-wrapper" aria-label="Calendario mensual">
-    <!-- Weekday headers -->
-    <div class="cal__weekdays">
-      @for (day of weekdays; track day) {
-        <div class="cal__weekday">{{ day }}</div>
-      }
+    <div class="calendar-page__hero-aside">
+      <p class="calendar-page__aside-label">{{ 'calendarPage.timeline.eyebrow' | t }}</p>
+      <ul class="calendar-page__stats" role="list">
+        <li class="calendar-page__stat">
+          {{ 'calendarPage.hero.stats.festivals' | t : { count: festivalCount } }}
+        </li>
+        <li class="calendar-page__stat">{{ 'calendarPage.hero.stats.region' | t }}</li>
+        <li class="calendar-page__stat">{{ 'calendarPage.hero.stats.season' | t }}</li>
+      </ul>
     </div>
+  </section>
 
-    <!-- Weeks -->
-    @for (week of weeks(); track trackByWeek($index)) {
-      <div class="cal__week">
-        <!-- Day cells -->
-        @for (day of week.days; track trackByDay($index, day)) {
-          <div
-            class="cal__day"
-            [class.cal__day--outside]="!day.isCurrentMonth"
-            [class.cal__day--today]="day.isToday">
-            <span
-              class="cal__day-number"
-              [class.cal__day-number--today]="day.isToday">
-              {{ day.day }}
-            </span>
-          </div>
+  <section class="calendar-page__filters" [attr.aria-label]="'calendarPage.filters.ariaLabel' | t">
+    <div class="calendar-page__filter-group">
+      <p class="calendar-page__filter-label">{{ 'calendarPage.filters.month.title' | t }}</p>
+      <div
+        class="calendar-page__filter-options"
+        role="group"
+        [attr.aria-label]="'calendarPage.filters.month.ariaLabel' | t"
+      >
+        @for (option of monthFilterOptions; track option.id) {
+          <button
+            type="button"
+            class="calendar-page__filter-chip"
+            [class.calendar-page__filter-chip--active]="selectedMonth() === option.id"
+            [attr.aria-pressed]="selectedMonth() === option.id"
+            [attr.data-testid]="'calendar-filter-month-' + option.id"
+            (click)="selectMonth(option.id)"
+          >
+            {{ option.labelKey | t }}
+          </button>
         }
-
-        <!-- Festival span pills overlaid -->
-        <div class="cal__events">
-          @for (span of festivalSpansByWeek()[$index]; track trackBySpan($index, span)) {
-            <a
-              class="cal__pill"
-              [routerLink]="span.festival.detailUrl"
-              [style.grid-column]="(span.startCol + 1) + ' / span ' + span.span"
-              [style.--pill-bg]="span.colour.bg"
-              [style.--pill-text]="span.colour.text"
-              (mouseenter)="onFestivalHover(span.festival, $event)"
-              (mouseleave)="onFestivalLeave()"
-              [attr.aria-label]="span.festival.name + ', ' + formatDateRange(span.festival)">
-              <span class="cal__pill-dot" [style.background]="span.colour.bg"></span>
-              <span class="cal__pill-label">{{ span.festival.name }}</span>
-            </a>
-          }
-        </div>
-      </div>
-    }
-  </section>
-
-  <!-- ─── Mobile: Agenda View ─── -->
-  <section class="cal__agenda" aria-label="Agenda de festivales">
-    @if (agendaEntries().length === 0) {
-      <p class="cal__agenda-empty">No hay festivales este mes</p>
-    }
-
-    @for (entry of agendaEntries(); track entry.festival.slug) {
-      <a class="cal__agenda-item" [routerLink]="entry.festival.detailUrl">
-        <div class="cal__agenda-date">
-          <span class="cal__agenda-dot" [style.background]="entry.colour.bg"></span>
-          <span class="cal__agenda-range">{{ entry.dateLabel }}</span>
-        </div>
-        <div class="cal__agenda-info">
-          <span class="cal__agenda-name">{{ entry.festival.name }}</span>
-          <span class="cal__agenda-location">
-            <svg lucideMapPin aria-hidden="true" focusable="false" size="12" strokeWidth="2"></svg>
-            {{ entry.festival.location }}
-          </span>
-        </div>
-      </a>
-    }
-  </section>
-
-  <!-- ─── Hover Tooltip ─── -->
-  @if (hoveredFestival(); as festival) {
-    <div
-      class="cal__tooltip"
-      [style.left.px]="hoverPosition()?.x ?? 0"
-      [style.top.px]="hoverPosition()?.y ?? 0"
-      role="tooltip">
-      <div class="cal__tooltip-poster">
-        <img
-          [ngSrc]="festival.poster"
-          [alt]="festival.name"
-          width="260"
-          height="100" />
-      </div>
-      <div class="cal__tooltip-body">
-        <h3 class="cal__tooltip-name">{{ festival.name }}</h3>
-        <p class="cal__tooltip-meta">
-          <svg lucideMapPin aria-hidden="true" focusable="false" size="13" strokeWidth="2"></svg>
-          {{ festival.location }}
-        </p>
-        <p class="cal__tooltip-dates">{{ formatDateRange(festival) }}</p>
-        <div class="cal__tooltip-genres">
-          @for (genre of festival.genres; track genre) {
-            <span class="cal__tooltip-genre">{{ genre }}</span>
-          }
-        </div>
-        <span class="cal__tooltip-cta">Ver festival →</span>
       </div>
     </div>
+
+    <div class="calendar-page__filter-group">
+      <p class="calendar-page__filter-label">{{ 'calendarPage.filters.province.title' | t }}</p>
+      <div
+        class="calendar-page__filter-options"
+        role="group"
+        [attr.aria-label]="'calendarPage.filters.province.ariaLabel' | t"
+      >
+        @for (option of provinceFilterOptions; track option.id) {
+          <button
+            type="button"
+            class="calendar-page__filter-chip"
+            [class.calendar-page__filter-chip--active]="selectedProvince() === option.id"
+            [attr.aria-pressed]="selectedProvince() === option.id"
+            [attr.data-testid]="'calendar-filter-province-' + provinceFilterTestId(option.id)"
+            (click)="selectProvince(option.id)"
+          >
+            {{ option.labelKey | t }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="calendar-page__filter-group">
+      <p class="calendar-page__filter-label">{{ 'calendarPage.filters.genre.title' | t }}</p>
+      <div
+        class="calendar-page__filter-options"
+        role="group"
+        [attr.aria-label]="'calendarPage.filters.genre.ariaLabel' | t"
+      >
+        @for (option of genreFilterOptions; track option.id) {
+          <button
+            type="button"
+            class="calendar-page__filter-chip"
+            [class.calendar-page__filter-chip--active]="selectedGenre() === option.id"
+            [attr.aria-pressed]="selectedGenre() === option.id"
+            [attr.data-testid]="'calendar-filter-genre-' + option.id"
+            (click)="selectGenre(option.id)"
+          >
+            {{ option.labelKey | t }}
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <p class="sr-only" aria-live="polite" aria-atomic="true">
+    {{
+      'calendarPage.results.summary'
+        | t : { dayCount: visibleDayCount(), festivalCount: visibleFestivalCount() }
+    }}
+  </p>
+
+  @if (monthGroups().length) {
+    <section
+      class="calendar-page__timeline"
+      [attr.aria-label]="'calendarPage.timeline.ariaLabel' | t"
+      data-testid="calendar-timeline"
+    >
+      @for (month of monthGroups(); track month.id) {
+        <section class="calendar-month" [attr.data-testid]="'calendar-month-' + month.id">
+          <header class="calendar-month__header">
+            <p class="calendar-month__eyebrow">{{ 'calendarPage.timeline.eyebrow' | t }}</p>
+            <h2 class="calendar-month__title">{{ month.title }}</h2>
+          </header>
+
+          <div class="calendar-month__days">
+            @for (dayGroup of month.days; track dayGroup.isoDate) {
+              <section
+                class="calendar-date-group"
+                [attr.data-testid]="'calendar-date-group-' + dayGroup.isoDate"
+              >
+                <header class="calendar-date-group__header">
+                  <span class="calendar-date-group__weekday">{{ dayGroup.weekdayLabel }}</span>
+                  <time class="calendar-date-group__date" [attr.datetime]="dayGroup.isoDate">
+                    {{ dayGroup.dateLabel }}
+                  </time>
+                </header>
+
+                <div class="calendar-date-group__cards" role="list">
+                  @for (card of dayGroup.cards; track card.id) {
+                    <article
+                      class="calendar-day-card"
+                      [attr.data-testid]="'calendar-card-' + card.id"
+                      [style.--calendar-accent]="card.festival.accentColor"
+                      role="listitem"
+                    >
+                      <a
+                        class="calendar-day-card__link"
+                        [routerLink]="card.festival.detailUrl"
+                        [attr.aria-label]="card.festival.name"
+                      >
+                        <div class="calendar-day-card__poster">
+                          <img
+                            [ngSrc]="card.festival.poster.src"
+                            [alt]="card.festival.poster.alt"
+                            [width]="card.festival.poster.width"
+                            [height]="card.festival.poster.height"
+                            sizes="(min-width: 1280px) 18vw, (min-width: 1024px) 24vw, (min-width: 768px) 30vw, 100vw"
+                          />
+                        </div>
+
+                        <div class="calendar-day-card__body">
+                          <span
+                            class="calendar-day-card__badge"
+                            [class.calendar-day-card__badge--single]="card.badgeTone === 'single'"
+                            [class.calendar-day-card__badge--start]="card.badgeTone === 'start'"
+                            [class.calendar-day-card__badge--middle]="card.badgeTone === 'middle'"
+                            [class.calendar-day-card__badge--final]="card.badgeTone === 'final'"
+                          >
+                            {{ card.badgeKey | t : card.badgeParams }}
+                          </span>
+
+                          <h3 class="calendar-day-card__title">{{ card.festival.name }}</h3>
+
+                          <p class="calendar-day-card__location">
+                            <svg lucideMapPin aria-hidden="true" focusable="false" size="14" strokeWidth="2"></svg>
+                            <span>{{ card.festival.locationLabel }}</span>
+                          </p>
+
+                          <p class="calendar-day-card__details">
+                            <span>{{ card.festival.genreLabelKey | t }}</span>
+                            <span aria-hidden="true">·</span>
+                            <span>{{ card.rangeLabel }}</span>
+                          </p>
+
+                          <span class="calendar-day-card__cta">
+                            <span>{{ 'calendarPage.timeline.cta' | t }}</span>
+                            <svg lucideArrowRight aria-hidden="true" focusable="false" size="16" strokeWidth="2"></svg>
+                          </span>
+                        </div>
+                      </a>
+                    </article>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        </section>
+      }
+    </section>
+  } @else {
+    <section
+      class="calendar-page__empty"
+      [attr.aria-label]="'calendarPage.empty.ariaLabel' | t"
+      data-testid="calendar-empty-state"
+    >
+      <p class="calendar-page__empty-eyebrow">{{ 'calendarPage.empty.eyebrow' | t }}</p>
+      <h2 class="calendar-page__empty-title">{{ 'calendarPage.empty.title' | t }}</h2>
+      <p class="calendar-page__empty-body">{{ 'calendarPage.empty.body' | t }}</p>
+      <button
+        type="button"
+        class="calendar-page__empty-action"
+        data-testid="calendar-reset-filters"
+        (click)="clearFilters()"
+      >
+        {{ 'calendarPage.empty.cta' | t }}
+      </button>
+    </section>
   }
 </main>

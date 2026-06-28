@@ -580,7 +580,72 @@
     "subtitle": "Descubre los principales festivales de música de la Comunidad Valenciana"
   },
   "calendarPage": {
-    "title": "Calendario de festivales",
-    "subtitle": "Consulta las fechas de todos los festivales de la temporada 2026"
+    "hero": {
+      "ariaLabel": "Introducción del calendario de festivales",
+      "eyebrow": "Calendario",
+      "title": "Festivales por día",
+      "description": "Explora los próximos festivales de la Comunitat Valenciana ordenados por fecha. Cada día con festival aparece con su cartel, ubicación y acceso directo a la ficha del evento.",
+      "stats": {
+        "festivals": "{{ count }} festivales",
+        "region": "Comunitat Valenciana",
+        "season": "Temporada 2026"
+      }
+    },
+    "filters": {
+      "ariaLabel": "Filtros del calendario",
+      "month": {
+        "title": "Mes",
+        "ariaLabel": "Filtrar por mes"
+      },
+      "province": {
+        "title": "Provincia",
+        "ariaLabel": "Filtrar por provincia"
+      },
+      "genre": {
+        "title": "Género",
+        "ariaLabel": "Filtrar por género"
+      },
+      "months": {
+        "all": "Todos",
+        "june": "Junio",
+        "july": "Julio",
+        "august": "Agosto",
+        "september": "Septiembre"
+      },
+      "provinces": {
+        "all": "Todas",
+        "valencia": "Valencia",
+        "alicante": "Alicante",
+        "castellon": "Castellón"
+      },
+      "genres": {
+        "all": "Todos",
+        "electronic": "Electrónica",
+        "urban": "Urbano",
+        "latin": "Latino",
+        "pop": "Pop"
+      }
+    },
+    "results": {
+      "summary": "{{ dayCount }} días visibles · {{ festivalCount }} festivales"
+    },
+    "timeline": {
+      "ariaLabel": "Cronología de festivales por día",
+      "eyebrow": "Temporada 2026",
+      "cta": "Ver festival"
+    },
+    "badges": {
+      "singleDay": "Festival de un día",
+      "start": "Inicio",
+      "lastDay": "Último día",
+      "dayOfTotal": "Día {{ day }} de {{ total }}"
+    },
+    "empty": {
+      "ariaLabel": "Sin resultados en el calendario",
+      "eyebrow": "Sin coincidencias",
+      "title": "No hay festivales con esos filtros",
+      "body": "Prueba a cambiar el mes, la provincia o el género para volver a ver días con festivales activos.",
+      "cta": "Restablecer filtros"
+    }
   }
 }

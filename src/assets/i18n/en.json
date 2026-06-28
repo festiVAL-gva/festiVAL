@@ -580,7 +580,72 @@
     "subtitle": "Discover the main music festivals in the Valencian Community"
   },
   "calendarPage": {
-    "title": "Festival calendar",
-    "subtitle": "Check the dates for all festivals in the 2026 season"
+    "hero": {
+      "ariaLabel": "Festival calendar introduction",
+      "eyebrow": "Calendar",
+      "title": "Festivals by day",
+      "description": "Explore the upcoming festivals in the Valencian Community ordered by date. Every active festival day includes the poster, location, and direct access to the event page.",
+      "stats": {
+        "festivals": "{{ count }} festivals",
+        "region": "Valencian Community",
+        "season": "2026 season"
+      }
+    },
+    "filters": {
+      "ariaLabel": "Calendar filters",
+      "month": {
+        "title": "Month",
+        "ariaLabel": "Filter by month"
+      },
+      "province": {
+        "title": "Province",
+        "ariaLabel": "Filter by province"
+      },
+      "genre": {
+        "title": "Genre",
+        "ariaLabel": "Filter by genre"
+      },
+      "months": {
+        "all": "All",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September"
+      },
+      "provinces": {
+        "all": "All",
+        "valencia": "Valencia",
+        "alicante": "Alicante",
+        "castellon": "Castellón"
+      },
+      "genres": {
+        "all": "All",
+        "electronic": "Electronic",
+        "urban": "Urban",
+        "latin": "Latin",
+        "pop": "Pop"
+      }
+    },
+    "results": {
+      "summary": "{{ dayCount }} visible days · {{ festivalCount }} festivals"
+    },
+    "timeline": {
+      "ariaLabel": "Festival timeline by day",
+      "eyebrow": "2026 season",
+      "cta": "View festival"
+    },
+    "badges": {
+      "singleDay": "One-day festival",
+      "start": "Opening day",
+      "lastDay": "Final day",
+      "dayOfTotal": "Day {{ day }} of {{ total }}"
+    },
+    "empty": {
+      "ariaLabel": "No results in the calendar",
+      "eyebrow": "No matches",
+      "title": "No festivals match those filters",
+      "body": "Try changing the month, province, or genre to bring back days with active festivals.",
+      "cta": "Reset filters"
+    }
   }
 }

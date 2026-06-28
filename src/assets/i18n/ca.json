@@ -580,7 +580,72 @@
     "subtitle": "Descobreix els principals festivals de música de la Comunitat Valenciana"
   },
   "calendarPage": {
-    "title": "Calendari de festivals",
-    "subtitle": "Consulta les dates de tots els festivals de la temporada 2026"
+    "hero": {
+      "ariaLabel": "Introducció del calendari de festivals",
+      "eyebrow": "Calendari",
+      "title": "Festivals per dia",
+      "description": "Explora els pròxims festivals de la Comunitat Valenciana ordenats per data. Cada dia amb festival mostra el cartell, la ubicació i l'accés directe a la fitxa de l'esdeveniment.",
+      "stats": {
+        "festivals": "{{ count }} festivals",
+        "region": "Comunitat Valenciana",
+        "season": "Temporada 2026"
+      }
+    },
+    "filters": {
+      "ariaLabel": "Filtres del calendari",
+      "month": {
+        "title": "Mes",
+        "ariaLabel": "Filtrar per mes"
+      },
+      "province": {
+        "title": "Província",
+        "ariaLabel": "Filtrar per província"
+      },
+      "genre": {
+        "title": "Gènere",
+        "ariaLabel": "Filtrar per gènere"
+      },
+      "months": {
+        "all": "Tots",
+        "june": "Juny",
+        "july": "Juliol",
+        "august": "Agost",
+        "september": "Setembre"
+      },
+      "provinces": {
+        "all": "Totes",
+        "valencia": "València",
+        "alicante": "Alacant",
+        "castellon": "Castelló"
+      },
+      "genres": {
+        "all": "Tots",
+        "electronic": "Electrònica",
+        "urban": "Urbà",
+        "latin": "Llatí",
+        "pop": "Pop"
+      }
+    },
+    "results": {
+      "summary": "{{ dayCount }} dies visibles · {{ festivalCount }} festivals"
+    },
+    "timeline": {
+      "ariaLabel": "Cronologia de festivals per dia",
+      "eyebrow": "Temporada 2026",
+      "cta": "Veure festival"
+    },
+    "badges": {
+      "singleDay": "Festival d'un dia",
+      "start": "Inici",
+      "lastDay": "Últim dia",
+      "dayOfTotal": "Dia {{ day }} de {{ total }}"
+    },
+    "empty": {
+      "ariaLabel": "Sense resultats al calendari",
+      "eyebrow": "Sense coincidències",
+      "title": "No hi ha festivals amb aquests filtres",
+      "body": "Prova de canviar el mes, la província o el gènere per tornar a veure dies amb festivals actius.",
+      "cta": "Restablir filtres"
+    }
   }
 }

@@ -450,17 +450,21 @@ features/<nombre>/
 
 ```
 src/app/features/
-├── calendar/            → Página de calendario mensual completo (`/calendario`).
+├── calendar/            → Página de calendario cronológico por día (`/calendario`).
 │   ├── feature/
-│   │   ├── calendar.page.ts    → Página smart standalone (OnPush, Signals). Construye grid
-│   │   │                         mensual con navegación prev/next/hoy, pills de festivales
-│   │   │                         que abarcan múltiples días, y vista agenda para móvil.
-│   │   ├── calendar.page.html  → Grid desktop (7 columnas) + agenda móvil + tooltip hover.
-│   │   └── calendar.page.scss  → Layout responsive: grid de celdas, pills con color por
-│   │                             categoría, agenda cards, tooltip glassmorphism.
+│   │   ├── calendar.page.ts    → Página smart standalone (OnPush, Signals). Expande el
+│   │   │                         catálogo a entradas diarias, filtra por mes/provincia/género
+│   │   │                         y agrupa los resultados visibles por mes y fecha exacta.
+│   │   ├── calendar.page.html  → Hero editorial + barra de filtros en pills + timeline
+│   │   │                         cronológico por día + estado vacío con reset de filtros.
+│   │   ├── calendar.page.scss  → Layout responsive mobile-first: date rail, tarjetas
+│   │   │                         editoriales con cartel, badges por jornada y soporte light/dark.
+│   │   └── calendar.page.spec.ts → Tests focalizados: render del timeline y filtrado hasta
+│   │                               estado vacío con recuperación.
 │   ├── data-access/
-│   │   └── calendar-catalogue.ts → Catálogo estático de festivales para el calendario:
-│   │                               fechas, categorías, colores y URLs de detalle.
+│   │   └── calendar-catalogue.ts → Catálogo estático de 6 festivales para el calendario:
+│   │                               filtros disponibles, rango de fechas diario, cartel,
+│   │                               provincia, género y URL de detalle.
 │   └── calendar.routes.ts       → Ruta lazy `loadComponent` hacia CalendarPageComponent.
 │
 ├── festival-detail/     → Página de detalle de un festival, cargada vía `/festivales/:slug`.
@@ -837,3 +841,4 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 | 2026-06-12 | Auditoría `/audit-structure`: re-extracción del calendario a data-access | Tras el merge a `develop`, `festival-calendar.ts` había vuelto a tener los datos inline (regresión de la extracción del 2026-06-10) y `home-catalogue.ts` quedaba con `CALENDAR_FESTIVALS`/`CALENDAR_MONTH_SEGMENTS` huérfanos y **datos obsoletos** (un solo `latin-fest` en día 17). Corregido: `CALENDAR_FESTIVALS` actualizado al modelo de 5 entradas (`bigsound`, `latin-fest-valencia` 17–18 jul, `latin-fest`/Benidorm 4–5 jul, `zevra`, `medusa`); `festival-calendar.ts` re-cableado para importar `CALENDAR_FESTIVALS`/`CALENDAR_MONTH_SEGMENTS` y sus tipos desde `data-access/`, eliminando arrays y tipos inline duplicados. Sin cambios en i18n (claves ya presentes). |
 | 2026-06-16 | Sección Spotify Playlists en home | Creado `features/home/ui/spotify-playlists/` (TS, HTML, SCSS): embebe playlists oficiales de Zevra, Medusa, RBF y Latin Fest vía iframes de Spotify. Integrado en `home.page.{ts,html}`. Claves i18n `home.playlists.*` añadidas a `es.json`, sincronizadas a `ca.json` y `en.json`. |
 | 2026-06-28 | Página de calendario mensual (`/calendario`) | Reescrita `features/calendar/` completa: `data-access/calendar-catalogue.ts` (catálogo estático de 6 festivales con fechas, categorías y colores); `feature/calendar.page.{ts,html,scss}` rediseñada con grid mensual premium (Apple Calendar-inspired), pills multiday con color por categoría (electronic→blue, urban→violet, pop→orange, latin→pink), navegación prev/next/hoy con Signals, today highlight, tooltip hover glassmorphism, vista agenda para móvil (<768px), soporte completo light/dark mode con tokens semánticos `--fv-*`, y `prefers-reduced-motion`. |
+| 2026-06-28 | Calendario cronológico por día (`/calendario`) | Sustituida la vista de mes por una cronología editorial agrupada por mes y fecha exacta. `features/calendar/data-access/calendar-catalogue.ts` ahora define filtros de mes/provincia/género y 6 festivales expandidos a jornadas individuales; `feature/calendar.page.{ts,html,scss}` monta hero premium, pill filters con `aria-pressed`, timeline por día sin fechas vacías, CTA a detalle y empty state; añadido `feature/calendar.page.spec.ts` para cubrir render + filtrado. `src/assets/i18n/{es,ca,en}.json` amplía `calendarPage.*` con hero, filtros, badges, CTA y estado vacío. |

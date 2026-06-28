@@ -1,235 +1,294 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideChevronLeft, LucideChevronRight, LucideMapPin } from '@lucide/angular';
+import { format, differenceInCalendarDays, eachDayOfInterval, parseISO } from 'date-fns';
+import { ca, enGB, es } from 'date-fns/locale';
+import { LucideArrowRight, LucideMapPin } from '@lucide/angular';
+import type { Locale } from 'date-fns';
 
+import { TranslationService } from '@shared/data-access/i18n/translation.service';
+import type { TranslationKey } from '@shared/data-access/i18n/translations';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
+
 import {
   CALENDAR_FESTIVALS,
-  CALENDAR_FESTIVAL_COLOURS,
+  CALENDAR_GENRE_FILTERS,
+  CALENDAR_MONTH_FILTERS,
+  CALENDAR_PROVINCE_FILTERS,
+  CALENDAR_SEASON,
   type CalendarFestival,
-  type CalendarFestivalCategory,
+  type CalendarGenreFilter,
+  type CalendarMonthFilter,
+  type CalendarProvinceFilter,
 } from '../data-access/calendar-catalogue';
 
-interface CalendarDay {
-  date: Date;
-  day: number;
-  isCurrentMonth: boolean;
-  isToday: boolean;
-  festivals: CalendarFestival[];
+type BadgeTone = 'single' | 'start' | 'middle' | 'final';
+
+interface CalendarExpandedEntry {
+  readonly festival: CalendarFestival;
+  readonly date: Date;
+  readonly isoDate: string;
+  readonly dayNumber: number;
+  readonly totalDays: number;
 }
 
-interface CalendarWeek {
-  days: CalendarDay[];
+interface CalendarCardView {
+  readonly id: string;
+  readonly festival: CalendarFestival;
+  readonly rangeLabel: string;
+  readonly badgeKey: TranslationKey;
+  readonly badgeTone: BadgeTone;
+  readonly badgeParams?: Record<string, number>;
 }
 
-interface FestivalSpan {
-  festival: CalendarFestival;
-  startCol: number;
-  span: number;
-  colour: { bg: string; text: string };
+interface CalendarDateGroupView {
+  readonly isoDate: string;
+  readonly weekdayLabel: string;
+  readonly dateLabel: string;
+  readonly cards: readonly CalendarCardView[];
 }
 
-const MONTH_NAMES_ES = [
-  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
-];
+interface CalendarMonthGroupView {
+  readonly id: string;
+  readonly title: string;
+  readonly days: readonly CalendarDateGroupView[];
+}
 
-const WEEKDAY_LABELS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+const DATE_LOCALES = {
+  es,
+  ca,
+  en: enGB,
+} as const;
+
+const FILTER_MONTH_NUMBERS: Record<Exclude<CalendarMonthFilter, 'all'>, number> = {
+  june: 5,
+  july: 6,
+  august: 7,
+  september: 8,
+};
+
+const EXPANDED_CALENDAR_ENTRIES = CALENDAR_FESTIVALS.flatMap((festival) => expandFestivalDays(festival))
+  .sort((left, right) => left.isoDate.localeCompare(right.isoDate) || left.festival.name.localeCompare(right.festival.name));
 
 @Component({
   selector: 'fv-calendar-page',
-  imports: [
-    NgOptimizedImage,
-    RouterLink,
-    LucideChevronLeft,
-    LucideChevronRight,
-    LucideMapPin,
-    TranslatePipe,
-  ],
-  host: { class: 'fv-calendar-page-host' },
+  standalone: true,
+  imports: [NgOptimizedImage, RouterLink, LucideArrowRight, LucideMapPin, TranslatePipe],
   templateUrl: './calendar.page.html',
   styleUrl: './calendar.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarPageComponent {
-  protected readonly weekdays = WEEKDAY_LABELS;
+  protected readonly monthFilterOptions = CALENDAR_MONTH_FILTERS;
+  protected readonly provinceFilterOptions = CALENDAR_PROVINCE_FILTERS;
+  protected readonly genreFilterOptions = CALENDAR_GENRE_FILTERS;
+  protected readonly season = CALENDAR_SEASON;
+  protected readonly festivalCount = CALENDAR_FESTIVALS.length;
 
-  protected readonly currentMonth = signal(new Date().getMonth());
-  protected readonly currentYear = signal(new Date().getFullYear());
+  protected readonly selectedMonth = signal<CalendarMonthFilter>('all');
+  protected readonly selectedProvince = signal<CalendarProvinceFilter>('all');
+  protected readonly selectedGenre = signal<CalendarGenreFilter>('all');
 
-  protected readonly monthLabel = computed(() =>
-    `${MONTH_NAMES_ES[this.currentMonth()]} de ${this.currentYear()}`,
+  protected readonly hasActiveFilters = computed(
+    () =>
+      this.selectedMonth() !== 'all' ||
+      this.selectedProvince() !== 'all' ||
+      this.selectedGenre() !== 'all',
   );
 
-  protected readonly weeks = computed(() => this.buildWeeks());
+  protected readonly filteredEntries = computed(() =>
+    EXPANDED_CALENDAR_ENTRIES
+      .filter((entry) => this.matchesMonth(entry) && this.matchesProvince(entry) && this.matchesGenre(entry))
+      .sort((left, right) => compareCalendarEntries(left, right, startOfToday())),
+  );
 
-  protected readonly festivalSpansByWeek = computed(() => {
-    const weeks = this.weeks();
-    return weeks.map(week => this.computeSpansForWeek(week));
+  protected readonly visibleDayCount = computed(
+    () => new Set(this.filteredEntries().map((entry) => entry.isoDate)).size,
+  );
+
+  protected readonly visibleFestivalCount = computed(
+    () => new Set(this.filteredEntries().map((entry) => entry.festival.slug)).size,
+  );
+
+  protected readonly monthGroups = computed<readonly CalendarMonthGroupView[]>(() => {
+    const locale = resolveLocale(this.#i18n.activeLang());
+    const monthGroups = new Map<string, { title: string; days: Map<string, CalendarDateGroupView> }>();
+
+    for (const entry of this.filteredEntries()) {
+      const monthId = format(entry.date, 'yyyy-MM');
+      const monthTitle = capitalize(format(entry.date, 'LLLL yyyy', { locale }));
+      const monthGroup = ensureMonthGroup(monthGroups, monthId, monthTitle);
+      const dayGroup = monthGroup.days.get(entry.isoDate) ?? {
+        isoDate: entry.isoDate,
+        weekdayLabel: capitalize(format(entry.date, 'EEEE', { locale })),
+        dateLabel: format(entry.date, 'd MMMM', { locale }),
+        cards: [],
+      };
+
+      monthGroup.days.set(entry.isoDate, {
+        ...dayGroup,
+        cards: [...dayGroup.cards, buildCardView(entry, locale)],
+      });
+    }
+
+    return Array.from(monthGroups.entries(), ([id, monthGroup]) => ({
+      id,
+      title: monthGroup.title,
+      days: Array.from(monthGroup.days.values()),
+    }));
   });
 
-  protected readonly agendaEntries = computed(() => {
-    const month = this.currentMonth();
-    const year = this.currentYear();
-    return CALENDAR_FESTIVALS
-      .filter(f => {
-        const start = new Date(f.startDate);
-        const end = new Date(f.endDate);
-        return (start.getMonth() === month && start.getFullYear() === year) ||
-               (end.getMonth() === month && end.getFullYear() === year) ||
-               (start < new Date(year, month, 1) && end > new Date(year, month + 1, 0));
-      })
-      .sort((a, b) => a.startDate.localeCompare(b.startDate))
-      .map(f => ({
-        festival: f,
-        colour: CALENDAR_FESTIVAL_COLOURS[f.category],
-        dateLabel: this.formatDateRange(f),
-      }));
-  });
+  readonly #i18n = inject(TranslationService);
 
-  protected hoveredFestival = signal<CalendarFestival | null>(null);
-  protected hoverPosition = signal<{ x: number; y: number } | null>(null);
-
-  protected previousMonth(): void {
-    const m = this.currentMonth();
-    if (m === 0) {
-      this.currentMonth.set(11);
-      this.currentYear.update(y => y - 1);
-    } else {
-      this.currentMonth.update(v => v - 1);
-    }
+  protected selectMonth(filter: CalendarMonthFilter): void {
+    this.selectedMonth.set(filter);
   }
 
-  protected nextMonth(): void {
-    const m = this.currentMonth();
-    if (m === 11) {
-      this.currentMonth.set(0);
-      this.currentYear.update(y => y + 1);
-    } else {
-      this.currentMonth.update(v => v + 1);
-    }
+  protected selectProvince(filter: CalendarProvinceFilter): void {
+    this.selectedProvince.set(filter);
   }
 
-  protected goToday(): void {
-    const now = new Date();
-    this.currentMonth.set(now.getMonth());
-    this.currentYear.set(now.getFullYear());
+  protected selectGenre(filter: CalendarGenreFilter): void {
+    this.selectedGenre.set(filter);
   }
 
-  protected onFestivalHover(festival: CalendarFestival, event: MouseEvent): void {
-    this.hoveredFestival.set(festival);
-    this.hoverPosition.set({ x: event.clientX, y: event.clientY });
+  protected clearFilters(): void {
+    this.selectedMonth.set('all');
+    this.selectedProvince.set('all');
+    this.selectedGenre.set('all');
   }
 
-  protected onFestivalLeave(): void {
-    this.hoveredFestival.set(null);
-    this.hoverPosition.set(null);
+  protected provinceFilterTestId(filter: CalendarProvinceFilter): string {
+    return filter === 'Castellón' ? 'castellon' : filter.toLowerCase();
   }
 
-  protected getCategoryColour(category: CalendarFestivalCategory): { bg: string; text: string } {
-    return CALENDAR_FESTIVAL_COLOURS[category];
+  private matchesMonth(entry: CalendarExpandedEntry): boolean {
+    const month = this.selectedMonth();
+    return month === 'all' ? true : entry.date.getMonth() === FILTER_MONTH_NUMBERS[month];
   }
 
-  protected trackByDay(_: number, day: CalendarDay): number {
-    return day.date.getTime();
+  private matchesProvince(entry: CalendarExpandedEntry): boolean {
+    const province = this.selectedProvince();
+    return province === 'all' ? true : entry.festival.province === province;
   }
 
-  protected trackByWeek(index: number): number {
-    return index;
+  private matchesGenre(entry: CalendarExpandedEntry): boolean {
+    const genre = this.selectedGenre();
+    return genre === 'all' ? true : entry.festival.genre === genre;
+  }
+}
+
+function expandFestivalDays(festival: CalendarFestival): readonly CalendarExpandedEntry[] {
+  const start = parseISO(festival.startDate);
+  const end = parseISO(festival.endDate);
+  const totalDays = differenceInCalendarDays(end, start) + 1;
+
+  return eachDayOfInterval({ start, end }).map((date) => ({
+    festival,
+    date,
+    isoDate: format(date, 'yyyy-MM-dd'),
+    dayNumber: differenceInCalendarDays(date, start) + 1,
+    totalDays,
+  }));
+}
+
+function ensureMonthGroup(
+  groups: Map<string, { title: string; days: Map<string, CalendarDateGroupView> }>,
+  id: string,
+  title: string,
+): { title: string; days: Map<string, CalendarDateGroupView> } {
+  const current = groups.get(id);
+  if (current) return current;
+
+  const created = {
+    title,
+    days: new Map<string, CalendarDateGroupView>(),
+  };
+  groups.set(id, created);
+  return created;
+}
+
+function buildCardView(entry: CalendarExpandedEntry, locale: Locale): CalendarCardView {
+  const badge = buildBadge(entry.dayNumber, entry.totalDays);
+
+  return {
+    id: `${entry.festival.slug}-${entry.isoDate}`,
+    festival: entry.festival,
+    rangeLabel: formatFestivalRange(entry.festival.startDate, entry.festival.endDate, locale),
+    badgeKey: badge.key,
+    badgeTone: badge.tone,
+    badgeParams: badge.params,
+  };
+}
+
+function buildBadge(
+  dayNumber: number,
+  totalDays: number,
+): { key: TranslationKey; tone: BadgeTone; params?: Record<string, number> } {
+  if (totalDays === 1) {
+    return { key: 'calendarPage.badges.singleDay', tone: 'single' };
   }
 
-  protected trackBySpan(_: number, span: FestivalSpan): string {
-    return `${span.festival.slug}-${span.startCol}`;
+  if (dayNumber === 1) {
+    return { key: 'calendarPage.badges.start', tone: 'start' };
   }
 
-  protected formatDateRange(festival: CalendarFestival): string {
-    const start = new Date(festival.startDate);
-    const end = new Date(festival.endDate);
-    const startDay = start.getDate();
-    const endDay = end.getDate();
-    const monthName = MONTH_NAMES_ES[start.getMonth()].toLowerCase().slice(0, 3);
-
-    if (start.getMonth() === end.getMonth()) {
-      return `${startDay} – ${endDay} ${monthName}`;
-    }
-    const endMonth = MONTH_NAMES_ES[end.getMonth()].toLowerCase().slice(0, 3);
-    return `${startDay} ${monthName} – ${endDay} ${endMonth}`;
+  if (dayNumber === totalDays) {
+    return { key: 'calendarPage.badges.lastDay', tone: 'final' };
   }
 
-  private buildWeeks(): CalendarWeek[] {
-    const year = this.currentYear();
-    const month = this.currentMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
+  return {
+    key: 'calendarPage.badges.dayOfTotal',
+    tone: 'middle',
+    params: { day: dayNumber, total: totalDays },
+  };
+}
 
-    let startDow = firstDay.getDay();
-    if (startDow === 0) startDow = 7;
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - (startDow - 1));
+function formatFestivalRange(startIso: string, endIso: string, locale: Locale): string {
+  const start = parseISO(startIso);
+  const end = parseISO(endIso);
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const weeks: CalendarWeek[] = [];
-    const current = new Date(startDate);
-
-    while (current <= lastDay || weeks.length < 5) {
-      const days: CalendarDay[] = [];
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(current);
-        const dayFestivals = CALENDAR_FESTIVALS.filter(f => {
-          const fStart = new Date(f.startDate);
-          const fEnd = new Date(f.endDate);
-          fStart.setHours(0, 0, 0, 0);
-          fEnd.setHours(0, 0, 0, 0);
-          return date >= fStart && date <= fEnd;
-        });
-
-        days.push({
-          date,
-          day: date.getDate(),
-          isCurrentMonth: date.getMonth() === month,
-          isToday: date.getTime() === today.getTime(),
-          festivals: dayFestivals,
-        });
-        current.setDate(current.getDate() + 1);
-      }
-      weeks.push({ days });
-
-      if (weeks.length >= 6) break;
-    }
-
-    return weeks;
+  if (startIso === endIso) {
+    return format(start, 'd MMMM', { locale });
   }
 
-  private computeSpansForWeek(week: CalendarWeek): FestivalSpan[] {
-    const seen = new Set<string>();
-    const spans: FestivalSpan[] = [];
-
-    for (let col = 0; col < 7; col++) {
-      for (const festival of week.days[col].festivals) {
-        if (seen.has(festival.slug)) continue;
-        seen.add(festival.slug);
-
-        let span = 1;
-        for (let j = col + 1; j < 7; j++) {
-          if (week.days[j].festivals.some(f => f.slug === festival.slug)) {
-            span++;
-          } else {
-            break;
-          }
-        }
-
-        spans.push({
-          festival,
-          startCol: col,
-          span,
-          colour: CALENDAR_FESTIVAL_COLOURS[festival.category],
-        });
-      }
-    }
-
-    return spans;
+  const isSameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+  if (isSameMonth) {
+    return `${format(start, 'd', { locale })}–${format(end, 'd MMMM', { locale })}`;
   }
+
+  return `${format(start, 'd MMMM', { locale })}–${format(end, 'd MMMM', { locale })}`;
+}
+
+function compareCalendarEntries(
+  left: CalendarExpandedEntry,
+  right: CalendarExpandedEntry,
+  today: Date,
+): number {
+  const leftEnded = hasFestivalEnded(left.festival, today);
+  const rightEnded = hasFestivalEnded(right.festival, today);
+
+  if (leftEnded !== rightEnded) {
+    return leftEnded ? 1 : -1;
+  }
+
+  return left.isoDate.localeCompare(right.isoDate) || left.festival.name.localeCompare(right.festival.name);
+}
+
+function hasFestivalEnded(festival: CalendarFestival, today: Date): boolean {
+  return parseISO(festival.endDate) < today;
+}
+
+function startOfToday(now = new Date()): Date {
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+function resolveLocale(lang: string): Locale {
+  if (lang.startsWith('ca')) return DATE_LOCALES.ca;
+  if (lang.startsWith('en')) return DATE_LOCALES.en;
+  return DATE_LOCALES.es;
+}
+
+function capitalize(label: string): string {
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }

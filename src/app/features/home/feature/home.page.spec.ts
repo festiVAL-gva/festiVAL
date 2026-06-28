@@ -64,10 +64,11 @@ describe('HomePageComponent', () => {
     expect(buttons[1]?.getAttribute('type')).toBe('button');
   });
 
-  it('renders the calendar, featured festivals section and the interactive map section', () => {
+  it('renders the calendar, featured festivals, faq section and the interactive map section', () => {
     const root = fixture.nativeElement as HTMLElement;
     const calendar = root.querySelector('[data-testid="festival-calendar"]');
     const featured = root.querySelector('[data-testid="featured-festivals"]');
+    const faq = root.querySelector('[data-testid="home-faq"]');
     const section = root.querySelector('[data-testid="home-festival-map"]');
 
     expect(calendar).not.toBeNull();
@@ -76,6 +77,8 @@ describe('HomePageComponent', () => {
     expect(featured?.querySelectorAll('[data-testid="featured-festivals-card-name"]')).toHaveLength(
       12,
     );
+    expect(faq).not.toBeNull();
+    expect(faq?.querySelectorAll('[data-testid^="home-faq-trigger-"]')).toHaveLength(6);
     expect(section).not.toBeNull();
     expect(section?.querySelectorAll('[data-testid="home-festival-map-pin"]')).toHaveLength(7);
   });

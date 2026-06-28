@@ -4,6 +4,7 @@ import { LucideArrowRight, LucideCalendar } from '@lucide/angular';
 
 import { FeaturedFestivalsComponent } from '../ui/featured-festivals/featured-festivals';
 import { FestivalCalendarComponent } from '../ui/festival-calendar/festival-calendar';
+import { HomeFaqComponent } from '../ui/home-faq/home-faq';
 import { HomeFestivalMapComponent } from '../ui/home-festival-map/home-festival-map';
 import { SpotifyPlaylistsComponent } from '../ui/spotify-playlists/spotify-playlists';
 import { FESTIVAL_LOCATIONS } from '@shared/data-access/festival-locations';
@@ -17,6 +18,7 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
     LucideCalendar,
     FestivalCalendarComponent,
     FeaturedFestivalsComponent,
+    HomeFaqComponent,
     HomeFestivalMapComponent,
     SpotifyPlaylistsComponent,
     TranslatePipe,

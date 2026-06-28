@@ -168,6 +168,38 @@
           "description": "La mejor selección latina del verano."
         }
       }
+    },
+    "faq": {
+      "ariaLabel": "Frequently asked questions about choosing a festival",
+      "eyebrow": "Quick guide",
+      "title": "Questions that usually come up before your first festival",
+      "description": "A quick layer of context to decide better: which genre fits, where to compare dates, and when to jump to the official site before buying.",
+      "items": {
+        "tickets": {
+          "question": "Can I buy tickets directly on festiVAL?",
+          "answer": "No. festiVAL works as an editorial guide: it helps you compare festivals, dates and venues, then takes you to each event's official link to complete your purchase."
+        },
+        "genres": {
+          "question": "Can I discover festivals by music style?",
+          "answer": "Yes. The home page, calendar and festival pages are designed to orient you quickly across electronic, urban, pop and Latin without blindly opening every festival."
+        },
+        "provinces": {
+          "question": "How do I compare Valencia, Alicante and Castellón?",
+          "answer": "Use the home page as your starting point: first the editorial calendar, then the Valencian Community map, and from there jump to the festivals that best match your location."
+        },
+        "family": {
+          "question": "How do I know if a festival suits a group or family trip?",
+          "answer": "Each festival page summarises the event tone, location and type of experience. For exact age policies, access rules or companions, the final step is always the official website."
+        },
+        "details": {
+          "question": "Where do I check line-up, venue and practical details before deciding?",
+          "answer": "Every festival has its own festiVAL page with editorial context, dates, map and direct access to the official site, where you'll find the confirmed line-up, schedules and final rules."
+        },
+        "dates": {
+          "question": "What if I want to plan my summer by dates first?",
+          "answer": "Start with the calendar: it shows festivals in chronological order so you can jump to the event page once you know which weekend you want to book."
+        }
+      }
     }
   },
   "festivales": {

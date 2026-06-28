@@ -144,6 +144,38 @@
         "add": "Favoritos"
       }
     },
+    "faq": {
+      "ariaLabel": "Preguntas frecuentes sobre cómo elegir festival",
+      "eyebrow": "Guía rápida",
+      "title": "Preguntas que suelen salir antes del primer festival",
+      "description": "Una capa rápida de contexto para decidir mejor: qué género encaja, dónde comparar fechas y cuándo saltar a la web oficial antes de comprar.",
+      "items": {
+        "tickets": {
+          "question": "¿Las entradas se compran directamente en festiVAL?",
+          "answer": "No. festiVAL funciona como guía editorial: te ayuda a comparar festivales, fechas y sedes, y después te lleva al enlace oficial de cada evento para terminar la compra."
+        },
+        "genres": {
+          "question": "¿Puedo descubrir festivales por estilo musical?",
+          "answer": "Sí. La portada, el calendario y las fichas están pensados para orientarte rápido entre electrónica, urbano, pop y latino sin tener que entrar a ciegas en cada festival."
+        },
+        "provinces": {
+          "question": "¿Cómo comparo Valencia, Alicante y Castellón?",
+          "answer": "Usa la home como punto de partida: primero ves el calendario editorial, luego el mapa de la Comunitat y, desde ahí, puedes saltar a los festivales que mejor te encajen por ubicación."
+        },
+        "family": {
+          "question": "¿Cómo sé si un festival encaja para ir en grupo o en familia?",
+          "answer": "La ficha de cada festival resume el tono del evento, la ubicación y el tipo de experiencia. Para políticas exactas de edad, accesos o acompañantes, el último paso siempre es revisar la web oficial."
+        },
+        "details": {
+          "question": "¿Dónde miro cartel, recinto y detalles prácticos antes de decidirme?",
+          "answer": "Cada festival tiene su propia ficha dentro de festiVAL con contexto editorial, fechas, mapa y acceso directo al sitio oficial, que es donde encontrarás cartel confirmado, horarios y normativa final."
+        },
+        "dates": {
+          "question": "¿Qué hago si primero quiero ordenar el verano por fechas?",
+          "answer": "Empieza por el calendario: te deja ver los festivales en orden cronológico y saltar después a la ficha del evento cuando ya tienes claro qué fin de semana quieres reservar."
+        }
+      }
+    },
     "playlists": {
       "eyebrow": "Banda sonora",
       "title": "Playlists oficiales",

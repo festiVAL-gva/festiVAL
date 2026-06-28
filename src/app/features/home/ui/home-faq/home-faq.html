@@ -1,0 +1,42 @@
+<section class="home-faq" [attr.aria-label]="'home.faq.ariaLabel' | t" data-testid="home-faq">
+  <header class="home-faq__header">
+    <p class="home-faq__eyebrow">{{ 'home.faq.eyebrow' | t }}</p>
+    <h2 class="home-faq__title">{{ 'home.faq.title' | t }}</h2>
+    <p class="home-faq__description">{{ 'home.faq.description' | t }}</p>
+  </header>
+
+  <div class="home-faq__grid">
+    @for (entry of entries; track entry.id) {
+      <article
+        class="home-faq__item"
+        [class.home-faq__item--open]="isOpen(entry.id)"
+        [style.--home-faq-accent]="entry.accentColor"
+      >
+        <h3 class="home-faq__question">
+          <button
+            type="button"
+            class="home-faq__trigger"
+            [attr.aria-controls]="'home-faq-panel-' + entry.id"
+            [attr.aria-expanded]="isOpen(entry.id)"
+            [attr.data-testid]="'home-faq-trigger-' + entry.id"
+            (click)="toggle(entry.id)"
+          >
+            <span class="home-faq__question-copy">{{ entry.questionKey | t }}</span>
+            <span class="home-faq__icon-box" [class.home-faq__icon-box--open]="isOpen(entry.id)">
+              <svg lucidePlus aria-hidden="true" focusable="false" size="28" strokeWidth="2"></svg>
+            </span>
+          </button>
+        </h3>
+
+        <div
+          [id]="'home-faq-panel-' + entry.id"
+          class="home-faq__panel"
+          [attr.data-testid]="'home-faq-panel-' + entry.id"
+          [attr.hidden]="isOpen(entry.id) ? null : true"
+        >
+          <p class="home-faq__answer">{{ entry.answerKey | t }}</p>
+        </div>
+      </article>
+    }
+  </div>
+</section>

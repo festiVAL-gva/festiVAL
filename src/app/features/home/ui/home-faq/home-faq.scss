@@ -1,0 +1,185 @@
+@use 'styles/breakpoints' as *;
+@use 'styles/mixins' as *;
+
+:host {
+  display: block;
+}
+
+.home-faq {
+  display: grid;
+  gap: var(--fv-space-5);
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--fv-space-2) var(--fv-space-2) 0;
+  border-top: 1px solid var(--fv-border-nav);
+
+  @include from(md) {
+    padding-inline: 0;
+  }
+
+  @include from(lg) {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--fv-space-7);
+    align-items: start;
+  }
+}
+
+.home-faq__header {
+  display: grid;
+  gap: var(--fv-space-3);
+  align-content: start;
+}
+
+.home-faq__eyebrow {
+  margin: 0;
+  color: var(--fv-accent-med-blue);
+  font-size: var(--fv-text-xs);
+  font-weight: 700;
+  letter-spacing: var(--fv-tracking-wider);
+  text-transform: uppercase;
+}
+
+.home-faq__title {
+  margin: 0;
+  color: var(--fv-text-nav);
+  font-family: var(--fv-font-hero-emphasis);
+  font-size: clamp(var(--fv-text-3xl), 5vw, var(--fv-text-display));
+  line-height: var(--fv-leading-tight);
+  text-wrap: balance;
+}
+
+.home-faq__description {
+  margin: 0;
+  max-width: 32rem;
+  color: var(--fv-text-footer-muted);
+  font-size: var(--fv-text-base);
+  line-height: var(--fv-leading-relaxed);
+}
+
+.home-faq__grid {
+  display: grid;
+  gap: var(--fv-space-3);
+
+  @include from(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.home-faq__item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--fv-border-nav);
+  border-radius: var(--fv-radius-2xl);
+  background: var(--fv-bg-card-light);
+  box-shadow: var(--fv-shadow-card);
+  transition:
+    border-color var(--fv-duration-fast) var(--fv-ease-standard),
+    box-shadow var(--fv-duration-base) var(--fv-ease-standard),
+    transform var(--fv-duration-base) var(--fv-ease-standard);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 6rem;
+    height: 2px;
+    background: var(--home-faq-accent);
+    opacity: 0;
+    transition: opacity var(--fv-duration-fast) var(--fv-ease-standard);
+  }
+}
+
+.home-faq__item--open {
+  border-color: var(--fv-border-footer);
+  box-shadow: var(--fv-shadow-elevated);
+
+  &::before {
+    opacity: 1;
+  }
+}
+
+.home-faq__question {
+  margin: 0;
+}
+
+.home-faq__trigger {
+  width: 100%;
+  min-height: 7rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--fv-space-4);
+  align-items: center;
+  padding: var(--fv-space-4);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  @include focus-ring;
+}
+
+.home-faq__question-copy {
+  color: var(--fv-text-nav);
+  font-family: var(--fv-font-heading);
+  font-size: clamp(var(--fv-text-xl), 2vw, var(--fv-text-2xl));
+  line-height: var(--fv-leading-tight);
+  text-wrap: pretty;
+}
+
+.home-faq__icon-box {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--fv-border-nav);
+  border-radius: var(--fv-radius-md);
+  color: var(--fv-text-nav);
+  flex-shrink: 0;
+  transition:
+    transform var(--fv-duration-base) var(--fv-ease-standard),
+    border-color var(--fv-duration-fast) var(--fv-ease-standard),
+    color var(--fv-duration-fast) var(--fv-ease-standard);
+}
+
+.home-faq__icon-box--open {
+  transform: rotate(45deg);
+  border-color: var(--home-faq-accent);
+  color: var(--home-faq-accent);
+}
+
+.home-faq__panel {
+  padding: 0 var(--fv-space-4) var(--fv-space-4);
+}
+
+.home-faq__answer {
+  margin: 0;
+  max-width: 38ch;
+  color: var(--fv-text-footer-muted);
+  font-size: var(--fv-text-base);
+  line-height: var(--fv-leading-relaxed);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-faq__item:hover {
+    transform: translateY(-2px);
+    border-color: var(--fv-border-footer);
+  }
+
+  .home-faq__item:hover .home-faq__icon-box {
+    border-color: var(--home-faq-accent);
+    color: var(--home-faq-accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-faq__item,
+  .home-faq__icon-box {
+    transition: none;
+  }
+
+  .home-faq__item:hover {
+    transform: none;
+  }
+}

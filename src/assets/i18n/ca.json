@@ -168,6 +168,38 @@
           "description": "La mejor selección latina del verano."
         }
       }
+    },
+    "faq": {
+      "ariaLabel": "Preguntes freqüents sobre com triar festival",
+      "eyebrow": "Guia ràpida",
+      "title": "Preguntes que solen sortir abans del primer festival",
+      "description": "Una capa ràpida de context per decidir millor: quin gènere encaixa, on comparar dates i quan saltar a la web oficial abans de comprar.",
+      "items": {
+        "tickets": {
+          "question": "Les entrades es compren directament a festiVAL?",
+          "answer": "No. festiVAL funciona com a guia editorial: t'ajuda a comparar festivals, dates i seus, i després et porta a l'enllaç oficial de cada esdeveniment per acabar la compra."
+        },
+        "genres": {
+          "question": "Puc descobrir festivals per estil musical?",
+          "answer": "Sí. La portada, el calendari i les fitxes estan pensats per orientar-te ràpid entre electrònica, urbà, pop i llatí sense haver d'entrar a cegues en cada festival."
+        },
+        "provinces": {
+          "question": "Com comparo València, Alacant i Castelló?",
+          "answer": "Usa la home com a punt de partida: primer veus el calendari editorial, després el mapa de la Comunitat i, des d'allí, pots saltar als festivals que millor t'encaixen per ubicació."
+        },
+        "family": {
+          "question": "Com sé si un festival encaixa per anar en grup o en família?",
+          "answer": "La fitxa de cada festival resumeix el to de l'esdeveniment, la ubicació i el tipus d'experiència. Per a polítiques exactes d'edat, accessos o acompanyants, l'últim pas sempre és revisar la web oficial."
+        },
+        "details": {
+          "question": "On mire cartell, recinte i detalls pràctics abans de decidir-me?",
+          "answer": "Cada festival té la seua fitxa dins de festiVAL amb context editorial, dates, mapa i accés directe al lloc oficial, que és on trobaràs cartell confirmat, horaris i normativa final."
+        },
+        "dates": {
+          "question": "Què faig si primer vull ordenar l'estiu per dates?",
+          "answer": "Comença pel calendari: et deixa veure els festivals en ordre cronològic i saltar després a la fitxa de l'esdeveniment quan ja tens clar quin cap de setmana vols reservar."
+        }
+      }
     }
   },
   "festivales": {

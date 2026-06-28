@@ -542,13 +542,13 @@ src/app/features/
 │                          atmosférico, acceso rápido a búsqueda y filtros.
 │   ├── feature/
 │   │   ├── home.page.ts    → Página de inicio standalone. Orquesta el hero editorial, el calendario
-│   │   │                     `festival-calendar`, el carrusel `featured-festivals` y el mapa
-│   │   │                     interactivo `home-festival-map`, al que pasa `FESTIVAL_LOCATIONS`
-│   │   │                     (de `@shared/data-access`) vía el input `locations`.
-│   │   ├── home.page.html  → Hero con CTAs + calendario premium + carrusel de festivales + mapa
-│   │   │                     de pines (las secciones secundarias van en @defer).
+│   │   │                     `festival-calendar`, el carrusel `featured-festivals`, la FAQ
+│   │   │                     `home-faq` y el mapa interactivo `home-festival-map`, al que pasa
+│   │   │                     `FESTIVAL_LOCATIONS` (de `@shared/data-access`) vía el input `locations`.
+│   │   ├── home.page.html  → Hero con CTAs + calendario premium + carrusel de festivales + FAQ
+│   │   │                     editorial + mapa de pines.
 │   │   ├── home.page.scss  → Layout de la home: espaciado vertical, hero card y responsive.
-│   │   └── home.page.spec.ts → Tests del hero, calendario, sección de festivales y sección de mapa.
+│   │   └── home.page.spec.ts → Tests del hero, calendario, sección de festivales, FAQ y sección de mapa.
 │   ├── ui/
 │   │   ├── festival-calendar/
 │   │   │   ├── festival-calendar.ts      → Componente local standalone del calendario editorial:
@@ -576,6 +576,15 @@ src/app/features/
 │   │   │   │                                en desktop, avance cada 3 s en móvil y sin lift en hover.
 │   │   │   │                                `.featured-festivals__card` como bloque (display: block).
 │   │   │   └── featured-festivals.spec.ts → Tests de render y pista duplicada. Usa provideRouter([]).
+│   │   ├── home-faq/
+│   │   │   ├── home-faq.ts      → Componente standalone de FAQ editorial para la home. Mantiene
+│   │   │   │                      el estado abierto/cerrado con `signal<string|null>` y renderiza
+│   │   │   │                      6 preguntas frecuentes tipadas con claves i18n.
+│   │   │   ├── home-faq.html    → Sección con header editorial + grid responsive de acordeones
+│   │   │   │                      accesibles (`button`, `aria-expanded`, `aria-controls`).
+│   │   │   ├── home-faq.scss    → Tarjetas FAQ con borde, acento por item, icono plus rotado y
+│   │   │   │                      layout 1 columna móvil / 2 columnas tablet+.
+│   │   │   └── home-faq.spec.ts → Tests de render y toggle abrir/cerrar respuesta.
 │   │   ├── spotify-playlists/
 │   │   │   ├── spotify-playlists.ts      → Componente standalone que embebe playlists oficiales de
 │   │   │   │                               Spotify de cuatro festivales (Zevra, Medusa, RBF,
@@ -841,6 +850,7 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 | 2026-06-12 | Scaffold `festival-detail` (boilerplate Angular) | Creada la feature `src/app/features/festival-detail/` completa: `festival-detail.routes.ts` (FESTIVAL_DETAIL_ROUTES, loadComponent), `feature/festival-detail.page.{ts,html,scss,spec.ts}` (página smart que lee el slug de ActivatedRoute, orquesta los tres componentes ui/ en @defer), `ui/festival-hero/`, `ui/lineup-grid/` y `ui/venue-map/` (componentes dumb con boilerplate mínimo: TS, HTML, SCSS, spec). La ruta `/festivales/:slug` registrada en `app.routes.ts` con `loadChildren`. `data-access/` reservada con `.gitkeep` para el store y resolver futuros. |
 | 2026-06-12 | Auditoría `/audit-structure`: re-extracción del calendario a data-access | Tras el merge a `develop`, `festival-calendar.ts` había vuelto a tener los datos inline (regresión de la extracción del 2026-06-10) y `home-catalogue.ts` quedaba con `CALENDAR_FESTIVALS`/`CALENDAR_MONTH_SEGMENTS` huérfanos y **datos obsoletos** (un solo `latin-fest` en día 17). Corregido: `CALENDAR_FESTIVALS` actualizado al modelo de 5 entradas (`bigsound`, `latin-fest-valencia` 17–18 jul, `latin-fest`/Benidorm 4–5 jul, `zevra`, `medusa`); `festival-calendar.ts` re-cableado para importar `CALENDAR_FESTIVALS`/`CALENDAR_MONTH_SEGMENTS` y sus tipos desde `data-access/`, eliminando arrays y tipos inline duplicados. Sin cambios en i18n (claves ya presentes). |
 | 2026-06-16 | Sección Spotify Playlists en home | Creado `features/home/ui/spotify-playlists/` (TS, HTML, SCSS): embebe playlists oficiales de Zevra, Medusa, RBF y Latin Fest vía iframes de Spotify. Integrado en `home.page.{ts,html}`. Claves i18n `home.playlists.*` añadidas a `es.json`, sincronizadas a `ca.json` y `en.json`. |
+| 2026-06-28 | FAQ editorial en la home | Creada `src/app/features/home/ui/home-faq/` con `home-faq.{ts,html,scss,spec.ts}`: sección de preguntas frecuentes en formato acordeón, dos columnas en desktop y copy orientado a elegir festival dentro de festiVAL. `home.page.{ts,html,spec.ts}` actualizada para integrarla entre el mapa y las playlists. `src/assets/i18n/es.json` amplía `home.faq.*` en modo desarrollo. |
 | 2026-06-28 | Página de calendario mensual (`/calendario`) | Reescrita `features/calendar/` completa: `data-access/calendar-catalogue.ts` (catálogo estático de 6 festivales con fechas, categorías y colores); `feature/calendar.page.{ts,html,scss}` rediseñada con grid mensual premium (Apple Calendar-inspired), pills multiday con color por categoría (electronic→blue, urban→violet, pop→orange, latin→pink), navegación prev/next/hoy con Signals, today highlight, tooltip hover glassmorphism, vista agenda para móvil (<768px), soporte completo light/dark mode con tokens semánticos `--fv-*`, y `prefers-reduced-motion`. |
 | 2026-06-28 | Calendario cronológico por día (`/calendario`) | Sustituida la vista de mes por una cronología editorial agrupada por mes y fecha exacta. `features/calendar/data-access/calendar-catalogue.ts` ahora define filtros de mes/provincia/género y 6 festivales expandidos a jornadas individuales; `feature/calendar.page.{ts,html,scss}` monta hero premium, pill filters con `aria-pressed`, timeline por día sin fechas vacías, CTA a detalle y empty state; añadido `feature/calendar.page.spec.ts` para cubrir render + filtrado. `src/assets/i18n/{es,ca,en}.json` amplía `calendarPage.*` con hero, filtros, badges, CTA y estado vacío. |
 | 2026-06-28 | Calendario: timeline sin filtros | `feature/calendar.page.{ts,html,scss,spec.ts}` simplifica `/calendario`: retirados hero aside, barra de filtros (mes/provincia/género), resumen `aria-live` y CTA de reset en empty state; el timeline muestra todo el catálogo con layout más ligero (bordes en lugar de tarjetas glass). `calendar.page.spec.ts` actualizado para cubrir hero + timeline sin filtrado. |

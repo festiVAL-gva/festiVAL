@@ -9,6 +9,7 @@
 
 .home-page {
   width: 100%;
+  overflow-x: clip;
   background: var(--fv-bg-page);
   padding: 0 var(--fv-space-4) var(--fv-space-7);
   display: grid;

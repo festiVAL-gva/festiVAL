@@ -99,7 +99,7 @@
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 3 / 4;
   border-radius: var(--fv-radius-xl);
   overflow: hidden;
   isolation: isolate;
@@ -107,10 +107,6 @@
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-
-  @include from(md) {
-    aspect-ratio: 16 / 9;
-  }
 }
 
 .featured-festivals__image {
@@ -118,14 +114,9 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
-  padding: var(--fv-space-5);
   z-index: 0;
-
-  @include from(md) {
-    padding: var(--fv-space-6);
-  }
 }
 
 .featured-festivals__overlay {

@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { LucideCalendar, LucideMapPin } from '@lucide/angular';
 
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
-import { FEATURED_FESTIVALS } from '../../data-access/home-catalogue';
+import { FEATURED_FESTIVALS } from '@shared/data-access/festival-catalogue';
 
 @Component({
   selector: 'fv-featured-festivals',

@@ -574,5 +574,13 @@
     "notFound": "The requested content could not be found.",
     "unknown": "An unexpected error occurred. Please try again.",
     "dismiss": "Dismiss"
+  },
+  "festivalList": {
+    "title": "Festivals",
+    "subtitle": "Discover the main music festivals in the Valencian Community"
+  },
+  "calendarPage": {
+    "title": "Festival calendar",
+    "subtitle": "Check the dates for all festivals in the 2026 season"
   }
 }

@@ -7,10 +7,24 @@ export const routes: Routes = [
       import('@features/home/home.routes').then((m) => m.HOME_ROUTES),
   },
   {
+    path: 'festivales',
+    loadChildren: () =>
+      import('@features/festival-list/festival-list.routes').then(
+        (m) => m.FESTIVAL_LIST_ROUTES,
+      ),
+  },
+  {
     path: 'festivales/:slug',
     loadChildren: () =>
       import('@features/festival-detail/festival-detail.routes').then(
         (m) => m.FESTIVAL_DETAIL_ROUTES,
+      ),
+  },
+  {
+    path: 'calendario',
+    loadChildren: () =>
+      import('@features/calendar/calendar.routes').then(
+        (m) => m.CALENDAR_ROUTES,
       ),
   },
 ];

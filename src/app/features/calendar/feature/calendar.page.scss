@@ -1,0 +1,34 @@
+@use 'styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+.calendar-page {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--fv-space-8) var(--fv-space-4);
+
+  @include from(md) {
+    padding: var(--fv-space-10) var(--fv-space-6);
+  }
+}
+
+.calendar-page__header {
+  margin-bottom: var(--fv-space-8);
+}
+
+.calendar-page__title {
+  margin: 0 0 var(--fv-space-2);
+  color: var(--fv-text-primary);
+  font-family: var(--fv-font-hero-emphasis);
+  font-size: clamp(var(--fv-text-2xl), 5vw, var(--fv-text-4xl));
+  line-height: var(--fv-leading-tight);
+}
+
+.calendar-page__subtitle {
+  margin: 0;
+  color: var(--fv-text-secondary);
+  font-size: var(--fv-text-base);
+  line-height: var(--fv-leading-normal);
+}

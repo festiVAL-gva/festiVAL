@@ -136,11 +136,8 @@
 .festival-calendar__days-row {
   display: grid;
   grid-template-columns: 15fr 31fr 18fr;
-  gap: var(--fv-space-3);
-  padding:
-    var(--fv-space-2)
-    var(--fv-space-1)
-    0;
+  gap: var(--fv-space-2);
+  padding-top: var(--fv-space-1);
 }
 
 .festival-calendar__day-scale {
@@ -161,41 +158,16 @@
   justify-content: center;
   width: 100%;
   min-width: 0;
-  height: var(--fv-space-6);
-  color: transparent;
+  height: 1.5rem;
+  color: rgba(15, 23, 42, 0.55); // Safari < 16.2 fallback
+  color: color-mix(in srgb, var(--fv-text-nav) 55%, var(--fv-bg-card-light));
   font-family: var(--fv-font-ui);
-  font-size: 0;
+  font-size: var(--fv-text-xs);
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
   text-align: center;
 }
 
-.festival-calendar__day::after {
-  content: '';
-  position: absolute;
-  inset-block-end: 0;
-  left: 50%;
-  width: calc(var(--fv-space-1) / 2);
-  height: var(--fv-space-2);
-  border-radius: var(--fv-radius-pill);
-  background: rgba(15, 23, 42, 0.24); // Safari < 16.2 fallback
-  background: color-mix(in srgb, var(--fv-text-nav) 24%, transparent);
-  transform: translateX(-50%);
-}
-
-.festival-calendar__day--labelled {
-  color: rgba(15, 23, 42, 0.58); // Safari < 16.2 fallback
-  color: color-mix(in srgb, var(--fv-text-nav) 58%, var(--fv-bg-card-light));
-  font-size: var(--fv-text-xs);
-}
-
-.festival-calendar__day--labelled::after {
-  height: var(--fv-space-1);
-  opacity: 0.75;
-}
-
-// Circulo destacado: pseudo-elemento absoluto -> no afecta al tamaño de la celda.
+// Círculo destacado: pseudo-elemento absoluto → no afecta al tamaño de la celda
 .festival-calendar__day--featured {
   z-index: 1;
   color: var(--fv-bg-card-light);
@@ -203,17 +175,13 @@
   cursor: pointer;
 }
 
-.festival-calendar__day--featured::after {
-  display: none;
-}
-
 .festival-calendar__day--featured::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: var(--fv-space-6);
-  height: var(--fv-space-6);
+  width: 1.7rem;
+  height: 1.7rem;
   border-radius: var(--fv-radius-pill);
   // Safari < 16.2: --festival-day-color is a CSS var inside color-mix → @supports guard.
   background: var(--festival-day-color); // flat fallback
@@ -458,12 +426,6 @@
 // RESPONSIVE
 // ──────────────────────────────────────────────────────────────────────────
 @media (max-width: 1023px) {
-  .festival-calendar__months-row,
-  .festival-calendar__rail,
-  .festival-calendar__days-row {
-    display: none;
-  }
-
   // En pantallas medianas, distribuir uniformemente en 2 columnas
   .festival-calendar__cards {
     position: static;
@@ -499,6 +461,12 @@
 
   .festival-calendar__title {
     font-size: clamp(var(--fv-text-3xl), 5vw, var(--fv-text-4xl));
+  }
+
+  .festival-calendar__months-row,
+  .festival-calendar__rail,
+  .festival-calendar__days-row {
+    display: none;
   }
 
   .festival-calendar__cards {

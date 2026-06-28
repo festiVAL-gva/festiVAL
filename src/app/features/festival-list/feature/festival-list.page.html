@@ -1,0 +1,45 @@
+<main class="festival-list" data-testid="festival-list-page">
+  <header class="festival-list__header">
+    <h1 class="festival-list__title">{{ 'festivalList.title' | t }}</h1>
+    <p class="festival-list__subtitle">{{ 'festivalList.subtitle' | t }}</p>
+  </header>
+
+  <ul class="festival-list__grid" role="list">
+    @for (festival of festivals; track festival.slug) {
+      <li class="festival-list__item">
+        <a
+          [routerLink]="['/festivales', festival.slug]"
+          class="festival-list__card"
+          [attr.data-testid]="'festival-card-' + festival.slug"
+          [attr.aria-label]="festival.nameKey | t"
+        >
+          <div class="festival-list__image-wrapper">
+            <img
+              class="festival-list__image"
+              [ngSrc]="festival.image.src"
+              [alt]="festival.image.alt"
+              width="600"
+              height="800"
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            />
+          </div>
+
+          <div class="festival-list__overlay" aria-hidden="true"></div>
+
+          <span class="festival-list__date">
+            <svg lucideCalendar focusable="false" aria-hidden="true" size="14" strokeWidth="2"></svg>
+            {{ festival.dateKey | t }}
+          </span>
+
+          <div class="festival-list__body">
+            <h2 class="festival-list__name">{{ festival.nameKey | t }}</h2>
+            <p class="festival-list__location">
+              <svg lucideMapPin focusable="false" aria-hidden="true" size="14" strokeWidth="2"></svg>
+              <span>{{ festival.locationKey | t }}</span>
+            </p>
+          </div>
+        </a>
+      </li>
+    }
+  </ul>
+</main>

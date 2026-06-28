@@ -574,5 +574,13 @@
     "notFound": "El contingut sol·licitat no s'ha trobat.",
     "unknown": "S'ha produït un error inesperat. Si us plau, torna-ho a intentar.",
     "dismiss": "Tancar"
+  },
+  "festivalList": {
+    "title": "Festivals",
+    "subtitle": "Descobreix els principals festivals de música de la Comunitat Valenciana"
+  },
+  "calendarPage": {
+    "title": "Calendari de festivals",
+    "subtitle": "Consulta les dates de tots els festivals de la temporada 2026"
   }
 }

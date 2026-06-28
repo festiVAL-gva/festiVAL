@@ -11,32 +11,17 @@
   max-width: 1320px;
   margin: 0 auto;
   padding: var(--fv-space-2) var(--fv-space-2) 0;
-  border-top: 1px solid var(--fv-border-nav);
 
   @include from(md) {
     padding-inline: 0;
   }
 
-  @include from(lg) {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: var(--fv-space-7);
-    align-items: start;
-  }
 }
 
 .home-faq__header {
   display: grid;
   gap: var(--fv-space-3);
   align-content: start;
-}
-
-.home-faq__eyebrow {
-  margin: 0;
-  color: var(--fv-accent-med-blue);
-  font-size: var(--fv-text-xs);
-  font-weight: 700;
-  letter-spacing: var(--fv-tracking-wider);
-  text-transform: uppercase;
 }
 
 .home-faq__title {
@@ -48,21 +33,10 @@
   text-wrap: balance;
 }
 
-.home-faq__description {
-  margin: 0;
-  max-width: 32rem;
-  color: var(--fv-text-footer-muted);
-  font-size: var(--fv-text-base);
-  line-height: var(--fv-leading-relaxed);
-}
-
 .home-faq__grid {
   display: grid;
   gap: var(--fv-space-3);
 
-  @include from(md) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 .home-faq__item {
@@ -104,7 +78,7 @@
 
 .home-faq__trigger {
   width: 100%;
-  min-height: 7rem;
+  min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--fv-space-4);
@@ -155,7 +129,6 @@
 
 .home-faq__answer {
   margin: 0;
-  max-width: 38ch;
   color: var(--fv-text-footer-muted);
   font-size: var(--fv-text-base);
   line-height: var(--fv-leading-relaxed);

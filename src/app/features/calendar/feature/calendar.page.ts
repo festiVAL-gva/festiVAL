@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { format, differenceInCalendarDays, eachDayOfInterval, parseISO } from 'date-fns';
 import { ca, enGB, es } from 'date-fns/locale';
@@ -12,14 +12,7 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
 import {
   CALENDAR_FESTIVALS,
-  CALENDAR_GENRE_FILTERS,
-  CALENDAR_MONTH_FILTERS,
-  CALENDAR_PROVINCE_FILTERS,
-  CALENDAR_SEASON,
   type CalendarFestival,
-  type CalendarGenreFilter,
-  type CalendarMonthFilter,
-  type CalendarProvinceFilter,
 } from '../data-access/calendar-catalogue';
 
 type BadgeTone = 'single' | 'start' | 'middle' | 'final';
@@ -60,13 +53,6 @@ const DATE_LOCALES = {
   en: enGB,
 } as const;
 
-const FILTER_MONTH_NUMBERS: Record<Exclude<CalendarMonthFilter, 'all'>, number> = {
-  june: 5,
-  july: 6,
-  august: 7,
-  september: 8,
-};
-
 const EXPANDED_CALENDAR_ENTRIES = CALENDAR_FESTIVALS.flatMap((festival) => expandFestivalDays(festival))
   .sort((left, right) => left.isoDate.localeCompare(right.isoDate) || left.festival.name.localeCompare(right.festival.name));
 
@@ -79,35 +65,8 @@ const EXPANDED_CALENDAR_ENTRIES = CALENDAR_FESTIVALS.flatMap((festival) => expan
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarPageComponent {
-  protected readonly monthFilterOptions = CALENDAR_MONTH_FILTERS;
-  protected readonly provinceFilterOptions = CALENDAR_PROVINCE_FILTERS;
-  protected readonly genreFilterOptions = CALENDAR_GENRE_FILTERS;
-  protected readonly season = CALENDAR_SEASON;
-  protected readonly festivalCount = CALENDAR_FESTIVALS.length;
-
-  protected readonly selectedMonth = signal<CalendarMonthFilter>('all');
-  protected readonly selectedProvince = signal<CalendarProvinceFilter>('all');
-  protected readonly selectedGenre = signal<CalendarGenreFilter>('all');
-
-  protected readonly hasActiveFilters = computed(
-    () =>
-      this.selectedMonth() !== 'all' ||
-      this.selectedProvince() !== 'all' ||
-      this.selectedGenre() !== 'all',
-  );
-
   protected readonly filteredEntries = computed(() =>
-    EXPANDED_CALENDAR_ENTRIES
-      .filter((entry) => this.matchesMonth(entry) && this.matchesProvince(entry) && this.matchesGenre(entry))
-      .sort((left, right) => compareCalendarEntries(left, right, startOfToday())),
-  );
-
-  protected readonly visibleDayCount = computed(
-    () => new Set(this.filteredEntries().map((entry) => entry.isoDate)).size,
-  );
-
-  protected readonly visibleFestivalCount = computed(
-    () => new Set(this.filteredEntries().map((entry) => entry.festival.slug)).size,
+    [...EXPANDED_CALENDAR_ENTRIES].sort((left, right) => compareCalendarEntries(left, right, startOfToday())),
   );
 
   protected readonly monthGroups = computed<readonly CalendarMonthGroupView[]>(() => {
@@ -139,43 +98,6 @@ export class CalendarPageComponent {
   });
 
   readonly #i18n = inject(TranslationService);
-
-  protected selectMonth(filter: CalendarMonthFilter): void {
-    this.selectedMonth.set(filter);
-  }
-
-  protected selectProvince(filter: CalendarProvinceFilter): void {
-    this.selectedProvince.set(filter);
-  }
-
-  protected selectGenre(filter: CalendarGenreFilter): void {
-    this.selectedGenre.set(filter);
-  }
-
-  protected clearFilters(): void {
-    this.selectedMonth.set('all');
-    this.selectedProvince.set('all');
-    this.selectedGenre.set('all');
-  }
-
-  protected provinceFilterTestId(filter: CalendarProvinceFilter): string {
-    return filter === 'Castellón' ? 'castellon' : filter.toLowerCase();
-  }
-
-  private matchesMonth(entry: CalendarExpandedEntry): boolean {
-    const month = this.selectedMonth();
-    return month === 'all' ? true : entry.date.getMonth() === FILTER_MONTH_NUMBERS[month];
-  }
-
-  private matchesProvince(entry: CalendarExpandedEntry): boolean {
-    const province = this.selectedProvince();
-    return province === 'all' ? true : entry.festival.province === province;
-  }
-
-  private matchesGenre(entry: CalendarExpandedEntry): boolean {
-    const genre = this.selectedGenre();
-    return genre === 'all' ? true : entry.festival.genre === genre;
-  }
 }
 
 function expandFestivalDays(festival: CalendarFestival): readonly CalendarExpandedEntry[] {

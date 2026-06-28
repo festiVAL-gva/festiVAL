@@ -1,97 +1,10 @@
 <main class="calendar-page" data-testid="calendar-page">
   <section class="calendar-page__hero" [attr.aria-label]="'calendarPage.hero.ariaLabel' | t">
     <div class="calendar-page__hero-copy">
-      <p class="calendar-page__eyebrow">{{ 'calendarPage.hero.eyebrow' | t }}</p>
       <h1 class="calendar-page__title">{{ 'calendarPage.hero.title' | t }}</h1>
       <p class="calendar-page__description">{{ 'calendarPage.hero.description' | t }}</p>
     </div>
-
-    <div class="calendar-page__hero-aside">
-      <p class="calendar-page__aside-label">{{ 'calendarPage.timeline.eyebrow' | t }}</p>
-      <ul class="calendar-page__stats" role="list">
-        <li class="calendar-page__stat">
-          {{ 'calendarPage.hero.stats.festivals' | t : { count: festivalCount } }}
-        </li>
-        <li class="calendar-page__stat">{{ 'calendarPage.hero.stats.region' | t }}</li>
-        <li class="calendar-page__stat">{{ 'calendarPage.hero.stats.season' | t }}</li>
-      </ul>
-    </div>
   </section>
-
-  <section class="calendar-page__filters" [attr.aria-label]="'calendarPage.filters.ariaLabel' | t">
-    <div class="calendar-page__filter-group">
-      <p class="calendar-page__filter-label">{{ 'calendarPage.filters.month.title' | t }}</p>
-      <div
-        class="calendar-page__filter-options"
-        role="group"
-        [attr.aria-label]="'calendarPage.filters.month.ariaLabel' | t"
-      >
-        @for (option of monthFilterOptions; track option.id) {
-          <button
-            type="button"
-            class="calendar-page__filter-chip"
-            [class.calendar-page__filter-chip--active]="selectedMonth() === option.id"
-            [attr.aria-pressed]="selectedMonth() === option.id"
-            [attr.data-testid]="'calendar-filter-month-' + option.id"
-            (click)="selectMonth(option.id)"
-          >
-            {{ option.labelKey | t }}
-          </button>
-        }
-      </div>
-    </div>
-
-    <div class="calendar-page__filter-group">
-      <p class="calendar-page__filter-label">{{ 'calendarPage.filters.province.title' | t }}</p>
-      <div
-        class="calendar-page__filter-options"
-        role="group"
-        [attr.aria-label]="'calendarPage.filters.province.ariaLabel' | t"
-      >
-        @for (option of provinceFilterOptions; track option.id) {
-          <button
-            type="button"
-            class="calendar-page__filter-chip"
-            [class.calendar-page__filter-chip--active]="selectedProvince() === option.id"
-            [attr.aria-pressed]="selectedProvince() === option.id"
-            [attr.data-testid]="'calendar-filter-province-' + provinceFilterTestId(option.id)"
-            (click)="selectProvince(option.id)"
-          >
-            {{ option.labelKey | t }}
-          </button>
-        }
-      </div>
-    </div>
-
-    <div class="calendar-page__filter-group">
-      <p class="calendar-page__filter-label">{{ 'calendarPage.filters.genre.title' | t }}</p>
-      <div
-        class="calendar-page__filter-options"
-        role="group"
-        [attr.aria-label]="'calendarPage.filters.genre.ariaLabel' | t"
-      >
-        @for (option of genreFilterOptions; track option.id) {
-          <button
-            type="button"
-            class="calendar-page__filter-chip"
-            [class.calendar-page__filter-chip--active]="selectedGenre() === option.id"
-            [attr.aria-pressed]="selectedGenre() === option.id"
-            [attr.data-testid]="'calendar-filter-genre-' + option.id"
-            (click)="selectGenre(option.id)"
-          >
-            {{ option.labelKey | t }}
-          </button>
-        }
-      </div>
-    </div>
-  </section>
-
-  <p class="sr-only" aria-live="polite" aria-atomic="true">
-    {{
-      'calendarPage.results.summary'
-        | t : { dayCount: visibleDayCount(), festivalCount: visibleFestivalCount() }
-    }}
-  </p>
 
   @if (monthGroups().length) {
     <section
@@ -190,14 +103,6 @@
       <p class="calendar-page__empty-eyebrow">{{ 'calendarPage.empty.eyebrow' | t }}</p>
       <h2 class="calendar-page__empty-title">{{ 'calendarPage.empty.title' | t }}</h2>
       <p class="calendar-page__empty-body">{{ 'calendarPage.empty.body' | t }}</p>
-      <button
-        type="button"
-        class="calendar-page__empty-action"
-        data-testid="calendar-reset-filters"
-        (click)="clearFilters()"
-      >
-        {{ 'calendarPage.empty.cta' | t }}
-      </button>
     </section>
   }
 </main>

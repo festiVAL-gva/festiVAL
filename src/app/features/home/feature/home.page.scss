@@ -122,15 +122,16 @@
 
 .home-page__copy {
   display: grid;
-  gap: var(--fv-space-3);
+  gap: var(--fv-space-4);
   max-width: 100%;
 
   @include from(md) {
-    max-width: 40rem;
+    gap: var(--fv-space-5);
+    max-width: 48rem;
   }
 
   @include from(lg) {
-    max-width: 44rem;
+    max-width: 54rem;
   }
 }
 
@@ -142,17 +143,20 @@
 .home-page__title {
   font-family: var(--fv-font-hero-emphasis);
   font-size: var(--fv-text-3xl);
-  line-height: var(--fv-leading-display);
+  line-height: 1.08;
   letter-spacing: 0;
   color: var(--fv-text-primary);
   text-wrap: balance;
 
   @include from(md) {
     font-size: var(--fv-text-4xl);
+    max-width: 36rem;
+    line-height: 1.06;
   }
 
   @include from(lg) {
     font-size: var(--fv-text-display);
+    max-width: 42rem;
   }
 }
 
@@ -163,7 +167,7 @@
   color: var(--fv-text-secondary);
 
   @include from(md) {
-    max-width: 28rem;
+    max-width: 36rem;
     font-size: var(--fv-text-lg);
   }
 }

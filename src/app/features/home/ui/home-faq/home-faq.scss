@@ -45,11 +45,10 @@
   border: 1px solid var(--fv-border-nav);
   border-radius: var(--fv-radius-2xl);
   background: var(--fv-bg-card-light);
-  box-shadow: var(--fv-shadow-card);
+  box-shadow: none;
+  filter: none;
   transition:
-    border-color var(--fv-duration-fast) var(--fv-ease-standard),
-    box-shadow var(--fv-duration-base) var(--fv-ease-standard),
-    transform var(--fv-duration-base) var(--fv-ease-standard);
+    border-color var(--fv-duration-fast) var(--fv-ease-standard);
 
   &::before {
     content: '';
@@ -65,7 +64,8 @@
 
 .home-faq__item--open {
   border-color: var(--fv-border-footer);
-  box-shadow: var(--fv-shadow-elevated);
+  box-shadow: none;
+  filter: none;
 
   &::before {
     opacity: 1;
@@ -136,8 +136,9 @@
 
 @media (hover: hover) and (pointer: fine) {
   .home-faq__item:hover {
-    transform: translateY(-2px);
     border-color: var(--fv-border-footer);
+    box-shadow: none;
+    filter: none;
   }
 
   .home-faq__item:hover .home-faq__icon-box {

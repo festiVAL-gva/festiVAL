@@ -19,10 +19,17 @@ import {
   type CalendarMonth,
 } from '../../data-access/home-catalogue';
 
-/** Intervalo (ms) entre cambio automático de festival activo. */
-const AUTOPLAY_INTERVAL_MS = 3000;
+const INITIAL_ACTIVE_FESTIVAL_INDEX = 0;
+const AUTOPLAY_INTERVAL_MS = 5000;
 
 type FestivalDayLookup = Record<string, CalendarFestivalEntry>;
+type LabeledDayLookup = Record<CalendarMonth, ReadonlySet<string>>;
+
+const LABELED_DAYS: LabeledDayLookup = {
+  june: new Set(['16', '20', '24', '28', '30']),
+  july: new Set(['1', '4', '8', '12', '17', '21', '24', '28', '31']),
+  august: new Set(['1', '4', '8', '12', '16', '18']),
+};
 
 @Component({
   selector: 'fv-festival-calendar',
@@ -43,16 +50,13 @@ export class FestivalCalendarComponent {
 
   // ── Estado del carrusel ─────────────────────────────────────────────────
   /** Índice del festival actualmente visible. */
-  readonly activeIndex = signal(0);
+  readonly activeIndex = signal(INITIAL_ACTIVE_FESTIVAL_INDEX);
 
   readonly #destroyRef = inject(DestroyRef);
   #intervalId: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
-    // Arrancar autoplay sólo en el navegador (no en SSR)
-    afterNextRender(() => {
-      this.#startAutoplay();
-    });
+    afterNextRender(() => this.#startAutoplay());
     this.#destroyRef.onDestroy(() => this.#stopAutoplay());
   }
 
@@ -71,7 +75,7 @@ export class FestivalCalendarComponent {
 
   #startAutoplay(): void {
     this.#intervalId = setInterval(() => {
-      this.activeIndex.update((i) => (i + 1) % this.festivals.length);
+      this.activeIndex.update((index) => (index + 1) % this.festivals.length);
     }, AUTOPLAY_INTERVAL_MS);
   }
 
@@ -93,5 +97,9 @@ export class FestivalCalendarComponent {
 
   festivalForDay(month: CalendarMonth, day: string): CalendarFestivalEntry | null {
     return this.festivalDays[`${month}:${day}`] ?? null;
+  }
+
+  isLabeledDay(month: CalendarMonth, day: string): boolean {
+    return LABELED_DAYS[month].has(day);
   }
 }

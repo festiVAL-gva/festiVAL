@@ -17,7 +17,7 @@ describe('TranslationService', () => {
   });
 
   it('resolves a nested dotted key', () => {
-    expect(service.t('home.hero.title')).toContain('Guía de festivales');
+    expect(service.t('home.hero.title')).toContain('Mediterráneo');
     expect(service.t('home.hero.primaryCta')).toBe('Explorar festivales');
   });
 });

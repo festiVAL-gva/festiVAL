@@ -3,6 +3,7 @@
 // ============================================================================
 
 @use 'styles/breakpoints' as *;
+@use 'styles/mixins' as *;
 
 // Component-level sizing values that fall outside the global token scale.
 :host {
@@ -11,6 +12,9 @@
   --nav-icon-size-md: calc(var(--fv-space-6) + var(--fv-space-2)); // 40px
   // Nav link font size sits between --fv-text-sm (14px) and --fv-text-base (16px)
   --nav-link-font-size: 15px;
+  // Language flag dimensions
+  --nav-flag-size: 22px;
+  --nav-flag-size-sm: 20px;
   display: block;
   width: 100%;
   position: sticky;
@@ -147,6 +151,8 @@
   cursor: pointer;
   padding: 0;
 
+  @include focus-ring;
+
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background: var(--fv-bg-nav-icon-hover);
@@ -162,6 +168,95 @@
 .nav-bar__menu {
   // Hamburger — shown only on mobile per spec.
   display: inline-grid;
+}
+
+// ---- Language selector ------------------------------------------------------
+
+.nav-bar__language {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-bar__language-trigger {
+  display: inline-grid;
+  place-items: center;
+}
+
+.nav-bar__language-flag {
+  width: var(--nav-flag-size-sm);
+  height: var(--nav-flag-size-sm);
+  border-radius: var(--fv-radius-sm);
+  object-fit: cover;
+
+  @include from(md) {
+    width: var(--nav-flag-size);
+    height: var(--nav-flag-size);
+  }
+}
+
+.nav-bar__language-menu {
+  position: absolute;
+  top: calc(100% + var(--fv-space-2));
+  right: 0;
+  min-width: 10rem;
+  padding: var(--fv-space-1);
+  // Safari < 16.2 fallback
+  background: rgba(248, 245, 240, 0.92); // @compat
+  background: color-mix(in srgb, var(--fv-bg-nav) 92%, transparent);
+  -webkit-backdrop-filter: saturate(var(--fv-glass-saturate)) blur(var(--fv-glass-blur));
+  backdrop-filter: saturate(var(--fv-glass-saturate)) blur(var(--fv-glass-blur));
+  border: 1px solid var(--fv-border-nav);
+  border-radius: var(--fv-radius-lg);
+  box-shadow: var(--fv-glass-shadow-sm);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: var(--fv-space-0);
+}
+
+.nav-bar__language-option {
+  display: flex;
+  align-items: center;
+  gap: var(--fv-space-2);
+  width: 100%;
+  padding: var(--fv-space-2) var(--fv-space-3);
+  border: 0;
+  border-radius: var(--fv-radius-md);
+  background: transparent;
+  color: var(--fv-text-nav);
+  font-family: var(--fv-font-ui);
+  font-size: var(--fv-text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+
+  @include focus-ring;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--fv-bg-nav-icon-hover);
+    }
+  }
+}
+
+.nav-bar__language-option--active {
+  font-weight: 700;
+  // Safari < 16.2 fallback
+  background: rgba(15, 23, 42, 0.05); // @compat
+  background: color-mix(in srgb, var(--fv-text-nav) 5%, transparent);
+}
+
+.nav-bar__language-option-flag {
+  width: var(--nav-flag-size-sm);
+  height: var(--nav-flag-size-sm);
+  border-radius: var(--fv-radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.nav-bar__language-option-label {
+  flex: 1 1 auto;
 }
 
 // ---- Breakpoint reveals -----------------------------------------------------

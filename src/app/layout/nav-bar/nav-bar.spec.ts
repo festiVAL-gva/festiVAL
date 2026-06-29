@@ -1,8 +1,16 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideTransloco, TranslocoService } from '@jsverse/transloco';
+import { of } from 'rxjs';
 
 import { NavBar } from './nav-bar';
+
+class TranslocoLoaderStub {
+  getTranslation() {
+    return of({});
+  }
+}
 
 describe('NavBar', () => {
   const realMatchMedia = window.matchMedia;
@@ -10,8 +18,6 @@ describe('NavBar', () => {
   beforeEach(async () => {
     localStorage.clear();
     document.documentElement.removeAttribute('data-theme');
-    // Force a deterministic light device so the default toggle state is stable
-    // regardless of test ordering / leaked global mocks.
     window.matchMedia = (() => ({
       matches: false,
       media: '(prefers-color-scheme: dark)',
@@ -20,8 +26,22 @@ describe('NavBar', () => {
     })) as unknown as typeof window.matchMedia;
     await TestBed.configureTestingModule({
       imports: [NavBar],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        provideTransloco({
+          config: {
+            availableLangs: ['es', 'ca', 'en'],
+            defaultLang: 'es',
+            fallbackLang: 'es',
+            reRenderOnLangChange: false,
+            prodMode: false,
+          },
+          loader: TranslocoLoaderStub,
+        }),
+      ],
     }).compileComponents();
+
+    TestBed.inject(TranslocoService).setActiveLang('es');
   });
 
   afterEach(() => {
@@ -70,7 +90,6 @@ describe('NavBar', () => {
     fixture.detectChanges();
     const root = fixture.nativeElement as HTMLElement;
     expect(root.querySelector('.nav-bar__search svg[lucidesearch]')).not.toBeNull();
-    // Light by default in the test environment → sun icon, not pressed.
     const toggle = root.querySelector('.nav-bar__theme-toggle') as HTMLButtonElement | null;
     expect(toggle).not.toBeNull();
     expect(toggle?.getAttribute('aria-pressed')).toBe('false');
@@ -107,7 +126,74 @@ describe('NavBar', () => {
     expect(darkLogo.getAttribute('ng-reflect-ng-src') ?? darkLogo.src).toContain(
       'assets/branding/festi-val-logo-dark.webp',
     );
-    // The dark variant is the duplicate; only the light one stays in the a11y tree.
     expect(darkLogo.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('renders the language selector with the current flag', () => {
+    const fixture = TestBed.createComponent(NavBar);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+
+    const trigger = root.querySelector('[data-testid="nav-btn-language"]') as HTMLButtonElement;
+    expect(trigger).not.toBeNull();
+    expect(trigger.getAttribute('aria-haspopup')).toBe('menu');
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+
+    const flag = trigger.querySelector('.nav-bar__language-flag') as HTMLImageElement;
+    expect(flag).not.toBeNull();
+    expect(flag.src).toContain('flag-es.webp');
+  });
+
+  it('opens the language menu on click and shows all options', () => {
+    const fixture = TestBed.createComponent(NavBar);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+
+    const trigger = root.querySelector('[data-testid="nav-btn-language"]') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    const menu = root.querySelector('[data-testid="nav-language-menu"]');
+    expect(menu).not.toBeNull();
+
+    const options = menu!.querySelectorAll('.nav-bar__language-option');
+    expect(options.length).toBe(3);
+
+    const labels = Array.from(options).map(
+      (o) => o.querySelector('.nav-bar__language-option-label')?.textContent?.trim(),
+    );
+    expect(labels).toEqual(['Español', 'Valencià', 'English']);
+  });
+
+  it('marks the active language with aria-current', () => {
+    const fixture = TestBed.createComponent(NavBar);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+
+    const trigger = root.querySelector('[data-testid="nav-btn-language"]') as HTMLButtonElement;
+    trigger.click();
+    fixture.detectChanges();
+
+    const activeOption = root.querySelector('[data-testid="nav-language-option-es"]');
+    expect(activeOption?.getAttribute('aria-current')).toBe('true');
+  });
+
+  it('positions the language selector before the search button in DOM order', () => {
+    const fixture = TestBed.createComponent(NavBar);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+    const actions = root.querySelector('.nav-bar__actions')!;
+    const children = Array.from(actions.children);
+
+    const langIndex = children.findIndex((el) =>
+      el.classList.contains('nav-bar__language'),
+    );
+    const searchIndex = children.findIndex((el) =>
+      el.classList.contains('nav-bar__search'),
+    );
+
+    expect(langIndex).toBeGreaterThanOrEqual(0);
+    expect(searchIndex).toBeGreaterThan(langIndex);
   });
 });

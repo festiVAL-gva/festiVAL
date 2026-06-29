@@ -10,6 +10,13 @@
       "toLight": "Activar modo claro"
     },
     "menu": "Abrir menú",
+    "language": {
+      "label": "Cambiar idioma",
+      "current": "Idioma actual: {lang}",
+      "es": "Español",
+      "ca": "Valencià",
+      "en": "English"
+    },
     "aria": {
       "primary": "Navegación principal"
     }

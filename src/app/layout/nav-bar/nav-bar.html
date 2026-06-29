@@ -63,6 +63,52 @@
     </nav>
 
     <div class="nav-bar__actions">
+      <div class="nav-bar__language" #langMenuContainer data-testid="nav-language-selector">
+        <button
+          class="nav-bar__icon-btn nav-bar__language-trigger"
+          data-testid="nav-btn-language"
+          type="button"
+          [attr.aria-label]="'nav.language.label' | t"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="langMenuOpen()"
+          (click)="toggleLangMenu()"
+        >
+          <img
+            class="nav-bar__language-flag"
+            [src]="currentLang().flag"
+            [alt]="currentLang().label"
+            width="24"
+            height="24"
+          />
+        </button>
+
+        @if (langMenuOpen()) {
+          <div class="nav-bar__language-menu" role="menu" data-testid="nav-language-menu">
+            @for (lang of languages; track lang.code) {
+              <button
+                class="nav-bar__language-option"
+                [class.nav-bar__language-option--active]="lang.code === activeLang()"
+                type="button"
+                role="menuitem"
+                [attr.aria-current]="lang.code === activeLang() ? 'true' : null"
+                [attr.data-testid]="'nav-language-option-' + lang.code"
+                (click)="selectLang(lang.code)"
+              >
+                <img
+                  class="nav-bar__language-option-flag"
+                  [src]="lang.flag"
+                  [alt]="''"
+                  aria-hidden="true"
+                  width="20"
+                  height="20"
+                />
+                <span class="nav-bar__language-option-label">{{ lang.label }}</span>
+              </button>
+            }
+          </div>
+        }
+      </div>
+
       <button
         class="nav-bar__icon-btn nav-bar__search"
         data-testid="nav-btn-buscar"

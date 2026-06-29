@@ -2,6 +2,7 @@
 
 :host {
   display: block;
+  background: var(--fv-bg-page);
 }
 
 .festivales-map-page {
@@ -33,7 +34,7 @@
 
 .festivales-map-page__title {
   margin: 0;
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   font-family: var(--fv-font-hero-emphasis);
   font-size: var(--fv-text-2xl);
   line-height: var(--fv-leading-tight);
@@ -46,7 +47,7 @@
 
 .festivales-map-page__description {
   margin: 0;
-  color: var(--fv-text-secondary);
+  color: var(--fv-text-footer-muted);
   font-size: var(--fv-text-base);
   max-width: 60ch;
 }

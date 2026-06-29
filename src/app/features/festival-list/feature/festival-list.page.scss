@@ -3,6 +3,7 @@
 
 :host {
   display: block;
+  background: var(--fv-bg-page);
 }
 
 .festival-list {
@@ -21,7 +22,7 @@
 
 .festival-list__title {
   margin: 0 0 var(--fv-space-2);
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   font-family: var(--fv-font-hero-emphasis);
   font-size: clamp(var(--fv-text-2xl), 5vw, var(--fv-text-4xl));
   line-height: var(--fv-leading-tight);
@@ -29,7 +30,7 @@
 
 .festival-list__subtitle {
   margin: 0;
-  color: var(--fv-text-secondary);
+  color: var(--fv-text-footer-muted);
   font-size: var(--fv-text-base);
   line-height: var(--fv-leading-normal);
 }

@@ -42,6 +42,7 @@
                 <span
                   class="festival-calendar__day"
                   [class.festival-calendar__day--featured]="festivalOfDay"
+                  [class.festival-calendar__day--labeled]="isLabeledDay(month.key, day)"
                   [class.festival-calendar__day--med-blue]="festivalOfDay?.tone === 'med-blue'"
                   [class.festival-calendar__day--coral]="festivalOfDay?.tone === 'coral'"
                   [class.festival-calendar__day--orange]="festivalOfDay?.tone === 'orange'"

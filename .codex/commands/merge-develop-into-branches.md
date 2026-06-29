@@ -9,11 +9,7 @@ Run from the repository root with `git_write` and `full_network` permissions.
 ## Goal
 
 Update all feature branches with `develop` in one straight pass: fetch, pull
-`develop`, merge into each remote branch, push. No agent conflict loop.
-
-**Not** the same as `/update-branches-from-develop` — that command uses a richer
-script with dirty-tree checks, conflict reports (exit `2`), and restore of your
-original branch. Use **this** command when you want the simple bash workflow.
+`develop`, merge into each remote branch, push.
 
 ## Run
 
@@ -71,6 +67,4 @@ Or abort: `git merge --abort` and `git checkout develop`.
 
 ## Related
 
-- `/update-branches-from-develop` — agent-aware variant with reports and conflict exit `2`
-- `/new-branch` — create a new branch from `develop`
 - `/autocommit` — semantic commits for feature work

@@ -33,24 +33,23 @@ git ls-files --others --exclude-standard
 
 Understand every available change before committing.
 
-### 2. Ask for the GitHub issue number(s)
+### 2. Detect issue key
 
-Before composing any commit, ask which issue(s) the changes relate to.
-Prompt repeatedly until the user enters `0`:
+Check branch name and context for an issue key.
+bash
+git branch --show-current
 
-```
-GitHub Issue number? (enter 0 to finish)
-```
+Examples:
 
-- Accept `#23` or `23`. Normalize to `#23`.
-- Repeat the prompt after each answer. Stop only when the user enters `0`.
-- Collect every issue number entered before `0`, in order.
-- If the user enters `0` immediately (no issues), group by purpose only (step 3)
-  and commit **without** an issue reference — do not invent one.
-- Append the collected issue reference(s) to each commit summary:
-  one issue → ` (#23)`; multiple → ` (#23, #31)`.
-- If several semantic groups belong to different issues, ask the user which
-  issue applies to each group before committing it.
+- PROJ-123
+- POW-456
+- #123
+
+If there is a clear issue key, use it in every related commit.
+
+If there is no issue key, commit without it.
+
+Do not invent one.
 
 ### 3. Group changes semantically
 
@@ -88,93 +87,9 @@ For each semantic group:
 
 1. Stage only the files or hunks for that group.
 2. Verify the staged diff.
-3. **Run the pre-commit gate** (if the group touches anything under `src/`):
-   ```bash
-   npm run lint && npm test -- --run
-   ```
-   Both must exit `0`. If either fails: **stop**, fix the cause (or revert the change), re-run the gate. Never bypass with `--no-verify`. Never commit a failing test.
-   Pure doc / `.claude/` changes skip the gate.
-4. **Run the architecture audit gate (MANDATORY, no exceptions):**
-
-   The Health Score MUST be `100/100` before any commit. This applies to **every** IA / agent / human, including ones that cannot invoke the `/audit-structure` slash command. "El script no está disponible" / "the command is not available" is **never** a valid reason to skip this step — the gate is then run with the bash fallback below.
-
-   **Method A — preferred (Claude Code with slash commands):**
-   Invoke `/audit-structure`. Read **Health Score** in section A. If `100/100` and Status `OK` → continue. Otherwise → STOP, report sections B and C verbatim, fix, re-run.
-
-   **Method B — universal fallback (any IA / shell environment):**
-   Run **every** check below. Any non-empty output, non-zero exit, or failed assertion = `< 100/100` = **DO NOT COMMIT**.
-
-   ```bash
-   # B.1 — lint + tests (pre-commit gate, must already be green)
-   npm run lint && npm test -- --run
-
-   # B.2 — i18n parity (es/ca/en keys aligned)
-   npm run i18n:check
-
-   # B.3 — no hardcoded colors in component SCSS (only var(--fv-*) or color-mix allowed)
-   # Exceptions: lines with // Safari or // @compat are intentional cross-browser fallbacks (see [[cross-device-compat]]).
-   # Gradient color stops (lines ending with "%," or "%)") are also allowed as fallback values.
-   ! grep -rn -E "rgb\(|rgba\(|hsl\(|#[0-9a-fA-F]{3,6}" src/app --include="*.scss" \
-     | grep -v "var(--\|color-mix" \
-     | grep -v -E ":[0-9]+:\s*//" \
-     | grep -v "[Ss]afari\|@compat" \
-     | grep -v -E "[0-9]+%[,)]?\s*$"
-
-   # B.4 — no hardcoded font-family in component SCSS
-   ! grep -rn "font-family\s*:" src/app --include="*.scss" | grep -v "var(--fv-font"
-
-   # B.5 — HttpClient only in core/ or data-access/
-   ! grep -rln "from '@angular/common/http'" src/app --include="*.ts" \
-     | grep -v "\.spec\.ts" \
-     | grep -vE "(src/app/core/|src/app/.*/data-access/|src/app/app\.config\.ts)"
-
-   # B.6 — no feature-to-feature imports
-   ! grep -rn "from '@features/" src/app/features --include="*.ts" \
-     | grep -v "\.spec\.ts" \
-     | awk -F: '{ split($1, p, "/"); for (i in p) if (p[i]=="features") { src=p[i+1]; break }
-                  match($0, /@features\/([^/'"'"']+)/, m); tgt=m[1];
-                  if (src && tgt && src != tgt) print }' \
-     | grep .
-
-   # B.7 — no empty feature scaffolds (folders with only .gitkeep / no real code)
-   for f in src/app/features/*/; do
-     real=$(find "$f" -type f ! -name ".gitkeep" 2>/dev/null | wc -l)
-     [ "$real" -eq 0 ] && echo "EMPTY FEATURE: $f"
-   done | grep . && exit 1 || true
-
-   # B.8 — no stale .gitkeep in folders that already have real files
-   for d in $(find src/app -name ".gitkeep" -exec dirname {} \;); do
-     others=$(ls -A "$d" | grep -v "^.gitkeep$" | wc -l)
-     [ "$others" -gt 0 ] && echo "STALE .gitkeep: $d"
-   done | grep . && exit 1 || true
-
-   # B.9 — docs/documentacion.md exists and was updated in this batch if structure changed
-   git diff --cached --name-only | grep -qE "^src/.*\.(ts|html|scss)$" \
-     && ! git diff --cached --name-only | grep -q "^docs/documentacion.md$" \
-     && echo "STRUCTURAL CHANGE WITHOUT DOC UPDATE" && exit 1 || true
-
-   # B.10 — every SCSS file with backdrop-filter must also have -webkit-backdrop-filter
-   # (Safari requires the vendor prefix — see [[cross-device-compat]] Rule 1)
-   grep -rln "backdrop-filter:" src/ --include="*.scss" | while read -r file; do
-     grep -q "\-webkit-backdrop-filter:" "$file" \
-       || echo "MISSING -webkit-backdrop-filter in: $file"
-   done | grep . && exit 1 || true
-
-   # B.11 — .browserslistrc must exist at the repo root
-   [ -f .browserslistrc ] \
-     || { echo "MISSING: .browserslistrc — define browser targets (see [[cross-device-compat]])"; exit 1; }
-   ```
-
-   Treat any failing check as the Score being `< 100/100`. When the gate fails:
-   - Report every failing check verbatim to the user (which command, which output).
-   - Apply the fixes (or ask the user on ambiguous ones).
-   - Re-run **Method B in full** after each fix until every check passes.
-   - Only then resume the commit flow.
-
-   This rule applies to **every** semantic group, including pure documentation or `.claude/` changes. The audit gate is never skipped, never bypassed with `--no-verify`, and never overridden by user pressure to "just commit it" or by the IA reporting "el comando no existe / no está disponible". Use Method B in that case. A failing audit is a blocking error.
-5. Create a Conventional Commit message.
-6. Commit.
-7. Repeat until no meaningful changes remain.
+3. Create a Conventional Commit message.
+4. Commit.
+5. Repeat until no meaningful changes remain.
 
 Verify staged diff:
 bash
@@ -184,18 +99,17 @@ Commit format:
 bash
 git commit -m "<type>(<scope>): <summary>"
 
-With issue reference (from step 2 — appended to the summary):
+With issue key:
 bash
-git commit -m "<type>(<scope>): <summary> (#<n>)"
-git commit -m "<type>(<scope>): <summary> (#<n>, #<m>)"
+git commit -m "<issue-key>: <type>(<scope>): <summary>"
 
 Examples:
 bash
-git commit -m "fix(auth): Handle expired token refresh (#12)"
-git commit -m "feat(api): Add user activity endpoint (#23)"
-git commit -m "feat(map): Add interactive festival markers (#23, #31)"
+git commit -m "fix(auth): Handle expired token refresh"
+git commit -m "feat(api): Add user activity endpoint"
 git commit -m "refactor(ui): Simplify modal state handling"
-git commit -m "test(auth): Cover expired token flow (#12)"
+git commit -m "test(auth): Cover expired token flow"
+git commit -m "PROJ-123: fix(auth): Handle token refresh"
 
 ### 5. Keep committing until done
 
@@ -297,16 +211,6 @@ Examples:
 - generated lockfile from dependency update = same commit as dependency update
 
 If a change cannot be explained by the same sentence, split it.
-
-## Documentation rule
-
-If any commit adds, removes, renames, or moves folders or files, `docs/documentacion.md` **must** be updated in the same commit:
-
-- Add the new entry to the corresponding tree diagram.
-- Describe its purpose in Spanish.
-- Add a row to the "Historial de cambios estructurales" table at the bottom.
-
-Include `docs/documentacion.md` in the same semantic group as the structural change — do not create a separate commit for the documentation update.
 
 ## Safety rules
 

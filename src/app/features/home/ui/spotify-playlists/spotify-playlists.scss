@@ -21,31 +21,11 @@
 }
 
 .spotify-playlists__glow {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at top center,
-    color-mix(in srgb, var(--fv-accent-blue) 8%, transparent),
-    transparent 60%
-  );
+  display: none;
 }
 
 .spotify-playlists__divider {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(960px, calc(100% - var(--fv-space-7)));
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--fv-text-primary) 12%, transparent) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
+  display: none;
 }
 
 .spotify-playlists__shell {
@@ -102,7 +82,7 @@
   font-family: var(--fv-font-hero-emphasis);
   font-size: clamp(var(--fv-text-3xl), 4vw, var(--fv-text-4xl));
   line-height: var(--fv-leading-display);
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   text-wrap: balance;
 }
 
@@ -131,7 +111,7 @@
   font-size: var(--fv-text-sm);
   font-weight: 700;
   text-decoration: none;
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   border-radius: var(--fv-radius-pill);
   border: 1px solid var(--fv-border-strong);
   background: rgba(255, 255, 255, 0.04); // @compat
@@ -154,7 +134,7 @@
     &:hover {
       transform: translateY(-2px);
       border-color: color-mix(in srgb, var(--spotify-accent) 45%, transparent);
-      color: var(--fv-text-primary);
+      color: var(--fv-text-nav);
     }
   }
 }
@@ -234,7 +214,7 @@
   margin: 0;
   font-size: var(--fv-text-base);
   font-weight: 700;
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   line-height: var(--fv-leading-tight);
 }
 

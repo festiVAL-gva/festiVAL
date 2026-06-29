@@ -38,7 +38,6 @@
 }
 
 .featured-festivals__viewport {
-  background: var(--fv-bg-page);
   overflow: hidden;
   // Safari: when a child has will-change: transform, the parent's overflow: hidden
   // can fail to clip it. Promoting the viewport to its own compositing layer

@@ -23,6 +23,25 @@
       "primaryCta": "Explore festivals",
       "secondaryCta": "View calendar"
     },
+    "nextFestival": {
+      "ariaLabel": "Highlighted next festival",
+      "eyebrow": "Next festival",
+      "titleAccent": "Latin Fest",
+      "title": "lands on 5 July. Ready for your plan?",
+      "description": "A Mediterranean postcard, two days of Latin rhythm and the perfect early-July escape with music, seaside atmosphere and a venue built for summer energy.",
+      "date": "5 July 2026",
+      "location": "Valencia",
+      "genre": "Live Latin sounds",
+      "imageAlt": "Aerial view of the Latin Fest venue by the sea in Valencia",
+      "primaryCta": "View Latin Fest",
+      "secondaryCta": "Open calendar",
+      "countdown": {
+        "days": "days",
+        "hours": "hours",
+        "minutes": "min",
+        "seconds": "sec"
+      }
+    },
     "featured": {
       "title": "Featured festivals",
       "cards": {

@@ -23,6 +23,25 @@
       "primaryCta": "Explorar festivals",
       "secondaryCta": "Veure calendari"
     },
+    "nextFestival": {
+      "ariaLabel": "Pròxim festival destacat",
+      "eyebrow": "Pròxim festival",
+      "titleAccent": "Latin Fest",
+      "title": "arranca el 5 de juliol. Ja tens el teu pla?",
+      "description": "Una postal mediterrània, dues jornades de ritme llatí i l'escapada perfecta per obrir juliol amb música, platja i un recinte preparat per encendre València.",
+      "date": "5 juliol 2026",
+      "location": "València",
+      "genre": "Llatí en directe",
+      "imageAlt": "Vista aèria del recinte de Latin Fest al costat del mar a València",
+      "primaryCta": "Veure Latin Fest",
+      "secondaryCta": "Anar al calendari",
+      "countdown": {
+        "days": "dies",
+        "hours": "hores",
+        "minutes": "min",
+        "seconds": "seg"
+      }
+    },
     "featured": {
       "title": "Festivals destacats",
       "cards": {

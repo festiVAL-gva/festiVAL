@@ -49,6 +49,69 @@
     </div>
   </article>
 
+  <section
+    class="home-next-festival"
+    [attr.aria-label]="'home.nextFestival.ariaLabel' | t"
+    data-testid="home-next-festival"
+  >
+    <img
+      class="home-next-festival__image"
+      ngSrc="/assets/images/festivals/latin-fest/venue-valencia-recinto.webp"
+      width="1289"
+      height="980"
+      sizes="100vw"
+      [alt]="'home.nextFestival.imageAlt' | t"
+    />
+
+    <div class="home-next-festival__overlay" aria-hidden="true"></div>
+
+    <div class="home-next-festival__content">
+      <p class="home-next-festival__eyebrow">{{ 'home.nextFestival.eyebrow' | t }}</p>
+
+      <h2 class="home-next-festival__title" data-testid="home-next-festival-title">
+        <span class="home-next-festival__title-accent">
+          {{ 'home.nextFestival.titleAccent' | t }}
+        </span>
+        <span>{{ 'home.nextFestival.title' | t }}</span>
+      </h2>
+
+      <div class="home-next-festival__meta">
+        <span class="home-next-festival__meta-pill">{{ 'home.nextFestival.date' | t }}</span>
+        <span class="home-next-festival__meta-pill">{{ 'home.nextFestival.location' | t }}</span>
+        <span class="home-next-festival__meta-pill">{{ 'home.nextFestival.genre' | t }}</span>
+      </div>
+
+      <div class="home-next-festival__countdown" data-testid="home-next-festival-countdown">
+        @for (item of countdownItems(); track item.labelKey) {
+          <div class="home-next-festival__countdown-card">
+            <span class="home-next-festival__countdown-value">{{ item.value }}</span>
+            <span class="home-next-festival__countdown-label">{{ item.labelKey | t }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="home-next-festival__actions">
+        <a
+          class="home-page__button home-page__button--primary home-next-festival__cta"
+          routerLink="/festivales/latin-fest"
+          data-testid="home-next-festival-primary-cta"
+        >
+          <span>{{ 'home.nextFestival.primaryCta' | t }}</span>
+          <svg lucideArrowRight aria-hidden="true" focusable="false" size="22" strokeWidth="2"></svg>
+        </a>
+
+        <a
+          class="home-page__button home-page__button--secondary home-next-festival__cta"
+          routerLink="/calendario"
+          data-testid="home-next-festival-secondary-cta"
+        >
+          <span>{{ 'home.nextFestival.secondaryCta' | t }}</span>
+          <svg lucideArrowRight aria-hidden="true" focusable="false" size="22" strokeWidth="2"></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
   @defer (on viewport) {
     <fv-festival-calendar />
   } @placeholder {

@@ -60,7 +60,7 @@ describe('HomePageComponent', () => {
     const overlay = root.querySelector('.home-page__overlay');
     const title = root.querySelector('[data-testid="home-hero-title"]');
     const description = root.querySelector('[data-testid="home-hero-description"]');
-    const buttons = root.querySelectorAll('.home-page__button');
+    const buttons = root.querySelectorAll('[data-testid="home-hero-actions"] .home-page__button');
 
     expect(overlay).not.toBeNull();
     expect(title?.textContent?.trim()).toBeTruthy();
@@ -68,6 +68,25 @@ describe('HomePageComponent', () => {
     expect(buttons).toHaveLength(2);
     expect(buttons[0]?.getAttribute('type')).toBe('button');
     expect(buttons[1]?.getAttribute('type')).toBe('button');
+  });
+
+  it('renders the next festival editorial block for Latin Fest', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const section = root.querySelector('[data-testid="home-next-festival"]');
+    const title = root.querySelector('[data-testid="home-next-festival-title"]');
+    const countdownCards = root.querySelectorAll('.home-next-festival__countdown-card');
+    const primaryCta = root.querySelector(
+      '[data-testid="home-next-festival-primary-cta"]',
+    ) as HTMLAnchorElement | null;
+    const secondaryCta = root.querySelector(
+      '[data-testid="home-next-festival-secondary-cta"]',
+    ) as HTMLAnchorElement | null;
+
+    expect(section).not.toBeNull();
+    expect(title?.textContent?.trim()).toContain('Latin Fest');
+    expect(countdownCards).toHaveLength(4);
+    expect(primaryCta?.getAttribute('href')).toBe('/festivales/latin-fest');
+    expect(secondaryCta?.getAttribute('href')).toBe('/calendario');
   });
 
   it('renders the calendar, featured festivals, faq section and the interactive map section', async () => {

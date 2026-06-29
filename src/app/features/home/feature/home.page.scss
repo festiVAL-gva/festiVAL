@@ -34,8 +34,6 @@
   overflow: hidden;
   isolation: isolate;
   border-radius: 0;
-  // Editorial portrait ratio (~1:1.3) — taller than 4/5 so the hero copy
-  // breathes under the image on small viewports.
   aspect-ratio: 4 / 5.2;
 
   @include from(md) {
@@ -209,8 +207,6 @@
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      // Sub-token micro-lift (~2 px). Intentional sub-grid offset for the
-      // editorial CTA — not promoted to a spacing token.
       transform: translateY(-2px);
     }
   }
@@ -271,4 +267,236 @@
 
 .home-page__placeholder {
   min-height: 20rem;
+}
+
+.home-next-festival {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 32rem;
+  border-radius: var(--fv-radius-2xl);
+  background: transparent;
+
+  @include from(md) {
+    min-height: 22rem;
+  }
+
+  @include from(lg) {
+    width: min(100%, 79.6875rem);
+    min-height: 30.8125rem;
+    margin-inline: auto;
+  }
+}
+
+.home-next-festival__image,
+.home-next-festival__overlay,
+.home-next-festival__content {
+  position: absolute;
+  inset: 0;
+}
+
+.home-next-festival__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% center;
+  z-index: 0;
+
+  @include from(md) {
+    inset: 0 0 0 auto;
+    width: min(44%, 29rem);
+    object-fit: contain;
+    object-position: right center;
+  }
+}
+
+.home-next-festival__overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 7, 12, 0.96) 0%,
+      rgba(7, 7, 12, 0.84) 26%,
+      rgba(11, 11, 20, 0.58) 48%,
+      rgba(11, 11, 20, 0.22) 72%,
+      rgba(11, 11, 20, 0.08) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(7, 7, 12, 0.24) 0%,
+      rgba(7, 7, 12, 0.52) 100%
+    );
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--fv-bg-canvas) 96%, transparent) 0%,
+      color-mix(in srgb, var(--fv-bg-canvas) 84%, transparent) 26%,
+      color-mix(in srgb, var(--fv-bg-surface) 58%, transparent) 48%,
+      color-mix(in srgb, var(--fv-bg-surface) 22%, transparent) 72%,
+      color-mix(in srgb, var(--fv-bg-surface) 8%, transparent) 100%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--fv-bg-canvas) 24%, transparent) 0%,
+      color-mix(in srgb, var(--fv-bg-canvas) 52%, transparent) 100%
+    );
+  z-index: 1;
+
+  @include from(md) {
+    background:
+      linear-gradient(
+        90deg,
+        var(--fv-bg-page) 0%,
+        var(--fv-bg-page) 50%,
+        color-mix(in srgb, var(--fv-bg-page) 94%, transparent) 62%,
+        color-mix(in srgb, var(--fv-bg-page) 52%, transparent) 78%,
+        transparent 100%
+      );
+  }
+}
+
+.home-next-festival__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: end;
+  gap: var(--fv-space-4);
+  padding: var(--fv-space-5);
+  max-width: 21rem;
+
+  @include from(md) {
+    max-width: 26rem;
+    align-content: center;
+    padding: var(--fv-space-6);
+  }
+
+  @include from(lg) {
+    max-width: 28rem;
+    padding: var(--fv-space-7);
+  }
+}
+
+.home-next-festival__eyebrow {
+  color: var(--fv-text-footer-faint);
+  font-size: var(--fv-text-sm);
+  font-weight: 700;
+  letter-spacing: var(--fv-tracking-wider);
+  text-transform: uppercase;
+}
+
+.home-next-festival__title {
+  display: grid;
+  gap: var(--fv-space-2);
+  margin: 0;
+  max-width: 11ch;
+  color: var(--fv-text-nav);
+  font-family: var(--fv-font-hero-emphasis);
+  font-size: clamp(2rem, 11vw, 3.4rem);
+  line-height: 0.96;
+  text-transform: uppercase;
+  text-wrap: balance;
+
+  @include from(md) {
+    max-width: 12ch;
+    font-size: clamp(2rem, 3vw, 2.85rem);
+  }
+}
+
+.home-next-festival__title-accent {
+  color: var(--fv-accent-coral);
+}
+
+.home-next-festival__description {
+  max-width: 24rem;
+  margin: 0;
+  color: var(--fv-text-secondary);
+  font-size: var(--fv-text-base);
+  line-height: var(--fv-leading-relaxed);
+}
+
+.home-next-festival__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fv-space-2);
+}
+
+.home-next-festival__meta-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding-inline: var(--fv-space-3);
+  border: 1px solid var(--fv-border-nav);
+  border-radius: var(--fv-radius-pill);
+  background: color-mix(in srgb, var(--fv-bg-page) 82%, var(--fv-bg-card-light));
+  color: var(--fv-text-nav);
+  font-size: var(--fv-text-sm);
+  font-weight: 700;
+}
+
+.home-next-festival__countdown {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--fv-space-3);
+
+  @include from(md) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 24rem;
+  }
+}
+
+.home-next-festival__countdown-card {
+  display: grid;
+  gap: var(--fv-space-1);
+  align-items: center;
+  justify-items: center;
+  min-height: 4.75rem;
+  padding: var(--fv-space-2);
+  border-radius: var(--fv-radius-xl);
+  background: color-mix(in srgb, var(--fv-bg-page) 88%, var(--fv-bg-card-light));
+  border: 1px solid var(--fv-border-nav);
+}
+
+.home-next-festival__countdown-value {
+  color: var(--fv-text-nav);
+  font-family: var(--fv-font-hero-emphasis);
+  font-size: clamp(1.85rem, 3vw, 2.35rem);
+  line-height: 1;
+}
+
+.home-next-festival__countdown-label {
+  color: var(--fv-text-footer-muted);
+  font-size: var(--fv-text-sm);
+  line-height: var(--fv-leading-snug);
+  text-transform: lowercase;
+}
+
+.home-next-festival .home-page__button--primary {
+  background: var(--fv-text-nav);
+  color: var(--fv-bg-card-light);
+  box-shadow: none;
+}
+
+.home-next-festival .home-page__button--secondary {
+  background: color-mix(in srgb, var(--fv-bg-page) 78%, var(--fv-bg-card-light));
+  border-color: var(--fv-border-nav);
+  color: var(--fv-text-nav);
+  box-shadow: none;
+}
+
+.home-next-festival__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fv-space-3);
+
+  @include from(md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.home-next-festival__cta {
+  width: 100%;
+
+  @include from(md) {
+    width: auto;
+  }
 }

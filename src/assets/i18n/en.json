@@ -19,6 +19,7 @@
     "hero": {
       "title": "Festival guide for Valencia, Alicante and Castellon.",
       "description": "Find dates, locations and key information about the main festivals in the Valencian Community.",
+      "imageAlt": "Crowd enjoying a music festival at sunset on the beach",
       "primaryCta": "Explore festivals",
       "secondaryCta": "View calendar"
     },

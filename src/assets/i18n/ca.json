@@ -19,6 +19,7 @@
     "hero": {
       "title": "Guia de festivals a València, Alacant i Castelló.",
       "description": "Troba dates, ubicacions i informació sobre els principals festivals de la Comunitat Valenciana.",
+      "imageAlt": "Públic gaudint d'un festival de música a la posta de sol a la platja",
       "primaryCta": "Explorar festivals",
       "secondaryCta": "Veure calendari"
     },

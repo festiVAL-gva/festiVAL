@@ -9,7 +9,7 @@
       width="1200"
       height="798"
       priority
-      alt=""
+      [alt]="'home.hero.imageAlt' | t"
     />
 
     <div class="home-page__overlay" aria-hidden="true"></div>
@@ -49,13 +49,33 @@
     </div>
   </article>
 
-  <fv-festival-calendar />
+  @defer (on viewport) {
+    <fv-festival-calendar />
+  } @placeholder {
+    <div class="home-page__placeholder" aria-hidden="true"></div>
+  }
 
-  <fv-featured-festivals />
+  @defer (on viewport) {
+    <fv-featured-festivals />
+  } @placeholder {
+    <div class="home-page__placeholder" aria-hidden="true"></div>
+  }
 
-  <fv-home-festival-map [locations]="festivalLocations" />
+  @defer (on viewport) {
+    <fv-home-festival-map [locations]="festivalLocations" />
+  } @placeholder {
+    <div class="home-page__placeholder" aria-hidden="true"></div>
+  }
 
-  <fv-home-faq />
+  @defer (on viewport) {
+    <fv-home-faq />
+  } @placeholder {
+    <div class="home-page__placeholder" aria-hidden="true"></div>
+  }
 
-  <fv-spotify-playlists />
+  @defer (on viewport) {
+    <fv-spotify-playlists />
+  } @placeholder {
+    <div class="home-page__placeholder" aria-hidden="true"></div>
+  }
 </section>

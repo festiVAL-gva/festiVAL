@@ -49,27 +49,12 @@
   filter: none;
   transition:
     border-color var(--fv-duration-fast) var(--fv-ease-standard);
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0 auto auto 0;
-    width: 6rem;
-    height: 2px;
-    background: var(--home-faq-accent);
-    opacity: 0;
-    transition: opacity var(--fv-duration-fast) var(--fv-ease-standard);
-  }
 }
 
 .home-faq__item--open {
   border-color: var(--fv-border-footer);
   box-shadow: none;
   filter: none;
-
-  &::before {
-    opacity: 1;
-  }
 }
 
 .home-faq__question {
@@ -97,7 +82,7 @@
 .home-faq__question-copy {
   color: var(--fv-text-nav);
   font-family: var(--fv-font-heading);
-  font-size: clamp(var(--fv-text-xl), 2vw, var(--fv-text-2xl));
+  font-size: clamp(var(--fv-text-lg), 1.7vw, var(--fv-text-xl));
   line-height: var(--fv-leading-tight);
   text-wrap: pretty;
 }

@@ -6,27 +6,90 @@
 
 ## 📖 Descripción
 
-**festiVAL** es una aplicación web desarrollada con **Angular 21 + SSR** que reúne, en un único lugar, la información esencial sobre los festivales de música más importantes de la Comunidad Valenciana (España). Desde Bigsound hasta Latin Fest, pasando por Medusa, Reggaeton Beach Festival, Reve o Zevra, festiVAL está pensada para que melómanos, festivaleros y curiosos puedan descubrir, comparar y planificar su próxima experiencia musical en tierras valencianas.
+**festiVAL** es una aplicación web informativa desarrollada con **Angular 21 + SSR** para reunir, en un solo sitio, la información más útil de los principales festivales de música de la Comunidad Valenciana. La página está pensada para ayudar a una persona a entender rápidamente qué festivales hay, cuándo se celebran, dónde se hacen y qué tipo de experiencia ofrece cada uno.
 
-La aplicación funciona como un portal informativo: muestra fechas, ubicaciones, géneros musicales, cartel de artistas, precios orientativos y enlaces oficiales para que el usuario tome la mejor decisión antes de comprar su entrada. Su interfaz, completamente en **español (es-ES)**, ha sido diseñada con un enfoque moderno y mobile-first sobre una superficie premium oscura.
+No es una plataforma de venta de entradas ni una red social. Su función es servir como **portal de descubrimiento y consulta**: muestra fechas, ubicaciones, géneros, carteles visuales, precios orientativos, enlaces oficiales y contexto general para que el usuario compare opciones antes de decidir a cuál festival quiere ir.
+
+La interfaz está orientada principalmente a **móvil**, usa **español (es-ES)** como idioma principal y se centra en un catálogo inicial de festivales relevantes de **Valencia, Alicante y Castellón**.
+
+---
+
+## 🎯 De qué va la página
+
+La web gira alrededor de una idea simple: **facilitar la planificación festivalera dentro de la Comunidad Valenciana**.
+
+En lugar de obligar al usuario a saltar entre Instagram, carteles sueltos, webs oficiales y mapas externos, `festiVAL` concentra la información base en una experiencia única y visual:
+
+- Qué festivales hay en la temporada.
+- En qué ciudad y provincia se celebran.
+- Qué fechas ocupan dentro del verano.
+- Qué estilo musical domina en cada evento.
+- Qué precio de entrada orientativo tiene cada festival.
+- Dónde ampliar información o comprar entradas desde su web oficial.
+
+El objetivo de producto es que una persona pueda entrar en la web y responder rápido a preguntas como:
+
+- "¿Qué festivales urbanos hay este verano en Valencia o Alicante?"
+- "¿Cuál me encaja mejor por fechas?"
+- "¿Qué evento parece más grande o más alineado con mis gustos?"
+- "¿Dónde se celebra exactamente y dónde miro la información oficial?"
+
+---
+
+## 🧭 Qué puede hacer el usuario hoy
+
+Actualmente la aplicación ya permite este recorrido:
+
+1. **Entrar en la home** y descubrir el enfoque general de la temporada mediante una portada visual, un bloque del próximo festival, una selección destacada, un mapa y secciones editoriales.
+2. **Abrir el catálogo de festivales** en `/festivales` y ver las tarjetas principales del catálogo actual.
+3. **Entrar en la ficha de un festival** en `/festivales/:slug` para consultar información ampliada, enlaces oficiales, precio orientativo, datos de acceso, contexto del evento y ubicación.
+4. **Consultar el calendario** en `/calendario` para ver los festivales ordenados cronológicamente según sus días de celebración.
+
+Hoy la web funciona sobre todo como una **guía curada de consulta**. La experiencia se apoya en contenido visual, fichas por festival y navegación clara entre portada, listado, detalle y calendario.
+
+---
+
+## 🎪 Catálogo actual
+
+El catálogo inicial documentado en la aplicación incluye estos festivales:
+
+- **Bigsound Festival**
+- **Latin Fest**
+- **Medusa Festival**
+- **Reggaeton Beach Festival**
+- **Reve Festival**
+- **Zevra Festival**
+
+La home y el calendario también refuerzan el contexto geográfico de la temporada mediante ubicaciones dentro de la Comunidad Valenciana.
 
 ---
 
 ## ✨ Características
 
-- 🎪 **Catálogo de festivales** — Todos los principales eventos de Valencia, Alicante y Castellón.
-- 📄 **Páginas de detalle** — Ficha individual con cartel completo, datos del recinto y enlaces oficiales.
-- 🔍 **Búsqueda fuzzy** — Buscador rápido por nombre de festival o artista (MiniSearch, client-side).
-- 🎚️ **Filtros** — Filtra por provincia, mes, género musical o rango de precios.
-- 📍 **Mapas** — Ubicación de cada recinto con MapLibre GL JS + Protomaps.
-- 📱 **Responsive** — Experiencia optimizada para móvil, tablet y escritorio.
-- ⚡ **SSR + prerenderizado** — Rutas SEO-críticas servidas pre-renderizadas para mejor LCP y SEO.
+- 🎪 **Portal de descubrimiento** — Reúne festivales destacados de la Comunidad Valenciana en una sola experiencia.
+- 🏠 **Home editorial** — Portada con hero visual, próximo festival, selección destacada, mapa, FAQ y playlists.
+- 📄 **Fichas individuales** — Cada festival tiene una página propia con resumen, datos útiles, enlaces y ubicación.
+- 🗓️ **Calendario de temporada** — Vista cronológica para entender rápidamente cuándo cae cada festival.
+- 📍 **Contexto geográfico** — La aplicación sitúa los eventos dentro del territorio valenciano y facilita la lectura por ubicación.
+- 📱 **Responsive** — Experiencia adaptada a móvil, tablet y escritorio.
+- ⚡ **SSR + prerenderizado** — Base preparada para rendimiento y SEO en rutas relevantes.
+
+---
+
+## 🚧 Qué no hace todavía
+
+Para evitar confusiones, esto sigue fuera del alcance actual o está en fase futura:
+
+- No vende entradas directamente.
+- No requiere cuenta ni registro.
+- No incorpora todavía flujos sociales o favoritos persistentes.
+- No expone todavía un buscador público completo ni una capa de filtros avanzada en la interfaz actual.
 
 ---
 
 ## 🛠️ Tech Stack
 
-Las decisiones canónicas viven en [`.claude/CLAUDE.md`](.claude/CLAUDE.md). Resumen:
+Las decisiones canónicas viven en [`.codex/AGENTS.md`](.codex/AGENTS.md). Resumen:
 
 | Capa             | Tecnología                            |
 | ---------------- | ------------------------------------- |
@@ -84,7 +147,7 @@ La aplicación arranca en [http://localhost:4200](http://localhost:4200) y se re
 
 ## 📁 Estructura del proyecto
 
-Arquitectura **feature-sliced** con boundaries forzados por ESLint. El detalle completo vive en [`.claude/skills/project-structure/README.md`](.claude/skills/project-structure/README.md). Resumen:
+Arquitectura **feature-sliced** con boundaries forzados por ESLint. El detalle completo vive en [`.codex/skills/project-structure/SKILL.md`](.codex/skills/project-structure/SKILL.md). Resumen:
 
 ```
 src/app/
@@ -115,7 +178,7 @@ El catálogo completo de carpetas y ficheros se mantiene en [`docs/documentacion
 
 El trabajo se ancla a **GitHub Issues**. Para commitear, usa **`/autocommit`**: pregunta el **número de issue** (repetido hasta `0` para terminar), agrupa los cambios por propósito semántico, añade `(#n)` al mensaje y aplica los gates obligatorios (lint+test, auditoría 100/100, paridad i18n, doc-sync).
 
-Las reglas viven en [`.claude/commands/autocommit.md`](.claude/commands/autocommit.md) (Codex: [`.codex/commands/autocommit.md`](.codex/commands/autocommit.md)).
+Las reglas viven en [`.codex/commands/autocommit.md`](.codex/commands/autocommit.md) y en su equivalente para Claude Code [`.claude/commands/autocommit.md`](.claude/commands/autocommit.md).
 
 Flujo habitual:
 
@@ -131,7 +194,7 @@ Este proyecto está preparado para colaboración con **Codex** y **Claude Code**
 
 Regla de uso:
 
-- Cuando trabajes con **Codex**, usa la carpeta `.codex/`.
+- Cuando trabajes con **Codex**, usa la carpeta `.codex/` como fuente principal.
 - Cuando trabajes con **Claude Code**, usa la carpeta `.claude/`.
 
 Configuración de Claude Code:
@@ -148,7 +211,7 @@ Configuración de Codex:
 - `.codex/skills/` — patrones reutilizables para Codex.
 - `.codex/commands/` — workflows automatizados para Codex.
 
-Antes de cualquier modificación es **obligatorio** leer `CLAUDE.md` y los skills aplicables al área tocada.
+Antes de cualquier modificación es **obligatorio** leer `AGENTS.md` en `.codex/` y los skills aplicables al área tocada. Si se trabaja con Claude Code, también debe respetarse su configuración paralela en `.claude/`.
 
 ---
 

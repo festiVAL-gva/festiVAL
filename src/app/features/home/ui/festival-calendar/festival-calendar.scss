@@ -4,11 +4,11 @@
 :host {
   display: block;
   scroll-margin-top: calc(var(--shell-nav-height, 72px) + var(--fv-space-4));
-  --calendar-date-num-size: var(--fv-text-sm);
+  --calendar-date-num-size: var(--fv-text-xs);
   --calendar-date-month-size: var(--fv-text-xs);
-  --calendar-card-title-size: var(--fv-text-xl);
-  --calendar-card-location-size: var(--fv-text-base);
-  --calendar-badge-size: var(--fv-text-sm);
+  --calendar-card-title-size: var(--fv-text-lg);
+  --calendar-card-location-size: var(--fv-text-sm);
+  --calendar-badge-size: var(--fv-text-xs);
 }
 
 .festival-calendar {
@@ -252,7 +252,7 @@
 
 .festival-calendar__cards {
   position: relative;
-  min-height: 18rem;
+  min-height: 15.5rem;
   margin-top: var(--fv-space-3);
 }
 
@@ -260,8 +260,8 @@
   position: absolute;
   top: 0;
   left: var(--festival-position, 50%);
-  width: 15.75rem;
-  padding-top: var(--fv-space-6);
+  width: 13.75rem;
+  padding-top: var(--fv-space-5);
   transform: translateX(-50%) translateY(var(--fv-space-2));
   opacity: 0;
   pointer-events: none;
@@ -282,7 +282,7 @@
   top: 0;
   left: 50%;
   width: 2px;
-  height: var(--fv-space-6);
+  height: var(--fv-space-5);
   background-image: linear-gradient(
     180deg,
     var(--festival-color) 0%,
@@ -291,7 +291,7 @@
     transparent 100%
   ); // flat fallback
 
-  background-size: 2px 6px;
+  background-size: 2px var(--fv-space-5);
   background-repeat: repeat-y;
   transform: translateX(-50%);
 }
@@ -299,9 +299,9 @@
 .festival-calendar__card {
   position: relative;
   display: grid;
-  grid-template-columns: 4.25rem 1fr;
+  grid-template-columns: 3.75rem 1fr;
   gap: var(--fv-space-2);
-  padding: var(--fv-space-3);
+  padding: var(--fv-space-2);
   border-radius: var(--fv-radius-lg);
   background: rgba(17, 17, 29, 0.94); // @compat
   background: color-mix(in srgb, var(--fv-bg-elevated) 94%, transparent);
@@ -328,7 +328,7 @@
   display: grid;
   align-content: center;
   gap: var(--fv-space-1);
-  min-height: 5rem;
+  min-height: 4.25rem;
   padding: var(--fv-space-2);
   border-radius: var(--fv-radius-md);
   background: rgba(244, 244, 250, 0.08); // @compat
@@ -357,7 +357,7 @@
 
 .festival-calendar__card-media {
   grid-column: 2;
-  height: 5rem;
+  height: 4.25rem;
   border-radius: var(--fv-radius-md);
   background: var(--fv-bg-surface);
   overflow: hidden;
@@ -366,7 +366,7 @@
 .festival-calendar__card-image {
   display: block;
   width: 100%;
-  height: 5rem;
+  height: 4.25rem;
   object-fit: contain;
   padding: var(--fv-space-1);
 }

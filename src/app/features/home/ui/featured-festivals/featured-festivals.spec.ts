@@ -29,4 +29,30 @@ describe('FeaturedFestivalsComponent', () => {
 
     expect(names).toHaveLength(component.festivals.length);
   });
+
+  it('does not pause the carousel when the pointer enters or leaves the viewport', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const viewport = root.querySelector('[data-testid="featured-festivals-viewport"]');
+
+    viewport?.dispatchEvent(new Event('mouseenter'));
+    fixture.detectChanges();
+    expect(component.isPaused()).toBe(false);
+
+    viewport?.dispatchEvent(new Event('mouseleave'));
+    fixture.detectChanges();
+    expect(component.isPaused()).toBe(false);
+  });
+
+  it('pauses only while the viewport has keyboard focus', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const viewport = root.querySelector('[data-testid="featured-festivals-viewport"]');
+
+    viewport?.dispatchEvent(new Event('focusin'));
+    fixture.detectChanges();
+    expect(component.isPaused()).toBe(true);
+
+    viewport?.dispatchEvent(new Event('focusout'));
+    fixture.detectChanges();
+    expect(component.isPaused()).toBe(false);
+  });
 });

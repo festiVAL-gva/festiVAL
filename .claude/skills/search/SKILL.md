@@ -1,9 +1,10 @@
 ---
 name: search
 description: >-
+  ROADMAP SPEC — the search feature is not implemented yet (MiniSearch is not installed).
   Client-side fuzzy search over the festival catalogue with MiniSearch: field boosts on nombre and
   cabezasDeCartel, diacritic-stripping for Spanish. Use when building or tuning search and
-  autocomplete.
+  autocomplete; treat this as the design contract for that future work.
 ---
 
 # 🔎 Search

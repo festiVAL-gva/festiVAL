@@ -15,8 +15,7 @@ Before acting on any task in your domain, read the following skills:
 | Skill | When to consult |
 | ----- | --------------- |
 | [[design-responsive-validation]] | **Every UI task** — mandatory responsive checks (320 px → desktop) and Design & Responsive Validation Report at completion |
-| [[light-dark-mode]] | **Every new UI surface** — mandatory light/dark/system adaptation via themeable tokens; no per-component theme overrides |
-| [[theming-styling]] | Before touching any token, color, spacing, shadow, or motion value — the `--fv-*` namespace is the contract |
+| [[theming-styling]] | Before touching any token, color, spacing, shadow, or motion value — the `--fv-*` namespace is the contract. Its `references/theme-adaptation.md` is **mandatory for every new UI surface**: light/dark/system adaptation via themeable tokens, no per-component theme overrides |
 | [[ui-components]] | Before creating or modifying any component — check if it already exists; follow the catalogue conventions |
 | [[project-structure]] | Before placing any component file — co-location rules, naming, folder hierarchy |
 | [[accessibility]] | Before shipping any component — contrast, visible focus, semantic HTML, keyboard navigation |
@@ -32,7 +31,7 @@ festiVAL's UI is a **premium, dark, modern product surface** in the spirit of hi
 Core attributes:
 
 - **Deep, near-black backgrounds** with a faint navy bias. The canvas is the negative space; content floats on it.
-- **Violet / blue gradient identity**, with sparing neon-green accents reserved for live/active states.
+- **Mediterranean blue accent identity**, with sparing green accents reserved for live/active states.
 - **Glassmorphism with discipline**: translucent panels, hairline borders, gentle backdrop blur. Used to layer information, not for decoration.
 - **Generous spacing** and a clear visual hierarchy. Large bold display typography paired with quiet, well-tracked labels.
 - **Soft, low-spread shadows** and subtle inner highlights. Never harsh drop shadows.
@@ -63,10 +62,10 @@ If you find yourself adding any of the above, stop and reconsider.
 1. **Design tokens** — own SCSS token layers in `src/styles/`. Every color, spacing, radius, shadow, motion curve, and type ramp lives here. See the [[theming-styling]] skill.
 2. **Presentational components** — build the standalone component library following the [[ui-components]] skill. Shared primitives in `@shared/ui/` (`Button`, `Badge`, `FestivalCard`, `SearchBar`, `EmptyState`, `SkeletonLoader`); feature-local components in `features/<feature>/ui/` (`FestivalHero`, `LineupGrid` in `festival-detail/ui/`; `FilterChip` in `festival-list/ui/`); shell chrome (`NavBar`, `Footer`) in `layout/`.
 3. **Page composition** — assemble smart pages in `features/<feature>/feature/` that orchestrate components with stores from `data-access/` (owned with **Sistemas**).
-4. **Theming** — light and dark are both first-class. Default preference is `system` (`prefers-color-scheme`). Chrome surfaces flip via semantic tokens in `_semantic.scss`; cinematic/hero blocks stay on the dark canvas. See [[light-dark-mode]].
+4. **Theming** — light and dark are both first-class. Default preference is `system` (`prefers-color-scheme`). Chrome surfaces flip via semantic tokens in `_semantic.scss`; cinematic/hero blocks stay on the dark canvas. See `references/theme-adaptation.md` in [[theming-styling]].
 5. **Responsive** — mobile-first, breakpoints `sm 640 / md 768 / lg 1024 / xl 1280`. Every component must read from 360 px upward.
 6. **Motion** — purposeful, performance-budgeted. Hover lifts cards by 2 px and brightens their border by 1 step. Page transitions fade-and-rise 8 px over 240 ms. Respect `prefers-reduced-motion`.
-7. **Accessibility** — semantic HTML, visible focus rings (violet glow, 2 px), ≥ 4.5:1 contrast for body, ≥ 3:1 for large text. Keyboard navigable. ARIA only when semantic HTML falls short.
+7. **Accessibility** — semantic HTML, visible focus rings (blue glow, 2 px), ≥ 4.5:1 contrast for body, ≥ 3:1 for large text. Keyboard navigable. ARIA only when semantic HTML falls short.
 8. **State coverage** — every list and detail surface ships with empty, loading, and error states designed.
 
 ## Token vocabulary (summary)
@@ -78,8 +77,8 @@ All tokens are exposed under the `--fv-*` namespace.
 - **Backgrounds**: `--fv-bg-canvas` (deepest), `--fv-bg-surface`, `--fv-bg-elevated`, `--fv-bg-overlay` (translucent glass).
 - **Borders**: `--fv-border-subtle` (hairline), `--fv-border-default`, `--fv-border-strong`.
 - **Text**: `--fv-text-primary`, `--fv-text-secondary`, `--fv-text-muted`, `--fv-text-inverse`.
-- **Accents**: `--fv-accent-violet`, `--fv-accent-blue`, `--fv-accent-green` (live/success only).
-- **Gradients**: `--fv-gradient-brand` (violet → blue), `--fv-gradient-hero-glow` (radial atmospheric).
+- **Accents**: `--fv-accent-blue`, `--fv-accent-green` (live/success only), `--fv-accent-violet` (brand-gradient stop only — never a standalone accent).
+- **Gradients**: `--fv-gradient-brand` (Mediterranean + primary blue), `--fv-gradient-hero-glow` (radial atmospheric).
 - **Shadows**: `--fv-shadow-card`, `--fv-shadow-elevated`, `--fv-shadow-focus`.
 - **Radii**: `--fv-radius-sm 8`, `--fv-radius-md 12`, `--fv-radius-lg 16`, `--fv-radius-xl 24`, `--fv-radius-pill 999`.
 - **Spacing scale**: 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128 (px), exposed as `--fv-space-1…10`.
@@ -109,7 +108,7 @@ All tokens are exposed under the `--fv-*` namespace.
 Before reporting a UI task complete:
 
 1. The component renders correctly at 360 px, 768 px, and 1280 px viewports.
-2. Keyboard navigation works end-to-end; focus is always visible with the violet ring.
+2. Keyboard navigation works end-to-end; focus is always visible with the blue ring.
 3. Color contrast meets WCAG 2.1 AA against the dark canvas.
 4. No hardcoded strings, colors, or spacing values.
 5. Empty, loading, and error states are designed and implemented.

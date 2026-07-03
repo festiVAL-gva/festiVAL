@@ -1,13 +1,7 @@
----
-name: light-dark-mode
-description: >-
-  Ensures every new UI surface, component, page, SCSS rule, image or third-party embed
-  adapts correctly to festiVAL's light, dark and system themes. Use when creating or
-  modifying any visual element, layout chrome, card, form, modal, map overlay, or asset
-  that must remain readable and on-brand in both modes.
----
 
-# Light / Dark Mode Adaptation
+# Theme Adaptation (light / dark / system)
+
+Reference of the [theming-styling skill](../SKILL.md). Formerly the standalone `light-dark-mode` skill; merged here because the semantic-token system IS the theming mechanism.
 
 Mandatory gate for **any new visual work** in festiVAL. The app ships with three theme
 states (`light | dark | system`, default `system`). Every surface you add must look
@@ -209,7 +203,6 @@ Include a **Theme Adaptation** subsection in the Design & Responsive Validation 
 
 ## Related skills
 
-- [[theming-styling]] — token namespace, file layout, hard rules
 - [[ui-components]] — component conventions and token consumption
 - [[accessibility]] — contrast requirements per theme
 - [[liquid-glass]] — translucent surfaces that must work over both canvases

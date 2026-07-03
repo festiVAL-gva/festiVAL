@@ -2,8 +2,10 @@
 name: theming-styling
 description: >-
   SCSS architecture and the design-token system: primitive and semantic tokens in the --fv-*
-  namespace, the premium dark surface identity, and the no-hardcoded-values rule. Use for any
-  SCSS, token, colour, spacing, typography or theming change.
+  namespace, the premium dark surface identity, and the no-hardcoded-values rule. MANDATORY
+  when creating any new UI — every surface must adapt to the light / dark / system themes via
+  semantic tokens (see references/theme-adaptation.md). Use for any SCSS, token, colour,
+  spacing, typography or theming change.
 ---
 
 # 🎨 Theming & Styling
@@ -114,6 +116,15 @@ The complete primitive palette, semantic `--fv-*` tokens, spacing / radii / typo
 
 ---
 
+## Theme adaptation (light / dark / system) — MANDATORY for new UI
+
+Every new surface must look intentional in both resolved themes. The full gate — token
+categories (themeable chrome vs theme-independent dark canvas vs shared accents), the
+decision tree for new surfaces, the Theme Adaptation Checklist, hard rules, and worked
+examples.
+
+➡️ Lives in [`references/theme-adaptation.md`](references/theme-adaptation.md) (formerly the standalone `light-dark-mode` skill).
+
 ## Theme switching
 
 States: `light | dark | system` (default `system`). The `ThemeService`
@@ -127,7 +138,6 @@ toggle (`nav-bar`) switches light↔dark with a sun/moon icon, `aria-pressed` an
 
 ## Related skills
 
-- [[light-dark-mode]] — mandatory gate when creating new UI that must work in both themes
 - [[ui-components]]
 - [[design-responsive-validation]]
 - [[accessibility]]

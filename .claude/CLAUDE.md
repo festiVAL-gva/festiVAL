@@ -123,19 +123,18 @@ The project defines reusable skills in `.claude/skills/` that document patterns 
 - **`sanity-cms`** — Festival catalogue from Sanity (headless CMS) via `@sanity/client`: GROQ queries, read-only client in `data-access`, Zod validation at the boundary.
 - **`routing-navigation`** — Spanish URL schema (`/festivales/:slug`), lazy loading, resolvers, functional guards.
 - **`ui-components`** — Catalogue of reusable components (`FestivalCard`, `FestivalHero`, `LineupGrid`, `FilterChip`…).
-- **`forms-validation`** — Typed Reactive Forms, custom validators (DNI, date/price ranges), errors via i18n.
+- **`forms-validation`** — **Roadmap spec** (no forms built yet). Typed Reactive Forms, custom validators (DNI, date/price ranges), errors via i18n.
 - **`internationalization`** — `es-ES` by default, dotted keys, ICU MessageFormat, `ca` and `en` locales on the roadmap.
 - **`performance-optimization`** — OnPush, `@defer`, `NgOptimizedImage`, budgets, SSR.
 - **`testing-patterns`** — Testing layers, HTTP mocking, `data-testid`, coverage.
 - **`accessibility`** — WCAG 2.1 AA, contrast, visible focus, minimal ARIA, keyboard navigation.
 - **`asset-organization`** — **MANDATORY when touching images or image folders.** Folder structure, naming rules, duplicate cleanup, and audit expectations for repository assets.
-- **`theming-styling`** — Primitive and semantic tokens (`--fv-*` namespace), premium Mediterranean light surfaces with a deep-navy dark theme. **Theming is active**: `light / dark / system` via `data-theme` on `<html>` + `prefers-color-scheme`, owned by the `ThemeService` (`@core/platform/`).
-- **`light-dark-mode`** 🌓 — **MANDATORY when creating any new UI.** Ensures components, pages, SCSS and assets adapt to light, dark and system themes via semantic tokens — never hardcoded per-theme colors in components.
+- **`theming-styling`** 🌓 — **MANDATORY when creating any new UI.** Primitive and semantic tokens (`--fv-*` namespace), premium Mediterranean light surfaces with a deep-navy dark theme. **Theming is active**: `light / dark / system` via `data-theme` on `<html>` + `prefers-color-scheme`, owned by the `ThemeService` (`@core/platform/`). Its `references/theme-adaptation.md` (formerly the `light-dark-mode` skill) is the mandatory gate ensuring every new surface adapts to both themes via semantic tokens — never hardcoded per-theme colors in components.
 - **`liquid-glass`** — Premium Liquid Glass visual system: semi-transparent surfaces with soft blur, layered depth, edge glow, and atmospheric effects. Use when implementing glassmorphic components, overlays, or translucent surfaces requiring premium appearance.
 - **`cross-device-compat`** — Cross-browser and cross-device compatibility layer: browser targets (`.browserslistrc`), `-webkit-backdrop-filter` rule, `color-mix()` fallback strategy with the `@compat` marker, hover guards for touch, `prefers-reduced-motion`, touch targets. Consulted automatically by the autocommit gate (B.10–B.11). Use whenever touching SCSS that uses `backdrop-filter`, `color-mix()`, animations, or hover effects.
 - **`seo-meta`** — Title/description per route, JSON-LD `Event`, canonicals, sitemap, Open Graph.
 - **`error-handling`** — Normalized `FestivalError`, `HttpInterceptor` + global `ErrorHandler`, user-facing messages via i18n.
-- **`search`** — Client-side fuzzy search with MiniSearch, field boosts, diacritic-stripping for Spanish.
+- **`search`** — **Roadmap spec** (MiniSearch not installed yet). Client-side fuzzy search with MiniSearch, field boosts, diacritic-stripping for Spanish.
 - **`maps`** — MapLibre GL JS + Protomaps tiles, lazy-loaded, SSR-safe, accessible with text equivalents.
 - **`design-responsive-validation`** 🎨 — **MANDATORY for every UI task.** Bans generic AI-looking layouts, requires a distinctive festiVAL identity, enforces responsive checks across desktop / laptop / tablet / mobile (320 px floor), and demands a Design & Responsive Validation Report at task completion.
 - **`i18n-commit-policy`** 🌍 — **MANDATORY at commit time.** During normal development only `es.json` is edited; at commit / finalization the matching keys are propagated to every supported locale (`ca`, `en`), JSON parity is verified with `npm run i18n:check`, and an i18n Commit Translation Report is emitted before `git commit` runs.

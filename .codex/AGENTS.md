@@ -52,13 +52,14 @@ Explicitly **out of scope**: Nx/Turborepo, Tailwind, Material/PrimeNG, Algolia/T
 
 ## Agent workspace routing
 
-When working as Codex, use the `.codex/` folder as the source of truth for agents, skills, and commands.
 When working as Claude Code, use the `.claude/` folder as the source of truth for agents, skills, and commands.
+When working as Codex, use the `.codex/` folder as the source of truth for agents, skills, and commands.
 
 ## Slash commands
 
-When the user writes `/autocommit`, load and follow `/Users/rares/Desktop/festiVAL/.codex/commands/autocommit.md`.
-When the user writes `/merge-develop-into-branches`, load and follow `/Users/rares/Desktop/festiVAL/.codex/commands/merge-develop-into-branches.md`.
+When the user writes `/audit-structure`, load and follow `.codex/commands/audit-structure.md`.
+When the user writes `/autocommit`, load and follow `.codex/commands/autocommit.md`.
+When the user writes `/merge-develop-into-branches`, load and follow `.codex/commands/merge-develop-into-branches.md`.
 Treat slash commands as workflow instructions for the current turn, not as plain text to acknowledge.
 
 ## Pre-commit gate (MANDATORY)
@@ -96,7 +97,7 @@ Before making any modification, agents **must** review the applicable project `.
 
 - Always read `AGENTS.md` for the project contract.
 - Read `docs/documentacion.md` before structural changes.
-- Read the relevant `.Codex/agents/*.md` and `.Codex/skills/*/SKILL.md` files for the touched area.
+- Read the relevant `.codex/agents/*.toml` and `.codex/skills/*/SKILL.md` files for the touched area.
 
 If no specific agent or skill applies, still review `AGENTS.md` and any nearby `.md` that documents the files being changed.
 
@@ -105,11 +106,11 @@ If no specific agent or skill applies, still review `AGENTS.md` and any nearby `
 - Environment configuration lives in `src/environments/` (`environment.ts`, `environment.prod.ts`). **That** is where base URLs, feature flags, and endpoints belong — never hardcode them in services.
 - The default locale is registered in `src/app/app.config.ts` with `registerLocaleData(localeEs)` and `LOCALE_ID: 'es-ES'`.
 - Translations live in `src/assets/i18n/*.json`. `es.json` is the source of truth and every additional locale file must stay in key parity with it (see the **contenido** agent).
-- Bundle budgets are defined in `angular.json` under `budgets`. Initial < 250 KB gzipped, lazy chunks < 80 KB.
+- Bundle budgets are defined in `angular.json` under `budgets` (raw, not gzipped): initial ≤ 480 KB warning / 520 KB error, lazy chunks ≤ 80 KB warning / 120 KB error, component styles ≤ 8 KB warning / 12 KB error. `angular.json` is the source of truth for these figures.
 
 ## Agents
 
-To keep the architecture scalable and responsibilities clear, the project defines five specialized agents in `.Codex/agents/`:
+To keep the architecture scalable and responsibilities clear, the project defines five specialized agents in `.codex/agents/`:
 
 - **`prueba`** 🧪 — Unit, component, and E2E tests (Vitest, Angular Testing Library, Playwright), `axe-core` for a11y, pre-merge validation. Consult it whenever services, components, pipes, guards, or critical flows are touched.
 - **`sistemas`** 🏗️ — Architecture, service layer, state management (Signals / NgRx SignalStore), routing, HTTP interceptors, SSR, environments, DTO contracts. Consult it when a change crosses a component boundary or touches data flow.
@@ -121,7 +122,7 @@ Each agent explicitly declares who it collaborates with to avoid overlapping res
 
 ## Skills
 
-The project defines reusable skills in `.Codex/skills/` that document patterns specific to this application. It is **imperative** to consult the matching skill before touching the area it covers:
+The project defines reusable skills in `.codex/skills/` that document patterns specific to this application. It is **imperative** to consult the matching skill before touching the area it covers:
 
 - **`project-structure`** 🗂️ — **MANDATORY.** Canonical folder layout, naming rules, placement decision tree, path aliases. Consult **before** creating, moving, or renaming any file. The structure is a contract that must remain stable.
 - **`state-management`** — Signal patterns, NgRx SignalStore, persistence of filters and favourites.
@@ -129,19 +130,18 @@ The project defines reusable skills in `.Codex/skills/` that document patterns s
 - **`sanity-cms`** — Festival catalogue from Sanity (headless CMS) via `@sanity/client`: GROQ queries, read-only client in `data-access`, Zod validation at the boundary.
 - **`routing-navigation`** — Spanish URL schema (`/festivales/:slug`), lazy loading, resolvers, functional guards.
 - **`ui-components`** — Catalogue of reusable components (`FestivalCard`, `FestivalHero`, `LineupGrid`, `FilterChip`…).
-- **`forms-validation`** — Typed Reactive Forms, custom validators (DNI, date/price ranges), errors via i18n.
+- **`forms-validation`** — **Roadmap spec** (no forms built yet). Typed Reactive Forms, custom validators (DNI, date/price ranges), errors via i18n.
 - **`internationalization`** — `es-ES` by default, dotted keys, ICU MessageFormat, `ca` and `en` locales on the roadmap.
 - **`performance-optimization`** — OnPush, `@defer`, `NgOptimizedImage`, budgets, SSR.
 - **`testing-patterns`** — Testing layers, HTTP mocking, `data-testid`, coverage.
 - **`accessibility`** — WCAG 2.1 AA, contrast, visible focus, minimal ARIA, keyboard navigation.
 - **`asset-organization`** — **MANDATORY when touching images or image folders.** Folder structure, naming rules, duplicate cleanup, and audit expectations for repository assets.
-- **`theming-styling`** — Primitive and semantic tokens (`--fv-*` namespace), premium Mediterranean light surfaces with a deep-navy dark theme. **Theming is active**: `light / dark / system` via `data-theme` on `<html>` + `prefers-color-scheme`, owned by the `ThemeService` (`@core/platform/`).
-- **`light-dark-mode`** 🌓 — **MANDATORY when creating any new UI.** Ensures components, pages, SCSS and assets adapt to light, dark and system themes via semantic tokens — never hardcoded per-theme colors in components.
+- **`theming-styling`** 🌓 — **MANDATORY when creating any new UI.** Primitive and semantic tokens (`--fv-*` namespace), premium Mediterranean light surfaces with a deep-navy dark theme. **Theming is active**: `light / dark / system` via `data-theme` on `<html>` + `prefers-color-scheme`, owned by the `ThemeService` (`@core/platform/`). Its `references/theme-adaptation.md` (formerly the `light-dark-mode` skill) is the mandatory gate ensuring every new surface adapts to both themes via semantic tokens — never hardcoded per-theme colors in components.
 - **`liquid-glass`** — Premium Liquid Glass visual system: semi-transparent surfaces with soft blur, layered depth, edge glow, and atmospheric effects. Use when implementing glassmorphic components, overlays, or translucent surfaces requiring premium appearance.
 - **`cross-device-compat`** — Cross-browser and cross-device compatibility layer: browser targets (`.browserslistrc`), `-webkit-backdrop-filter` rule, `color-mix()` fallback strategy with the `@compat` marker, hover guards for touch, `prefers-reduced-motion`, touch targets. Consulted automatically by the autocommit gate (B.10–B.11). Use whenever touching SCSS that uses `backdrop-filter`, `color-mix()`, animations, or hover effects.
 - **`seo-meta`** — Title/description per route, JSON-LD `Event`, canonicals, sitemap, Open Graph.
 - **`error-handling`** — Normalized `FestivalError`, `HttpInterceptor` + global `ErrorHandler`, user-facing messages via i18n.
-- **`search`** — Client-side fuzzy search with MiniSearch, field boosts, diacritic-stripping for Spanish.
+- **`search`** — **Roadmap spec** (MiniSearch not installed yet). Client-side fuzzy search with MiniSearch, field boosts, diacritic-stripping for Spanish.
 - **`maps`** — MapLibre GL JS + Protomaps tiles, lazy-loaded, SSR-safe, accessible with text equivalents.
 - **`design-responsive-validation`** 🎨 — **MANDATORY for every UI task.** Bans generic AI-looking layouts, requires a distinctive festiVAL identity, enforces responsive checks across desktop / laptop / tablet / mobile (320 px floor), and demands a Design & Responsive Validation Report at task completion.
 - **`i18n-commit-policy`** 🌍 — **MANDATORY at commit time.** During normal development only `es.json` is edited; at commit / finalization the matching keys are propagated to every supported locale (`ca`, `en`), JSON parity is verified with `npm run i18n:check`, and an i18n Commit Translation Report is emitted before `git commit` runs.
@@ -211,8 +211,10 @@ Slugs are **immutable once published** — breaking them breaks SEO. Any renamin
 | `/festivales`               | Listing + filters (province, month, genre)      |
 | `/festivales/:slug`         | Festival detail                                 |
 | `/festivales/:slug/cartel`  | Full line-up                                    |
+| `/calendario`               | Calendar timeline by day                        |
 | `/artistas/:slug`           | Artist profile                                  |
 | `/provincia/:provincia`     | Listing filtered by province                    |
+| `/mapa`                     | Interactive festival map (MapLibre)             |
 | `/sobre-nosotros`           | Static page                                     |
 
 URL paths remain in Spanish on purpose — they are user-facing, shareable, and SEO-relevant for Spanish queries.

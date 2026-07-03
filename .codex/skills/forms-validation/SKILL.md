@@ -1,9 +1,10 @@
 ---
 name: forms-validation
 description: >-
-  Typed Reactive Forms for search, filtering and future auth flows: custom validators (DNI, date
-  and price ranges) with error messages routed through i18n. Use when building or validating any
-  form or input control.
+  ROADMAP SPEC — no forms exist in the app yet. Typed Reactive Forms for search, filtering and
+  future auth flows: custom validators (DNI, date and price ranges) with error messages routed
+  through i18n. Use when building or validating any form or input control; treat this as the
+  design contract for that future work.
 ---
 
 # 📝 Forms & Validation

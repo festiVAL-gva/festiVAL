@@ -2,8 +2,10 @@
 name: theming-styling
 description: >-
   SCSS architecture and the design-token system: primitive and semantic tokens in the --fv-*
-  namespace, the premium dark surface identity, and the no-hardcoded-values rule. Use for any
-  SCSS, token, colour, spacing, typography or theming change.
+  namespace, the premium dark surface identity, and the no-hardcoded-values rule. MANDATORY
+  when creating any new UI — every surface must adapt to the light / dark / system themes via
+  semantic tokens (see references/theme-adaptation.md). Use for any SCSS, token, colour,
+  spacing, typography or theming change.
 ---
 
 # 🎨 Theming & Styling
@@ -12,7 +14,7 @@ SCSS architecture and design tokens for **festiVAL**.
 
 ## Purpose
 
-Provide a single source of truth for colors, spacing, typography, radii, shadows, and motion. The visual identity is a **premium dark product surface** — deep navy/black canvas, violet/blue gradient identity, restrained glassmorphism, generous spacing, and intentional micro-interactions.
+Provide a single source of truth for colors, spacing, typography, radii, shadows, and motion. The visual identity is a **premium dark product surface** — deep navy/black canvas, Mediterranean blue accent identity, restrained glassmorphism, generous spacing, and intentional micro-interactions.
 
 This skill defines the **what** (token values) and the **how** (where they live, how they are consumed). Components never inline literal values.
 
@@ -95,11 +97,11 @@ The complete primitive palette, semantic `--fv-*` tokens, spacing / radii / typo
 
 ## Hard rules
 
-1. Components **never** reference primitive `$fv-gray-*` / `$fv-violet-*` SCSS variables. Always semantic `--fv-*` CSS variables.
+1. Components **never** reference primitive SCSS variables directly. Always semantic `--fv-*` CSS variables.
 2. Components **never** hardcode colors, radii, spacings, durations, or font families.
 3. `--fv-accent-green` is reserved for live/success states. Never decorative.
 4. Glass surfaces require depth behind them. Never apply `glass()` to a full-screen background.
-5. No more than **two accent hues** per view (violet + blue is the default pair).
+5. No more than **two accent hues** per view (blue + warning/coral is the default pair).
 6. No heavy drop shadows (`rgba(0,0,0,0.5)` with 30 px blur). Shadows are atmospheric.
 7. **Theming is active (light + dark + system).** The base `:root` is the LIGHT theme
    (the current Mediterranean light surfaces — keep it pixel-identical). Dark mode flips
@@ -114,6 +116,15 @@ The complete primitive palette, semantic `--fv-*` tokens, spacing / radii / typo
 
 ---
 
+## Theme adaptation (light / dark / system) — MANDATORY for new UI
+
+Every new surface must look intentional in both resolved themes. The full gate — token
+categories (themeable chrome vs theme-independent dark canvas vs shared accents), the
+decision tree for new surfaces, the Theme Adaptation Checklist, hard rules, and worked
+examples.
+
+➡️ Lives in [`references/theme-adaptation.md`](references/theme-adaptation.md) (formerly the standalone `light-dark-mode` skill).
+
 ## Theme switching
 
 States: `light | dark | system` (default `system`). The `ThemeService`
@@ -127,7 +138,6 @@ toggle (`nav-bar`) switches light↔dark with a sun/moon icon, `aria-pressed` an
 
 ## Related skills
 
-- [[light-dark-mode]] — mandatory gate when creating new UI that must work in both themes
 - [[ui-components]]
 - [[design-responsive-validation]]
 - [[accessibility]]

@@ -43,6 +43,8 @@ festiVAL/
 
 Contiene la configuración específica de Codex para agentes, skills y comandos del proyecto.
 
+**Carpeta generada**: `.codex/` se regenera desde `.claude/` (fuente única de verdad) con `npm run sync:codex` (`scripts/sync-codex.mjs`). No se edita a mano, salvo los ficheros listados como *codex-only* en el script (actualmente `commands/merge-develop-into-branches.md`).
+
 ```
 .codex/
 ├── AGENTS.md               → Contrato del proyecto para Codex
@@ -80,8 +82,7 @@ Contiene la configuración de agentes especializados, skills reutilizables y wor
 │   └── vistas.md            → Agente de UI: componentes, design system, theming, responsive, accesibilidad
 ├── commands/                → Comandos de workflow y automatización
 │   ├── audit-structure.md    → Auditoría automatizada de arquitectura: valida estructura, tokens, skills
-│   ├── autocommit.md        → Workflow de commits semánticos (Conventional Commits); detecta issue key desde la rama
-│   └── merge-develop-into-branches.md → Fusión directa de develop en ramas remotas (variante simple)
+│   └── autocommit.md        → Workflow de commits semánticos (Conventional Commits); detecta issue key desde la rama
 └── skills/                  → Skills reutilizables (formato Agent Skill: SKILL.md con frontmatter name/description)
     ├── <skill>/SKILL.md                 → Cada skill tiene su SKILL.md con frontmatter (name, description) y cuerpo
     ├── <skill>/references/              → (opcional) Material de referencia pesado extraído del SKILL.md
@@ -91,12 +92,12 @@ Contiene la configuración de agentes especializados, skills reutilizables y wor
     ├── asset-organization/SKILL.md      → Reglas obligatorias para carpetas, nombres y limpieza de assets visuales
     ├── design-responsive-validation/SKILL.md → Identidad visual no genérica + validación responsive obligatoria
     ├── error-handling/SKILL.md          → FestivalError normalizado, Sentry, mensajes i18n al usuario
-    ├── forms-validation/SKILL.md        → Reactive Forms tipados, validadores custom, errores inline
+    ├── forms-validation/SKILL.md        → [SPEC de roadmap] Reactive Forms tipados, validadores custom, errores inline (aún no hay formularios)
     ├── i18n-commit-policy/SKILL.md      → Política de traducción en commits: sólo es.json en desarrollo, propagación a ca/en al cerrar
     ├── internationalization/SKILL.md    → Transloco, date-fns, locales es/ca/en, ICU MessageFormat
-    ├── light-dark-mode/SKILL.md         → Adaptación obligatoria de UI nueva a temas claro/oscuro/sistema
     ├── liquid-glass/SKILL.md            → Sistema Liquid Glass premium: superficies semitransparentes con blur,
-    │                                      capas de profundidad, edge glow y accesibilidad
+    │   │                                  capas de profundidad, edge glow y accesibilidad
+    │   └── references/examples.md         → 5 ejemplos completos de implementación (card, mapa, filtros, hero, Angular) (extraído)
     ├── maps/SKILL.md                    → MapLibre GL JS + Protomaps, lazy-loading, estilo dark custom
     ├── performance-optimization/SKILL.md → OnPush, @defer, imágenes WebP, budgets, SSR
     │   └── references/image-converter.md  → Pipeline Sharp scripts/convert-images.mjs (extraído)
@@ -104,13 +105,14 @@ Contiene la configuración de agentes especializados, skills reutilizables y wor
     │   └── references/eslint-boundaries.md → Config completa de eslint-plugin-boundaries (extraído)
     ├── routing-navigation/SKILL.md      → Esquema de URLs en español, loadChildren/loadComponent, resolvers
     ├── sanity-cms/SKILL.md              → Catálogo desde Sanity (CMS) vía @sanity/client: GROQ, cliente en data-access, Zod en frontera
-    ├── search/SKILL.md                  → MiniSearch: búsqueda fuzzy client-side con boost por campo
+    ├── search/SKILL.md                  → [SPEC de roadmap] MiniSearch: búsqueda fuzzy client-side con boost por campo (MiniSearch sin instalar)
     ├── seo-meta/SKILL.md                → Title/description por ruta, JSON-LD Event, OG, sitemap, canonicals
     ├── state-management/SKILL.md        → Signals, NgRx SignalStore, persistencia localStorage/idb-keyval
     ├── testing-patterns/SKILL.md        → Vitest, Playwright, pre-commit gate, data-testid, cobertura
     │   └── references/examples.md         → Ejemplos de test (Vitest, ATL, Zod) extraídos
-    ├── theming-styling/SKILL.md         → Tokens SCSS, paleta dark premium, glassmorphism, motion
-    │   └── references/tokens.md           → Catálogo completo de tokens primitivos/semánticos y escalas (extraído)
+    ├── theming-styling/SKILL.md         → Tokens SCSS, paleta dark premium, glassmorphism, motion; gate obligatorio de temas para UI nueva
+    │   ├── references/tokens.md           → Catálogo completo de tokens primitivos/semánticos y escalas (extraído)
+    │   └── references/theme-adaptation.md → Gate de adaptación claro/oscuro/sistema (antigua skill light-dark-mode, fusionada aquí)
     └── ui-components/SKILL.md           → Catálogo de componentes, variantes, interacciones, estados
 ```
 
@@ -157,6 +159,10 @@ scripts/
 ├── convert-images.mjs                 → Conversor Sharp: recorre `src/assets/images-src/` recursivamente y genera
 │                                        WebP en `src/assets/images/` (presets hero/og/default; soporte JXL vía djxl).
 │                                        Uso: npm run images:convert
+├── sync-codex.mjs                     → Regenera `.codex/` desde `.claude/` (fuente única): espejo de skills/ y
+│                                        commands/ (con lista codex-only), agents/*.md → *.toml y AGENTS.md desde
+│                                        CLAUDE.md. Acepta --check (exit 1 si había deriva).
+│                                        Uso: npm run sync:codex | npm run sync:codex:check
 ├── merge-develop-into-branches.sh     → Variante simple: fusiona develop en cada rama remota (excepto main/develop/HEAD),
 │                                        empuja a origin y termina en develop. Para en el primer conflicto (`set -e`).
 │                                        Uso: npm run branches:merge-develop-into-all
@@ -748,6 +754,7 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 
 | Fecha      | Cambio                                                  | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ---------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-03 | Reordenación `.claude/` + sincronización automática de `.codex/` | **Skills**: la skill `light-dark-mode` se fusiona en `theming-styling` como `references/theme-adaptation.md` (mismo contenido; la description de `theming-styling` hereda el mandato "MANDATORY when creating any new UI"); los 5 ejemplos de implementación de `liquid-glass/SKILL.md` (~430 líneas) se extraen a `liquid-glass/references/examples.md`; `search` y `forms-validation` marcadas como **SPEC de roadmap** en su frontmatter (MiniSearch sin instalar, sin formularios en la app). **Agente `vistas`**: alineado con la identidad Mediterranean blue real (retiradas las menciones a identidad violeta; `--fv-accent-violet` documentado como parada de gradiente, no acento). `CLAUDE.md` actualizado (lista de skills). **Sync**: creado `scripts/sync-codex.mjs` (`npm run sync:codex` / `sync:codex:check`) que regenera `.codex/` desde `.claude/`: espejo de `skills/` y `commands/` (con lista codex-only: `merge-develop-into-branches.md`), conversión `agents/*.md` → `*.toml` y `AGENTS.md` generado desde `CLAUDE.md`. Primera ejecución aplicada: resuelta la deriva previa de `.codex` (identidad violeta obsoleta en `theming-styling`/`tokens.md`, regla de genre-chips ausente en `ui-components`, budgets desactualizados en `AGENTS.md`). |
 | 2026-06-29 | Selector de idioma en nav-bar                           | Añadido selector de idioma con banderas (ES/CA/EN) en `nav-bar.{ts,html,scss}`, posicionado antes del icono de búsqueda. Assets `src/assets/images/flags/flag-{es,ca,en}.webp` convertidos desde ICO a WebP 48 px. Dropdown glass con `backdrop-filter`, soporte light/dark, `aria-haspopup="menu"`, `aria-expanded`, `aria-current` y cierre por Escape/click externo. Usa `TranslocoService.setActiveLang()` y el signal `TranslationService.activeLang` existente (sin estado duplicado). Claves i18n `nav.language.*` añadidas a `es.json`, `ca.json` y `en.json`. Spec actualizada con `provideTransloco` y tests para apertura, opciones y orden DOM. |
 | 2026-06-29 | Auditoría `/audit-structure`: correcciones              | Eliminada la feature huérfana `src/app/features/festivales-map/` (existía en disco sin ruta en `app.routes.ts`). `home.page.html`: secciones below-fold envueltas en `@defer (on viewport)` con `@placeholder`, placeholder CSS en `home.page.scss`. Hero `alt=""` sustituido por binding i18n `[alt]="'home.hero.imageAlt' \| t"`. Clave `home.hero.imageAlt` añadida a `es.json`, `ca.json` y `en.json`. `home.page.spec.ts` migrado a `DeferBlockBehavior.Manual` + `DeferBlockState.Complete`. Creados specs faltantes: `festival-list.page.spec.ts` y `spotify-playlists.spec.ts`. Budgets actualizados a 480/520 kB en `CLAUDE.md` y esta documentación para reflejar `angular.json`. Ruta `/calendario` añadida al esquema de URLs de `CLAUDE.md`. |
 | 2026-06-29 | Simplificación de comandos Claude y Codex               | `.claude/commands/autocommit.md` y `.codex/commands/autocommit.md` simplificados: detección de issue key desde la rama, sin gates embebidos ni pregunta interactiva por nº de issue. Eliminados `{merge-to-develop,new-branch,update-branches-from-develop}.md` en `.claude/commands/` y `.codex/commands/`. `AGENTS.md`, `README.md` y esta documentación actualizados. |

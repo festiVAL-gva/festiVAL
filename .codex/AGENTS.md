@@ -81,15 +81,15 @@ If either fails:
 
 The agent **prueba** owns this gate. Pure documentation changes (no files under `src/`) are the only exception.
 
-## Documentation rule (MANDATORY)
+## Documentation rule (STRUCTURAL CHANGES ONLY)
 
-Every commit that adds, removes, renames, or moves folders or files **must** update `docs/documentacion.md` in the same commit. This includes:
+When making significant structural changes (new features, major refactors, architectural shifts) that add or remove folders/files, update `docs/documentacion.md`:
 
-- Adding the new folder or file to the corresponding tree diagram.
-- Describing its purpose in Spanish.
-- Adding an entry to the "Historial de cambios estructurales" table at the bottom.
+- Add the new folder or file to the corresponding tree diagram.
+- Describe its purpose in Spanish.
+- Add an entry to the "Historial de cambios estructurales" table at the bottom.
 
-An outdated `docs/documentacion.md` is a bug. This rule applies to humans and Codex alike.
+Routine commits (bug fixes, small refactors, skill reorganization) do not require historial updates. **An outdated tree is worse than a delayed update.** Keep the tree current but not obsessively — semantic git history is the source of truth.
 
 ## Markdown review rule (MANDATORY)
 

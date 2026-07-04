@@ -45,4 +45,16 @@ describe('FestivalListPageComponent', () => {
     expect(firstCard).not.toBeNull();
     expect(firstCard?.getAttribute('href')).toBe('/festivales/bigsound');
   });
+
+  it('renders the Bigsound card with the poster dimensions', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const image = root.querySelector<HTMLImageElement>('[data-testid="festival-card-bigsound"] img');
+
+    expect(image).not.toBeNull();
+    expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
+      '/assets/images/festivals/bigsound/cartel-bigsound-valencia-2026.webp',
+    );
+    expect(image?.getAttribute('width')).toBe('550');
+    expect(image?.getAttribute('height')).toBe('688');
+  });
 });

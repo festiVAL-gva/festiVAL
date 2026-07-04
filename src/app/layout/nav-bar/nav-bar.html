@@ -75,7 +75,7 @@
         >
           <img
             class="nav-bar__language-flag"
-            [src]="currentLang().flag"
+            [ngSrc]="currentLang().flag"
             [alt]="currentLang().label"
             width="24"
             height="24"
@@ -96,7 +96,7 @@
               >
                 <img
                   class="nav-bar__language-option-flag"
-                  [src]="lang.flag"
+                  [ngSrc]="lang.flag"
                   [alt]="''"
                   aria-hidden="true"
                   width="20"

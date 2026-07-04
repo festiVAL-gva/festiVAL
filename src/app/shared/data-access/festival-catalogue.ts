@@ -2,6 +2,7 @@ import type { TranslationKey } from './i18n/translations';
 
 export interface FeaturedFestivalEntry {
   readonly slug: string;
+  readonly routeSlug: string;
   readonly dateKey: TranslationKey;
   readonly nameKey: TranslationKey;
   readonly locationKey: TranslationKey;
@@ -16,6 +17,7 @@ export interface FeaturedFestivalEntry {
 export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
   {
     slug: 'bigsound',
+    routeSlug: 'bigsound',
     dateKey: 'home.featured.cards.bigsound.date',
     nameKey: 'home.featured.cards.bigsound.name',
     locationKey: 'home.featured.cards.bigsound.location',
@@ -27,7 +29,34 @@ export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
     },
   },
   {
-    slug: 'latin-fest',
+    slug: 'latin-fest-benidorm',
+    routeSlug: 'latin-fest',
+    dateKey: 'home.featured.cards.latinFestBenidorm.date',
+    nameKey: 'home.featured.cards.latinFestBenidorm.name',
+    locationKey: 'home.featured.cards.latinFestBenidorm.location',
+    image: {
+      src: '/assets/images/festivals/latin-fest/cartel-latin-fest-benidorm-2026.webp',
+      alt: 'Cartel de Latin Fest Benidorm 2026',
+      width: 1048,
+      height: 1394,
+    },
+  },
+  {
+    slug: 'reve',
+    routeSlug: 'reve',
+    dateKey: 'home.featured.cards.reve.date',
+    nameKey: 'home.featured.cards.reve.name',
+    locationKey: 'home.featured.cards.reve.location',
+    image: {
+      src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
+      alt: 'Cartel de Reve Festival Roig Arena Valencia 2026',
+      width: 1920,
+      height: 1080,
+    },
+  },
+  {
+    slug: 'latin-fest-valencia',
+    routeSlug: 'latin-fest',
     dateKey: 'home.featured.cards.latinFest.date',
     nameKey: 'home.featured.cards.latinFest.name',
     locationKey: 'home.featured.cards.latinFest.location',
@@ -40,6 +69,7 @@ export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
   },
   {
     slug: 'medusa',
+    routeSlug: 'medusa',
     dateKey: 'home.featured.cards.medusa.date',
     nameKey: 'home.featured.cards.medusa.name',
     locationKey: 'home.featured.cards.medusa.location',
@@ -52,6 +82,7 @@ export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
   },
   {
     slug: 'arenal',
+    routeSlug: 'arenal',
     dateKey: 'home.featured.cards.arenal.date',
     nameKey: 'home.featured.cards.arenal.name',
     locationKey: 'home.featured.cards.arenal.location',
@@ -63,19 +94,8 @@ export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
     },
   },
   {
-    slug: 'reve',
-    dateKey: 'home.featured.cards.reve.date',
-    nameKey: 'home.featured.cards.reve.name',
-    locationKey: 'home.featured.cards.reve.location',
-    image: {
-      src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
-      alt: 'Cartel de Reve Festival Roig Arena Valencia 2026',
-      width: 1920,
-      height: 1080,
-    },
-  },
-  {
     slug: 'zevra',
+    routeSlug: 'zevra',
     dateKey: 'home.featured.cards.zevra.date',
     nameKey: 'home.featured.cards.zevra.name',
     locationKey: 'home.featured.cards.zevra.location',

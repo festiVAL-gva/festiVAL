@@ -34,12 +34,12 @@
       "ariaLabel": "Próximo festival destacado",
       "eyebrow": "Próximo festival",
       "titleAccent": "Latin Fest",
-      "title": "arranca el 5 de julio. ¿Ya tienes tu plan?",
-      "description": "Una postal mediterránea, dos jornadas de ritmo latino y la escapada perfecta para abrir julio con música, playa y un recinto listo para encender Valencia.",
-      "date": "5 julio 2026",
-      "location": "Valencia",
+      "title": "arranca el 4 de julio. ¿Ya tienes tu plan?",
+      "description": "La primera cita de julio llega a Benidorm y abre dos fines de semana latinos seguidos antes de su parada en Valencia.",
+      "date": "4 julio 2026",
+      "location": "Benidorm, Alicante",
       "genre": "Latino en directo",
-      "imageAlt": "Vista aérea del recinto de Latin Fest junto al mar en Valencia",
+      "imageAlt": "Vista aérea del recinto de Latin Fest junto al mar en Benidorm",
       "primaryCta": "Ver Latin Fest",
       "secondaryCta": "Ir al calendario",
       "countdown": {
@@ -55,32 +55,37 @@
         "bigsound": {
           "date": "JUN 26-27",
           "name": "Bigsound Festival",
-          "location": "Valencia"
+          "location": "Torrent, Valencia"
+        },
+        "latinFestBenidorm": {
+          "date": "JUL 4-5",
+          "name": "Latin Fest Benidorm",
+          "location": "Benidorm, Alicante"
         },
         "latinFest": {
           "date": "JUL 17-18",
-          "name": "Latin Fest",
+          "name": "Latin Fest Valencia",
           "location": "Valencia"
-        },
-        "medusa": {
-          "date": "AGO 13-17",
-          "name": "Medusa Festival",
-          "location": "Cullera, Valencia"
-        },
-        "arenal": {
-          "date": "JUL 30-AGO 2",
-          "name": "Arenal Sound",
-          "location": "Burriana, Castellón"
         },
         "reve": {
-          "date": "2026",
+          "date": "JUL 16",
           "name": "Reve Festival",
-          "location": "Valencia"
+          "location": "Roig Arena, Valencia"
         },
         "zevra": {
           "date": "JUL 24-27",
           "name": "Zevra Festival",
           "location": "Cullera, Valencia"
+        },
+        "arenal": {
+          "date": "JUL 30-AGO 2",
+          "name": "Arenal Sound",
+          "location": "Playa El Arenal, Burriana"
+        },
+        "medusa": {
+          "date": "AGO 13-17",
+          "name": "Medusa Festival",
+          "location": "Playa de Cullera, Valencia"
         }
       }
     },
@@ -108,9 +113,9 @@
       },
       "cards": {
         "bigsound": {
-          "date": "20–21 Jun",
+          "date": "26–27 Jun",
           "name": "Bigsound Festival",
-          "location": "Valencia",
+          "location": "Parc Central de Torrent",
           "genre": "Pop & directo"
         },
         "latinFestValencia": {
@@ -122,8 +127,14 @@
         "latinFest": {
           "date": "4–5 Jul",
           "name": "Latin Fest Benidorm",
-          "location": "Benidorm",
+          "location": "Benidorm, Alicante",
           "genre": "Latino"
+        },
+        "reve": {
+          "date": "16 Jul",
+          "name": "Reve Festival",
+          "location": "Roig Arena, Valencia",
+          "genre": "Pop y show"
         },
         "zevra": {
           "date": "24–27 Jul",
@@ -134,13 +145,13 @@
         "arenal": {
           "date": "30 Jul–2 Ago",
           "name": "Arenal Sound",
-          "location": "Burriana",
+          "location": "Playa El Arenal, Burriana",
           "genre": "Pop, urbano y electrónica"
         },
         "medusa": {
           "date": "13–17 Ago",
           "name": "Medusa Festival",
-          "location": "Cullera",
+          "location": "Playa de Cullera, Valencia",
           "genre": "Electrónica"
         }
       },
@@ -416,11 +427,11 @@
           "hero": {
             "title": "BIGSOUND",
             "subtitle": "FESTIVAL",
-            "location": "Valencia",
+            "location": "Parc Central de Torrent, Valencia",
             "dates": "26 – 27 jun 2026"
           },
           "overview": {
-            "paragraph1": "Bigsound Festival se ha consolidado como uno de los grandes encuentros pop e indie de la Comunitat Valenciana. Programado en Valencia capital, combina cabezas de cartel internacionales con artistas emergentes de la escena nacional, y apuesta por una producción cuidada y un público intergeneracional.",
+            "paragraph1": "Bigsound Festival se ha consolidado como uno de los grandes encuentros pop e indie de la Comunitat Valenciana. Programado en Parc Central de Torrent, combina cabezas de cartel internacionales con artistas emergentes de la escena nacional, y apuesta por una producción cuidada y un público intergeneracional.",
             "paragraph2": "Dos jornadas de música en vivo, food trucks de cocina mediterránea y zonas chill orientadas al verano valenciano. Buena conectividad en transporte público desde el centro y una agenda de actividades paralelas que arranca por la tarde.",
             "posterGallery": {
               "title": "Carteles oficiales",
@@ -479,8 +490,8 @@
           "hero": {
             "title": "MEDUSA",
             "subtitle": "FESTIVAL",
-            "location": "Cullera, Valencia",
-            "dates": "7 – 11 Agosto 2026"
+            "location": "Playa de Cullera, Valencia",
+            "dates": "13 – 17 ago 2026"
           },
           "overview": {
             "paragraph1": "Medusa Festival es uno de los festivales de música electrónica más importantes de Europa y una referencia imprescindible del verano en España. Celebrado en la espectacular playa de Cullera (Valencia), reúne durante cinco días a algunos de los mejores DJs y artistas internacionales en un entorno único junto al mar Mediterráneo.",
@@ -514,7 +525,7 @@
           "hero": {
             "title": "Arenal Sound",
             "subtitle": "PLAYA Y MÚSICA",
-            "location": "Burriana, Castellón",
+            "location": "Playa El Arenal, Burriana, Castellón",
             "dates": "30 jul – 2 ago 2026"
           },
           "overview": {
@@ -545,12 +556,12 @@
           "hero": {
             "title": "REVE",
             "subtitle": "FESTIVAL",
-            "location": "Valencia",
-            "dates": "16 – 17 jul 2026"
+            "location": "Roig Arena, Valencia",
+            "dates": "16 jul 2026"
           },
           "overview": {
             "paragraph1": "Reve Festival es la cita pop nocturna del verano valenciano, con un cartel orientado al mainstream y al espectáculo visual de gran formato. Concebido para grandes audiencias, prioriza la puesta en escena y la calidad de sonido sobre la fórmula clásica de festival al aire libre.",
-            "paragraph2": "Ubicado en Valencia capital, ofrece una experiencia cómoda con buena conectividad en transporte público, hoteles cercanos, zonas de restauración y producciones audiovisuales que prolongan la noche hasta tarde.",
+            "paragraph2": "Ubicado en Roig Arena, ofrece una experiencia cómoda con buena conectividad en transporte público, hoteles cercanos, zonas de restauración y producciones audiovisuales que prolongan la noche hasta tarde.",
             "posterGallery": {
               "title": "Carteles oficiales",
               "intro": "El cartel principal del festival para consultar su propuesta visual completa.",

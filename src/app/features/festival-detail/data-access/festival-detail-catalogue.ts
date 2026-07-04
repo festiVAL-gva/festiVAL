@@ -131,7 +131,7 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       breadcrumbCurrentKey: 'festival.detail.byFestival.medusa.name',
       locationKey: 'festival.detail.byFestival.medusa.hero.location',
       datesKey: 'festival.detail.byFestival.medusa.hero.dates',
-      datetime: '2026-08-07/2026-08-11',
+      datetime: '2026-08-13/2026-08-17',
       poster: {
         src: '/assets/images/festivals/medusa/hero-medusa-festival-2026.webp',
         alt: 'Escenario principal del Medusa Festival iluminado de noche',
@@ -227,7 +227,7 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       breadcrumbCurrentKey: 'festival.detail.byFestival.reve.name',
       locationKey: 'festival.detail.byFestival.reve.hero.location',
       datesKey: 'festival.detail.byFestival.reve.hero.dates',
-      datetime: '2026-07-16/2026-07-17',
+      datetime: '2026-07-16/2026-07-16',
       poster: {
         src: '/assets/images/festivals/reve/logo-reve.webp',
         alt: 'Identidad visual de Reve Festival',

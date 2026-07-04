@@ -46,7 +46,7 @@ interface CountdownState {
 })
 export class HomePageComponent {
   readonly #destroyRef = inject(DestroyRef);
-  readonly #latinFestStartsAt = new Date('2026-07-05T00:00:00+02:00').getTime();
+  readonly #latinFestStartsAt = new Date('2026-07-04T00:00:00+02:00').getTime();
   #countdownIntervalId: ReturnType<typeof setInterval> | null = null;
 
   protected readonly festivalLocations = FESTIVAL_LOCATIONS;

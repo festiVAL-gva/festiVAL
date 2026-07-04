@@ -30,7 +30,7 @@ describe('FestivalCalendarComponent', () => {
     expect(
       root.querySelector('[data-testid="festival-calendar-title"]')?.textContent?.trim(),
     ).toBeTruthy();
-    expect(root.querySelectorAll('[data-testid="festival-calendar-card"]')).toHaveLength(6);
+    expect(root.querySelectorAll('[data-testid="festival-calendar-card"]')).toHaveLength(7);
   });
 
   it('renders three month labels, the gradient rail and the full day scale', () => {
@@ -61,6 +61,7 @@ describe('FestivalCalendarComponent', () => {
     expect(component.festivals.map((festival) => festival.slug)).toEqual([
       'bigsound',
       'latin-fest',
+      'reve',
       'latin-fest-valencia',
       'zevra',
       'arenal',
@@ -83,6 +84,9 @@ describe('FestivalCalendarComponent', () => {
     expect(component.activeIndex()).toBe(5);
 
     vi.advanceTimersByTime(5000);
+    expect(component.activeIndex()).toBe(6);
+
+    vi.advanceTimersByTime(5000);
     expect(component.activeIndex()).toBe(0);
   });
 
@@ -102,13 +106,14 @@ describe('FestivalCalendarComponent', () => {
 
   it('returns null for non-featured days and the festival for featured ones', () => {
     expect(component.festivalForDay('june', '16')).toBeNull();
-    expect(component.festivalForDay('june', '20')).not.toBeNull();
-    expect(component.festivalForDay('august', '8')?.slug).toBe('medusa');
+    expect(component.festivalForDay('june', '26')).not.toBeNull();
+    expect(component.festivalForDay('august', '13')?.slug).toBe('medusa');
   });
 
   it('labels only the editorial reference days on the scale', () => {
     expect(component.isLabeledDay('july', '4')).toBe(true);
     expect(component.isLabeledDay('july', '5')).toBe(false);
+    expect(component.isLabeledDay('july', '16')).toBe(true);
     expect(component.isLabeledDay('august', '18')).toBe(true);
   });
 

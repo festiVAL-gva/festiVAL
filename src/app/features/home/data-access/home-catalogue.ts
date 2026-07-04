@@ -12,6 +12,7 @@ export interface CalendarMonthData {
 
 export interface CalendarFestivalEntry {
   readonly slug: string;
+  readonly routeSlug: string;
   readonly month: CalendarMonth;
   readonly dayLabel: string;
   readonly position: number;
@@ -50,9 +51,10 @@ export const CALENDAR_MONTH_SEGMENTS = [
 export const CALENDAR_FESTIVALS = [
   {
     slug: 'bigsound',
+    routeSlug: 'bigsound',
     month: 'june',
-    dayLabel: '20',
-    position: 7,
+    dayLabel: '26',
+    position: 15,
     shortMonthLabelKey: 'home.calendar.shortMonths.june',
     dateKey: 'home.calendar.cards.bigsound.date',
     nameKey: 'home.calendar.cards.bigsound.name',
@@ -65,6 +67,7 @@ export const CALENDAR_FESTIVALS = [
   },
   {
     slug: 'latin-fest',
+    routeSlug: 'latin-fest',
     month: 'july',
     dayLabel: '4',
     position: 30,
@@ -79,7 +82,24 @@ export const CALENDAR_FESTIVALS = [
     cardOffset: '0.75rem',
   },
   {
+    slug: 'reve',
+    routeSlug: 'reve',
+    month: 'july',
+    dayLabel: '16',
+    position: 47,
+    shortMonthLabelKey: 'home.calendar.shortMonths.july',
+    dateKey: 'home.calendar.cards.reve.date',
+    nameKey: 'home.calendar.cards.reve.name',
+    locationKey: 'home.calendar.cards.reve.location',
+    genreKey: 'home.calendar.cards.reve.genre',
+    imageSrc: '/assets/images/festivals/reve/logo-reve.webp',
+    tone: 'orange',
+    cardAlign: 'end',
+    cardOffset: '0px',
+  },
+  {
     slug: 'latin-fest-valencia',
+    routeSlug: 'latin-fest',
     month: 'july',
     dayLabel: '17',
     position: 49,
@@ -95,6 +115,7 @@ export const CALENDAR_FESTIVALS = [
   },
   {
     slug: 'zevra',
+    routeSlug: 'zevra',
     month: 'july',
     dayLabel: '24',
     position: 60,
@@ -110,6 +131,7 @@ export const CALENDAR_FESTIVALS = [
   },
   {
     slug: 'arenal',
+    routeSlug: 'arenal',
     month: 'july',
     dayLabel: '30',
     position: 69,
@@ -125,9 +147,10 @@ export const CALENDAR_FESTIVALS = [
   },
   {
     slug: 'medusa',
+    routeSlug: 'medusa',
     month: 'august',
-    dayLabel: '8',
-    position: 84,
+    dayLabel: '13',
+    position: 88,
     shortMonthLabelKey: 'home.calendar.shortMonths.august',
     dateKey: 'home.calendar.cards.medusa.date',
     nameKey: 'home.calendar.cards.medusa.name',

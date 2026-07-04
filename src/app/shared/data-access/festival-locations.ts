@@ -70,7 +70,7 @@ export const FESTIVAL_LOCATIONS: readonly FestivalLocation[] = [
     provinceKey: 'festivales.map.festivals.latinBenidorm.province',
     descriptionKey: 'festivales.map.festivals.latinBenidorm.description',
     howToGetThereKey: 'festivales.map.festivals.latinBenidorm.howToGetThere',
-    startDate: '2026-07-18',
+    startDate: '2026-07-04',
     lat: 38.54748074422395,
     lng: -0.13898330683545446,
     category: 'latin',

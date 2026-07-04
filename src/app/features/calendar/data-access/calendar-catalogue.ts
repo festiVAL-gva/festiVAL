@@ -1,11 +1,12 @@
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
 
-export type CalendarMonthFilter = 'all' | 'june' | 'july' | 'august' | 'september';
+export type CalendarMonthFilter = 'all' | 'june' | 'july' | 'august';
 export type CalendarProvinceFilter = 'all' | 'Valencia' | 'Alicante' | 'Castellón';
 export type CalendarGenreFilter = 'all' | 'electronic' | 'urban' | 'latin' | 'pop';
 export type CalendarGenre = Exclude<CalendarGenreFilter, 'all'>;
 export type CalendarFestivalSlug =
   | 'bigsound'
+  | 'latin-fest-benidorm'
   | 'latin-fest'
   | 'zevra'
   | 'arenal'
@@ -43,7 +44,6 @@ export const CALENDAR_MONTH_FILTERS = [
   { id: 'june', labelKey: 'calendarPage.filters.months.june' },
   { id: 'july', labelKey: 'calendarPage.filters.months.july' },
   { id: 'august', labelKey: 'calendarPage.filters.months.august' },
-  { id: 'september', labelKey: 'calendarPage.filters.months.september' },
 ] as const satisfies readonly CalendarFilterOption<CalendarMonthFilter>[];
 
 export const CALENDAR_PROVINCE_FILTERS = [
@@ -65,7 +65,7 @@ export const CALENDAR_FESTIVALS = [
   {
     slug: 'bigsound',
     name: 'Bigsound Festival',
-    locationLabel: 'Valencia · Valencia',
+    locationLabel: 'Parc Central de Torrent · Valencia',
     province: 'Valencia',
     genre: 'pop',
     genreLabelKey: 'calendarPage.filters.genres.pop',
@@ -81,14 +81,32 @@ export const CALENDAR_FESTIVALS = [
     accentColor: 'var(--fv-accent-orange)',
   },
   {
+    slug: 'latin-fest-benidorm',
+    name: 'Latin Fest Benidorm',
+    locationLabel: 'Benidorm · Alicante',
+    province: 'Alicante',
+    genre: 'latin',
+    genreLabelKey: 'calendarPage.filters.genres.latin',
+    startDate: '2026-07-04',
+    endDate: '2026-07-05',
+    poster: {
+      src: '/assets/images/festivals/latin-fest/cartel-latin-fest-benidorm-2026.webp',
+      alt: 'Cartel de Latin Fest Benidorm 2026',
+      width: 1048,
+      height: 1394,
+    },
+    detailUrl: '/festivales/latin-fest',
+    accentColor: 'var(--fv-accent-coral)',
+  },
+  {
     slug: 'latin-fest',
-    name: 'Latin Fest',
-    locationLabel: 'Valencia · Benidorm',
+    name: 'Latin Fest Valencia',
+    locationLabel: 'Valencia · Valencia',
     province: 'Valencia',
     genre: 'latin',
     genreLabelKey: 'calendarPage.filters.genres.latin',
-    startDate: '2026-07-05',
-    endDate: '2026-07-05',
+    startDate: '2026-07-17',
+    endDate: '2026-07-18',
     poster: {
       src: '/assets/images/festivals/latin-fest/cartel-latin-fest-valencia-2026.webp',
       alt: 'Cartel de Latin Fest Valencia 2026',
@@ -105,8 +123,8 @@ export const CALENDAR_FESTIVALS = [
     province: 'Valencia',
     genre: 'urban',
     genreLabelKey: 'calendarPage.filters.genres.urban',
-    startDate: '2026-07-17',
-    endDate: '2026-07-20',
+    startDate: '2026-07-24',
+    endDate: '2026-07-27',
     poster: {
       src: '/assets/images/festivals/zevra/cartel-zevra-2026.webp',
       alt: 'Cartel general de Zevra Festival 2026',
@@ -119,7 +137,7 @@ export const CALENDAR_FESTIVALS = [
   {
     slug: 'arenal',
     name: 'Arenal Sound',
-    locationLabel: 'Burriana · Castellón',
+    locationLabel: 'Playa El Arenal · Burriana',
     province: 'Castellón',
     genre: 'pop',
     genreLabelKey: 'calendarPage.filters.genres.pop',
@@ -137,12 +155,12 @@ export const CALENDAR_FESTIVALS = [
   {
     slug: 'medusa',
     name: 'Medusa Festival',
-    locationLabel: 'Cullera · Valencia',
+    locationLabel: 'Playa de Cullera · Valencia',
     province: 'Valencia',
     genre: 'electronic',
     genreLabelKey: 'calendarPage.filters.genres.electronic',
-    startDate: '2026-08-05',
-    endDate: '2026-08-10',
+    startDate: '2026-08-13',
+    endDate: '2026-08-17',
     poster: {
       src: '/assets/images/festivals/medusa/cartel-medusa-2026.webp',
       alt: 'Cartel general de Medusa Festival 2026',
@@ -155,12 +173,12 @@ export const CALENDAR_FESTIVALS = [
   {
     slug: 'reve',
     name: 'Reve Festival',
-    locationLabel: 'Valencia · Valencia',
+    locationLabel: 'Roig Arena · Valencia',
     province: 'Valencia',
     genre: 'pop',
     genreLabelKey: 'calendarPage.filters.genres.pop',
-    startDate: '2026-09-12',
-    endDate: '2026-09-12',
+    startDate: '2026-07-16',
+    endDate: '2026-07-16',
     poster: {
       src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
       alt: 'Cartel de Reve Festival Roig Arena Valencia 2026',

@@ -8,7 +8,7 @@
     @for (festival of festivals; track festival.slug) {
       <li class="festival-list__item">
         <a
-          [routerLink]="['/festivales', festival.slug]"
+          [routerLink]="['/festivales', festival.routeSlug]"
           class="festival-list__card"
           [attr.data-testid]="'festival-card-' + festival.slug"
           [attr.aria-label]="festival.nameKey | t"

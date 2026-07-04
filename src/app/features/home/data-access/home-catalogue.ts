@@ -171,7 +171,7 @@ export const CALENDAR_FESTIVALS = [
     nameKey: 'home.calendar.cards.arenal.name',
     locationKey: 'home.calendar.cards.arenal.location',
     genreKey: 'home.calendar.cards.arenal.genre',
-    imageSrc: '/assets/images/festivals/arenal/cartel-arenal.webp',
+    imageSrc: '/assets/images/festivals/arenal/logo-arenal.webp',
     tone: 'orange',
     cardAlign: 'center',
     cardOffset: '0px',

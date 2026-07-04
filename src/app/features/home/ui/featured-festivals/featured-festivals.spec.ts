@@ -55,4 +55,15 @@ describe('FeaturedFestivalsComponent', () => {
     fixture.detectChanges();
     expect(component.isPaused()).toBe(false);
   });
+
+  it('renders the Arenal featured card with the poster asset', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const card = root.querySelector<HTMLElement>('[data-testid="featured-festivals-card-arenal"]');
+    const image = card?.querySelector<HTMLImageElement>('img');
+
+    expect(image).not.toBeNull();
+    expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
+      '/assets/images/festivals/arenal/cartel-arenal.webp',
+    );
+  });
 });

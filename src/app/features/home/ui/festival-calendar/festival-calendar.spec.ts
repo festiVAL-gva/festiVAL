@@ -111,4 +111,17 @@ describe('FestivalCalendarComponent', () => {
     expect(component.isLabeledDay('july', '5')).toBe(false);
     expect(component.isLabeledDay('august', '18')).toBe(true);
   });
+
+  it('renders the Arenal card with the logo asset', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const arenalIndex = component.festivals.findIndex((festival) => festival.slug === 'arenal');
+    const arenalCard = root.querySelectorAll<HTMLElement>('[data-testid="festival-calendar-card"]')[arenalIndex];
+    const image = arenalCard?.querySelector<HTMLImageElement>('img');
+
+    expect(arenalIndex).toBeGreaterThan(-1);
+    expect(image).not.toBeNull();
+    expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
+      '/assets/images/festivals/arenal/logo-arenal.webp',
+    );
+  });
 });

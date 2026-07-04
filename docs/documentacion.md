@@ -543,6 +543,18 @@ src/app/features/
 │   │                                          días distintos, estado vacío, stats y wrap circular.
 │   └── festival-detail.routes.ts    → Superficie pública. Expone FESTIVAL_DETAIL_ROUTES con
 │                                       loadComponent hacia festival-detail.page.
+│
+├── festival-list/       → Listado de festivales (`/festivales`). Feature ligera sin data-access
+│   │                      propia: consume el catálogo compartido `@shared/data-access/festival-catalogue`.
+│   ├── feature/
+│   │   ├── festival-list.page.ts   → Página smart standalone (OnPush). Expone FEATURED_FESTIVALS
+│   │   │                             como grid de tarjetas enlazadas a `/festivales/:slug`.
+│   │   ├── festival-list.page.html → Grid `role="list"` con tarjeta por festival (imagen ngSrc,
+│   │   │                             fecha, nombre, ubicación) e i18n vía `| t`.
+│   │   ├── festival-list.page.scss → Grid responsive con póster, overlay y tokens `--fv-*`.
+│   │   └── festival-list.page.spec.ts → Tests: número de tarjetas, testid por slug e imagen.
+│   └── festival-list.routes.ts     → Superficie pública. Expone FESTIVAL_LIST_ROUTES con loadComponent.
+│
 ├── home/                → Página de inicio. Muestra festivales destacados, hero con glow
 │                          atmosférico, acceso rápido a búsqueda y filtros.
 │   ├── feature/
@@ -614,16 +626,18 @@ src/app/features/
 │   │       └── home-festival-map.spec.ts → Tests de render, pins, festival por defecto, activación
 │   │                                      y ciclo automático (vi.useFakeTimers).
 │   ├── data-access/
-│   │   └── home-catalogue.ts → Catálogo estático de la home: FEATURED_FESTIVALS, CALENDAR_MONTH_SEGMENTS
-│   │                           y CALENDAR_FESTIVALS (5 entradas: bigsound, latin-fest-valencia,
-│   │                           latin-fest/Benidorm, zevra, medusa). Exporta también los tipos
-│   │                           FeaturedFestivalEntry, CalendarMonthData, CalendarFestivalEntry,
-│   │                           CalendarTone, CalendarCardAlign. Consumido por featured-festivals
-│   │                           y festival-calendar (ui/) para separar datos de presentación.
+│   │   └── home-catalogue.ts → Catálogo estático del calendario de la home: CALENDAR_MONTH_SEGMENTS
+│   │                           y CALENDAR_FESTIVALS (6 entradas: bigsound, latin-fest,
+│   │                           latin-fest-valencia, zevra, arenal, medusa). Exporta también los tipos
+│   │                           CalendarMonth, CalendarMonthData, CalendarFestivalEntry,
+│   │                           CalendarTone, CalendarCardAlign. Consumido por festival-calendar (ui/)
+│   │                           para separar datos de presentación. Los datos del carrusel destacado
+│   │                           viven en `@shared/data-access/festival-catalogue.ts` (compartido con
+│   │                           festival-list).
 │   └── home.routes.ts   → Superficie pública de la feature. Expone HOME_ROUTES con loadComponent
 ```
 
-> `festival-list/`, `artist-detail/`, `search/` y `about/` están en el roadmap del proyecto y todavía no existen en el árbol: se documentarán aquí cuando se creen sus scaffolds.
+> `artist-detail/`, `search/` y `about/` están en el roadmap del proyecto y todavía no existen en el árbol: se documentarán aquí cuando se creen sus scaffolds.
 
 ### `src/app/shared/` — Toolbox horizontal
 
@@ -636,11 +650,17 @@ src/app/shared/
 │       ├── notification-banner.ts   → NotificationBannerComponent: lee NotificationService (signal),
 │       │                              renderiza el banner con role="alert" y aria-live="polite".
 │       ├── notification-banner.html → Renderiza el mensaje (i18n key | t) y botón de cierre.
-│       └── notification-banner.scss → Tokens semánticos: --fv-accent-danger, focus-ring mixin.
-├── data-access/         → Servicios, datos y stores compartidos por ≥ 2 features. Hoy contiene los
-│   │                      datos de localización del mapa, el cargador diferido de MapLibre y la capa
-│   │                      i18n. Los servicios de catálogo (FestivalService, SearchService, stores…)
-│   │                      se añadirán cuando arranque su fase del roadmap.
+│       ├── notification-banner.scss → Tokens semánticos: --fv-accent-danger, focus-ring mixin.
+│       └── notification-banner.spec.ts → Tests: banner oculto sin notificación, alerta accesible
+│                                         (role/aria-live/clase por tipo) y cierre por botón.
+├── data-access/         → Servicios, datos y stores compartidos por ≥ 2 features. Hoy contiene el
+│   │                      catálogo de festivales destacados, los datos de localización del mapa, el
+│   │                      cargador diferido de MapLibre y la capa i18n. Los servicios de catálogo
+│   │                      (FestivalService, SearchService, stores…) se añadirán cuando arranque su fase.
+│   ├── festival-catalogue.ts → Catálogo readonly FEATURED_FESTIVALS (6 entradas: bigsound, latin-fest,
+│   │                           medusa, arenal, reve, zevra) con claves i18n de fecha/nombre/ubicación
+│   │                           e imagen (src, alt, width, height). Tipo FeaturedFestivalEntry.
+│   │                           Consumido por featured-festivals (home ui/) y festival-list (feature/).
 │   ├── festival-locations.ts → Array readonly de FestivalLocation con los 7 festivales semilla:
 │   │                           key (p. ej. `bigsound`, `reve`, `latinValencia`, `medusa`,
 │   │                           `zevra`, `arenal`, `latinBenidorm`), claves i18n, startDate ISO,
@@ -864,3 +884,4 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 | 2026-06-28 | Calendario cronológico por día (`/calendario`) | Sustituida la vista de mes por una cronología editorial agrupada por mes y fecha exacta. `features/calendar/data-access/calendar-catalogue.ts` ahora define filtros de mes/provincia/género y 6 festivales expandidos a jornadas individuales; `feature/calendar.page.{ts,html,scss}` monta hero premium, pill filters con `aria-pressed`, timeline por día sin fechas vacías, CTA a detalle y empty state; añadido `feature/calendar.page.spec.ts` para cubrir render + filtrado. `src/assets/i18n/{es,ca,en}.json` amplía `calendarPage.*` con hero, filtros, badges, CTA y estado vacío. |
 | 2026-06-28 | Calendario: timeline sin filtros | `feature/calendar.page.{ts,html,scss,spec.ts}` simplifica `/calendario`: retirados hero aside, barra de filtros (mes/provincia/género), resumen `aria-live` y CTA de reset en empty state; el timeline muestra todo el catálogo con layout más ligero (bordes en lugar de tarjetas glass). `calendar.page.spec.ts` actualizado para cubrir hero + timeline sin filtrado. |
 | 2026-06-30 | Carousel y calendario: hover/focus y tamaños | `featured-festivals.html`: eliminados `mouseenter`/`mouseleave` del viewport (solo pausa con foco teclado). `featured-festivals.spec.ts`: tests de que hover no pausa y focus sí. `festival-calendar.scss`: reducidos tamaños de fuente, tarjetas, connector y media para mejor densidad visual. |
+| 2026-07-04 | Auditoría `/audit-structure`: correcciones (health 82 → 100) | **Fuente única**: eliminado el duplicado muerto `FeaturedFestivalEntry` + `FEATURED_FESTIVALS` de `features/home/data-access/home-catalogue.ts` (había divergido del catálogo vivo con logos vs carteles); la única fuente es `shared/data-access/festival-catalogue.ts`, consumida por `featured-festivals` (home ui/) y `festival-list` (feature/). **Perf**: `layout/nav-bar/nav-bar.html` migra las dos banderas de idioma de `[src]` a `[ngSrc]` (NgOptimizedImage). **Tests**: creado `shared/ui/notification-banner/notification-banner.spec.ts` (banner oculto, alerta accesible, cierre). **Doc-sync**: árbol de `features/` incorpora la feature `festival-list/` (antes marcada como roadmap inexistente), árbol de `shared/data-access/` añade `festival-catalogue.ts` y el spec de `notification-banner`, y la descripción de `home-catalogue.ts` refleja solo los datos del calendario. |

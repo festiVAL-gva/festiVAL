@@ -8,7 +8,7 @@ export interface FeaturedFestivalEntry {
   readonly image: { readonly src: string; readonly alt: string };
 }
 
-export const FEATURED_FESTIVALS = [
+export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
   {
     slug: 'bigsound',
     dateKey: 'home.featured.cards.bigsound.date',
@@ -31,11 +31,11 @@ export const FEATURED_FESTIVALS = [
     image: { src: '/assets/images/festivals/medusa/cartel-medusa-2026.webp', alt: 'Medusa Festival' },
   },
   {
-    slug: 'rbf',
-    dateKey: 'home.featured.cards.rbf.date',
-    nameKey: 'home.featured.cards.rbf.name',
-    locationKey: 'home.featured.cards.rbf.location',
-    image: { src: '/assets/images/festivals/rbf/logo-rbf.webp', alt: 'Reggaeton Beach Festival' },
+    slug: 'arenal',
+    dateKey: 'home.featured.cards.arenal.date',
+    nameKey: 'home.featured.cards.arenal.name',
+    locationKey: 'home.featured.cards.arenal.location',
+    image: { src: '/assets/images/festivals/arenal/cartel-arenal.webp', alt: 'Arenal Sound' },
   },
   {
     slug: 'reve',
@@ -51,4 +51,4 @@ export const FEATURED_FESTIVALS = [
     locationKey: 'home.featured.cards.zevra.location',
     image: { src: '/assets/images/festivals/zevra/cartel-zevra-2026.webp', alt: 'Zevra Festival' },
   },
-] as const satisfies readonly FeaturedFestivalEntry[];
+];

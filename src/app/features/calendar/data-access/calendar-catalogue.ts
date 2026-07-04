@@ -8,7 +8,7 @@ export type CalendarFestivalSlug =
   | 'bigsound'
   | 'latin-fest'
   | 'zevra'
-  | 'rbf'
+  | 'arenal'
   | 'medusa'
   | 'reve';
 
@@ -117,22 +117,22 @@ export const CALENDAR_FESTIVALS = [
     accentColor: 'var(--fv-accent-violet)',
   },
   {
-    slug: 'rbf',
-    name: 'Reggaeton Beach Festival',
-    locationLabel: 'Benidorm · Alicante',
-    province: 'Alicante',
-    genre: 'urban',
-    genreLabelKey: 'calendarPage.filters.genres.urban',
-    startDate: '2026-07-25',
-    endDate: '2026-07-26',
+    slug: 'arenal',
+    name: 'Arenal Sound',
+    locationLabel: 'Burriana · Castellón',
+    province: 'Castellón',
+    genre: 'pop',
+    genreLabelKey: 'calendarPage.filters.genres.pop',
+    startDate: '2026-07-30',
+    endDate: '2026-08-02',
     poster: {
-      src: '/assets/images/festivals/rbf/logo-rbf.webp',
-      alt: 'Identidad visual de Reggaeton Beach Festival',
-      width: 640,
-      height: 640,
+      src: '/assets/images/festivals/arenal/cartel-arenal.webp',
+      alt: 'Cartel de Arenal Sound 2026',
+      width: 1114,
+      height: 1386,
     },
-    detailUrl: '/festivales/rbf',
-    accentColor: 'var(--fv-accent-violet)',
+    detailUrl: '/festivales/arenal',
+    accentColor: 'var(--fv-accent-orange)',
   },
   {
     slug: 'medusa',

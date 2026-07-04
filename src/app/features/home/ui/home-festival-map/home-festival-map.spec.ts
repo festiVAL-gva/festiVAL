@@ -60,7 +60,7 @@ describe('HomeFestivalMapComponent', () => {
       'latinValencia',
       'medusa',
       'zevra',
-      'rbf',
+      'arenal',
       'latinBenidorm',
     ]);
   });
@@ -86,27 +86,27 @@ describe('HomeFestivalMapComponent', () => {
   it('marks the clicked pin as pressed', () => {
     const root = fixture.nativeElement as HTMLElement;
     const pins = root.querySelectorAll('[data-testid="home-festival-map-pin"]');
-    const rbfIndex = component.festivals().findIndex((festival) => festival.key === 'rbf');
+    const arenalIndex = component.festivals().findIndex((festival) => festival.key === 'arenal');
 
-    pins[rbfIndex]?.dispatchEvent(new Event('click'));
+    pins[arenalIndex]?.dispatchEvent(new Event('click'));
     fixture.detectChanges();
 
-    expect(pins[rbfIndex]?.getAttribute('aria-pressed')).toBe('true');
-    expect(component.activeFestival().key).toBe('rbf');
+    expect(pins[arenalIndex]?.getAttribute('aria-pressed')).toBe('true');
+    expect(component.activeFestival().key).toBe('arenal');
   });
 
   it('keeps the details visible after clicking a pin and leaving the map', () => {
     const root = fixture.nativeElement as HTMLElement;
     const pins = root.querySelectorAll('[data-testid="home-festival-map-pin"]');
     const pane = root.querySelector('.pane') as HTMLElement | null;
-    const rbfIndex = component.festivals().findIndex((festival) => festival.key === 'rbf');
+    const arenalIndex = component.festivals().findIndex((festival) => festival.key === 'arenal');
 
-    pins[rbfIndex]?.dispatchEvent(new Event('click'));
+    pins[arenalIndex]?.dispatchEvent(new Event('click'));
     pane?.dispatchEvent(new Event('mouseleave'));
     fixture.detectChanges();
 
     expect(component.isPanelVisible()).toBe(true);
-    expect(component.activeFestival().key).toBe('rbf');
+    expect(component.activeFestival().key).toBe('arenal');
   });
 
   it('cycles the active pin every 3 seconds in array order', () => {

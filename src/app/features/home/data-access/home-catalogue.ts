@@ -8,7 +8,7 @@ export interface FeaturedFestivalEntry {
   readonly image: { readonly src: string; readonly alt: string };
 }
 
-export const FEATURED_FESTIVALS = [
+export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
   {
     slug: 'bigsound',
     dateKey: 'home.featured.cards.bigsound.date',
@@ -31,11 +31,11 @@ export const FEATURED_FESTIVALS = [
     image: { src: '/assets/images/festivals/medusa/logo-medusa-2026.webp', alt: 'Medusa Festival' },
   },
   {
-    slug: 'rbf',
-    dateKey: 'home.featured.cards.rbf.date',
-    nameKey: 'home.featured.cards.rbf.name',
-    locationKey: 'home.featured.cards.rbf.location',
-    image: { src: '/assets/images/festivals/rbf/logo-rbf.webp', alt: 'Reggaeton Beach Festival' },
+    slug: 'arenal',
+    dateKey: 'home.featured.cards.arenal.date',
+    nameKey: 'home.featured.cards.arenal.name',
+    locationKey: 'home.featured.cards.arenal.location',
+    image: { src: '/assets/images/festivals/arenal/cartel-arenal.webp', alt: 'Cartel de Arenal Sound 2026' },
   },
   {
     slug: 'reve',
@@ -51,7 +51,7 @@ export const FEATURED_FESTIVALS = [
     locationKey: 'home.featured.cards.zevra.location',
     image: { src: '/assets/images/festivals/zevra/logo-zevra.webp', alt: 'Zevra Festival' },
   },
-] as const satisfies readonly FeaturedFestivalEntry[];
+];
 
 export type CalendarMonth = 'june' | 'july' | 'august';
 export type CalendarTone = 'med-blue' | 'coral' | 'orange' | 'blue';
@@ -160,6 +160,21 @@ export const CALENDAR_FESTIVALS = [
     tone: 'orange',
     cardAlign: 'start',
     cardOffset: '3.25rem',
+  },
+  {
+    slug: 'arenal',
+    month: 'july',
+    dayLabel: '30',
+    position: 69,
+    shortMonthLabelKey: 'home.calendar.shortMonths.july',
+    dateKey: 'home.calendar.cards.arenal.date',
+    nameKey: 'home.calendar.cards.arenal.name',
+    locationKey: 'home.calendar.cards.arenal.location',
+    genreKey: 'home.calendar.cards.arenal.genre',
+    imageSrc: '/assets/images/festivals/arenal/cartel-arenal.webp',
+    tone: 'orange',
+    cardAlign: 'center',
+    cardOffset: '0px',
   },
   {
     slug: 'medusa',

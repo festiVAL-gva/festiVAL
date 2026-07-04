@@ -4,7 +4,7 @@ export type FestivalDetailSlug =
   | 'bigsound'
   | 'latin-fest'
   | 'medusa'
-  | 'rbf'
+  | 'arenal'
   | 'reve'
   | 'zevra';
 
@@ -186,27 +186,37 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
     },
   },
   {
-    slug: 'rbf',
+    slug: 'arenal',
     hero: {
-      titleKey: 'festival.detail.byFestival.rbf.hero.title',
-      subtitleKey: 'festival.detail.byFestival.rbf.hero.subtitle',
-      breadcrumbCurrentKey: 'festival.detail.byFestival.rbf.name',
-      locationKey: 'festival.detail.byFestival.rbf.hero.location',
-      datesKey: 'festival.detail.byFestival.rbf.hero.dates',
-      datetime: '2026-07-04/2026-07-05',
+      titleKey: 'festival.detail.byFestival.arenal.hero.title',
+      subtitleKey: 'festival.detail.byFestival.arenal.hero.subtitle',
+      breadcrumbCurrentKey: 'festival.detail.byFestival.arenal.name',
+      locationKey: 'festival.detail.byFestival.arenal.hero.location',
+      datesKey: 'festival.detail.byFestival.arenal.hero.dates',
+      datetime: '2026-07-30/2026-08-02',
       poster: {
-        src: '/assets/images/festivals/rbf/logo-rbf.webp',
-        alt: 'Identidad visual de Reggaeton Beach Festival',
+        src: '/assets/images/festivals/arenal/cartel-arenal.webp',
+        alt: 'Cartel de Arenal Sound 2026',
       },
-      ticketUrl: 'https://reggaetonbeachfestival.com/entradas',
-      officialUrl: 'https://reggaetonbeachfestival.com/',
+      ticketUrl: 'https://arenalsound.com/comprar/',
+      officialUrl: 'https://arenalsound.com/',
     },
+    posters: [
+      {
+        labelKey: 'festival.detail.byFestival.arenal.overview.posterGallery.labels.general',
+        src: '/assets/images/festivals/arenal/cartel-arenal.webp',
+        alt: 'Cartel de Arenal Sound 2026',
+        width: 1114,
+        height: 1386,
+        featured: true,
+      },
+    ],
     map: {
-      lat: 38.53601759406289,
-      lng: -0.12804938107185576,
-      nameKey: 'festival.detail.byFestival.rbf.name',
+      lat: 39.865027,
+      lng: -0.066728,
+      nameKey: 'festival.detail.byFestival.arenal.name',
       embedUrl:
-        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d-0.12804938107185576!3d38.53601759406289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sReggaeton%20Beach%20Festival!5e1!3m2!1ses!2ses!4v1781447781947!5m2!1ses!2ses',
+        'https://maps.google.com/maps?q=39.865027,-0.066728&z=15&output=embed',
     },
   },
   {

@@ -204,6 +204,14 @@
   }
 }
 
+.spotify-playlists__card-logo--light {
+  padding: var(--fv-space-2);
+  background: var(--fv-text-primary);
+  border-color: rgba(255, 138, 61, 0.28); // @compat
+  border-color: color-mix(in srgb, var(--fv-accent-orange) 28%, transparent);
+  box-shadow: var(--fv-shadow-card);
+}
+
 .spotify-playlists__card-meta {
   display: grid;
   gap: 2px;

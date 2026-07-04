@@ -28,7 +28,11 @@
         >
           <article class="spotify-playlists__card">
             <header class="spotify-playlists__card-header">
-              <span class="spotify-playlists__card-logo" aria-hidden="true">
+              <span
+                class="spotify-playlists__card-logo"
+                [class.spotify-playlists__card-logo--light]="playlist.slug === 'arenal'"
+                aria-hidden="true"
+              >
                 <img
                   [ngSrc]="playlist.logoSrc"
                   alt=""

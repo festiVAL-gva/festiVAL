@@ -307,6 +307,14 @@
   z-index: 1;
 }
 
+.media--logo-plate .media-image {
+  max-width: min(13rem, 88%);
+  padding: var(--fv-space-3);
+  border-radius: var(--fv-radius-lg);
+  background: var(--fv-text-primary);
+  box-shadow: var(--fv-shadow-card);
+}
+
 // ── Card: body ────────────────────────────────────────────────
 
 .content {

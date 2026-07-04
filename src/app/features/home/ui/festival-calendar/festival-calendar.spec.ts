@@ -24,13 +24,13 @@ describe('FestivalCalendarComponent', () => {
     vi.useRealTimers();
   });
 
-  it('renders the timeline title and four festival cards', () => {
+  it('renders the timeline title and festival cards', () => {
     const root = fixture.nativeElement as HTMLElement;
 
     expect(
       root.querySelector('[data-testid="festival-calendar-title"]')?.textContent?.trim(),
     ).toBeTruthy();
-    expect(root.querySelectorAll('[data-testid="festival-calendar-card"]')).toHaveLength(5);
+    expect(root.querySelectorAll('[data-testid="festival-calendar-card"]')).toHaveLength(6);
   });
 
   it('renders three month labels, the gradient rail and the full day scale', () => {
@@ -63,6 +63,7 @@ describe('FestivalCalendarComponent', () => {
       'latin-fest',
       'latin-fest-valencia',
       'zevra',
+      'arenal',
       'medusa',
     ]);
 
@@ -77,6 +78,9 @@ describe('FestivalCalendarComponent', () => {
 
     vi.advanceTimersByTime(5000);
     expect(component.activeIndex()).toBe(4);
+
+    vi.advanceTimersByTime(5000);
+    expect(component.activeIndex()).toBe(5);
 
     vi.advanceTimersByTime(5000);
     expect(component.activeIndex()).toBe(0);

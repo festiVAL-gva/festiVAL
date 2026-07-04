@@ -64,7 +64,7 @@ describe('FestivalPosterGalleryComponent', () => {
   });
 
   it('hides the gallery when the festival has no posters', () => {
-    fixture.componentRef.setInput('slug', 'rbf');
+    fixture.componentRef.setInput('slug', 'festival-inexistente');
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('[data-testid="festival-poster-gallery"]')).toBeNull();
   });

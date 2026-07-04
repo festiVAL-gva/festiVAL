@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { DomSanitizer, type SafeResourceUrl } from '@angular/platform-browser';
-import { LucideArrowUpRight } from '@lucide/angular';
 
 import { TranslationService } from '@shared/data-access/i18n/translation.service';
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
@@ -31,11 +30,11 @@ const SPOTIFY_PLAYLISTS: readonly SpotifyPlaylistEntry[] = [
     embedUrl: 'https://open.spotify.com/embed/playlist/3AOngKv5cHCFfPbBuHaazI',
   },
   {
-    slug: 'rbf',
-    nameKey: 'home.playlists.cards.rbf.name',
-    descriptionKey: 'home.playlists.cards.rbf.description',
-    logoSrc: '/assets/images/festivals/rbf/logo-rbf.webp',
-    embedUrl: 'https://open.spotify.com/embed/playlist/213ypL4HZiHhzwxbh6Bb8v',
+    slug: 'arenal',
+    nameKey: 'home.playlists.cards.arenal.name',
+    descriptionKey: 'home.playlists.cards.arenal.description',
+    logoSrc: '/assets/images/festivals/arenal/logo-arenal.webp',
+    embedUrl: 'https://open.spotify.com/embed/playlist/1x79DnSuVH5In9KK97FuZp',
   },
   {
     slug: 'latin-fest',
@@ -53,7 +52,7 @@ interface SpotifyPlaylistView extends SpotifyPlaylistEntry {
 
 @Component({
   selector: 'fv-spotify-playlists',
-  imports: [NgOptimizedImage, LucideArrowUpRight, TranslatePipe],
+  imports: [NgOptimizedImage, TranslatePipe],
   templateUrl: './spotify-playlists.html',
   styleUrl: './spotify-playlists.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

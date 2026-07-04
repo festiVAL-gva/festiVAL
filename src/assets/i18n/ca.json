@@ -67,10 +67,10 @@
           "name": "Medusa Festival",
           "location": "Cullera, València"
         },
-        "rbf": {
-          "date": "AGO 2026",
-          "name": "Reggaeton Beach Festival",
-          "location": "Benidorm, Alacant"
+        "arenal": {
+          "date": "JUL 30-AGO 2",
+          "name": "Arenal Sound",
+          "location": "Borriana, Castelló"
         },
         "reve": {
           "date": "2026",
@@ -157,6 +157,12 @@
           "location": "Cullera",
           "genre": "Urbà"
         },
+        "arenal": {
+          "date": "30 Jul–2 Ago",
+          "name": "Arenal Sound",
+          "location": "Borriana",
+          "genre": "Pop, urbà i electrònica"
+        },
         "medusa": {
           "date": "13–17 Ago",
           "name": "Medusa Festival",
@@ -186,9 +192,9 @@
           "name": "Medusa Festival",
           "description": "La esencia electrónica del Mediterráneo."
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
-          "description": "Hits latinos para bailar frente al mar."
+        "arenal": {
+          "name": "Arenal Sound",
+          "description": "Pop, urbà i electrònica per a la setmana gran de Borriana."
         },
         "latinFest": {
           "name": "Latin Fest",
@@ -322,13 +328,13 @@
           "description": "Macrofestival electrònic vora mar amb diversos dies de programació i una posada en escena immersiva.",
           "howToGetThere": "Com arribar a Medusa"
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
-          "dates": "4 jul 2026",
-          "city": "Alacant",
-          "province": "Alacant",
-          "description": "Parada alacantina del circuit RBF amb enfocament beach club i noms clau de l'urbà llatí.",
-          "howToGetThere": "Com arribar a RBF"
+        "arenal": {
+          "name": "Arenal Sound",
+          "dates": "30 jul – 2 ago 2026",
+          "city": "Borriana",
+          "province": "Castelló",
+          "description": "Festival massiu vora la Platja de l'Arenal amb pop, urbà, electrònica, càmping i ambient d'estiu a Borriana.",
+          "howToGetThere": "Com arribar a Arenal Sound"
         },
         "reve": {
           "name": "Reve Festival",
@@ -503,20 +509,31 @@
             }
           }
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
+        "arenal": {
+          "name": "Arenal Sound",
           "hero": {
-            "title": "RBF",
-            "subtitle": "REGGAETON BEACH",
-            "location": "Benidorm, Alacant",
-            "dates": "4 – 5 jul 2026"
+            "title": "Arenal Sound",
+            "subtitle": "PLATJA I MÚSICA",
+            "location": "Borriana, Castelló",
+            "dates": "30 jul – 2 ago 2026"
           },
           "overview": {
-            "paragraph1": "Reggaeton Beach Festival converteix la costa alacantina en un epicentre de música urbana llatina durant un cap de setmana. Parada principal a Benidorm amb cartell de grans noms del reggaeton, format beach club i un públic centrat en la festa de dia.",
-            "paragraph2": "Recinte al costat de la platja, food trucks de cuina llatina, bars temàtics i una agenda d'afterparties en clubs de la zona. Accés còmode des d'Alacant i connexió amb els principals hotels de Benidorm.",
+            "paragraph1": "Arenal Sound converteix Borriana en un dels grans punts de trobada festivalers del Mediterrani. Quatre dies vora la Platja de l'Arenal amb una barreja àmplia de pop, urbà i electrònica per a viure l'estiu sense eixir del recinte.",
+            "paragraph2": "El festival combina concerts, sessions, zones de descans, càmping i una programació pensada per a moure's entre escenaris durant tota la jornada. La seua ubicació a la costa de Castelló el fa especialment còmode per a qui busca platja i música en el mateix viatge.",
+            "posterGallery": {
+              "title": "Cartell oficial d'Arenal Sound 2026",
+              "intro": "El cartell reuneix noms de pop, urbà i electrònica per a l'edició de Borriana.",
+              "dialog": {
+                "ariaLabel": "Cartell ampliat d'Arenal Sound",
+                "close": "Tancar cartell d'Arenal Sound"
+              },
+              "labels": {
+                "general": "Cartell 2026"
+              }
+            },
             "highlights": {
               "beach": "Platja",
-              "camping": "Hotels propers",
+              "camping": "Càmping",
               "foodTrucks": "Food Trucks",
               "afterparties": "Afterparties",
               "activities": "Activitats"

@@ -1,0 +1,30 @@
+{
+  "slug": "arenal",
+  "checkedAt": "2026-07-03",
+  "location": {
+    "city": "Burriana",
+    "province": "Castellón",
+    "country": "España"
+  },
+  "genre": {
+    "primary": "Pop",
+    "tags": ["Urban", "Electronic", "Latin"]
+  },
+  "ticket": {
+    "fromPrice": 40,
+    "feeIncluded": true,
+    "officialUrl": "https://arenalsound.com/comprar/"
+  },
+  "age": {
+    "minimumAccess": 0,
+    "authorizationRequiredFrom": 0,
+    "authorizationRequiredTo": 15,
+    "adultsOnlyAreas": []
+  },
+  "schedule": {
+    "published": false,
+    "opensAt": null,
+    "closesAt": null,
+    "noteUrl": "https://arenalsound.com/info/"
+  }
+}

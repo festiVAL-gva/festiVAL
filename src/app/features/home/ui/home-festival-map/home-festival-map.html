@@ -75,7 +75,7 @@
             [style.--festival-glow]="festival.glowColor"
           >
             <!-- Logo / media -->
-            <div class="media">
+            <div class="media" [class.media--logo-plate]="festival.slug === 'arenal'">
               <img
                 class="media-image"
                 [ngSrc]="festival.image.src"

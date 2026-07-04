@@ -67,10 +67,10 @@
           "name": "Medusa Festival",
           "location": "Cullera, Valencia"
         },
-        "rbf": {
-          "date": "AGO 2026",
-          "name": "Reggaeton Beach Festival",
-          "location": "Benidorm, Alicante"
+        "arenal": {
+          "date": "JUL 30-AGO 2",
+          "name": "Arenal Sound",
+          "location": "Burriana, Castellón"
         },
         "reve": {
           "date": "2026",
@@ -130,6 +130,12 @@
           "name": "Zevra Festival",
           "location": "Cullera",
           "genre": "Urbano"
+        },
+        "arenal": {
+          "date": "30 Jul–2 Ago",
+          "name": "Arenal Sound",
+          "location": "Burriana",
+          "genre": "Pop, urbano y electrónica"
         },
         "medusa": {
           "date": "13–17 Ago",
@@ -218,9 +224,9 @@
           "name": "Medusa Festival",
           "description": "La esencia electrónica del Mediterráneo."
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
-          "description": "Hits latinos para bailar frente al mar."
+        "arenal": {
+          "name": "Arenal Sound",
+          "description": "Pop, urbano y electrónica para la semana grande de Burriana."
         },
         "latinFest": {
           "name": "Latin Fest",
@@ -322,13 +328,13 @@
           "description": "Macrofestival electrónico junto al mar con varios días de programación y puesta en escena inmersiva.",
           "howToGetThere": "Cómo llegar a Medusa"
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
-          "dates": "4 jul 2026",
-          "city": "Alicante",
-          "province": "Alicante",
-          "description": "Parada alicantina del circuito RBF con enfoque beach club y nombres clave del urbano latino.",
-          "howToGetThere": "Cómo llegar a RBF"
+        "arenal": {
+          "name": "Arenal Sound",
+          "dates": "30 jul – 2 ago 2026",
+          "city": "Burriana",
+          "province": "Castellón",
+          "description": "Festival masivo junto a la Playa del Arenal con pop, urbano, electrónica, camping y ambiente de verano en Burriana.",
+          "howToGetThere": "Cómo llegar a Arenal Sound"
         },
         "reve": {
           "name": "Reve Festival",
@@ -503,20 +509,31 @@
             }
           }
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
+        "arenal": {
+          "name": "Arenal Sound",
           "hero": {
-            "title": "RBF",
-            "subtitle": "REGGAETON BEACH",
-            "location": "Benidorm, Alicante",
-            "dates": "4 – 5 jul 2026"
+            "title": "Arenal Sound",
+            "subtitle": "PLAYA Y MÚSICA",
+            "location": "Burriana, Castellón",
+            "dates": "30 jul – 2 ago 2026"
           },
           "overview": {
-            "paragraph1": "Reggaeton Beach Festival convierte la costa alicantina en un epicentro de música urbana latina durante un fin de semana. Parada principal en Benidorm con cartel de grandes nombres del reggaeton, formato beach club y un público centrado en la fiesta de día.",
-            "paragraph2": "Recinto junto a la playa, food trucks de cocina latina, bares temáticos y una agenda de afterparties en clubes de la zona. Acceso cómodo desde Alicante y conexión con los principales hoteles de Benidorm.",
+            "paragraph1": "Arenal Sound convierte Burriana en uno de los grandes puntos de encuentro festivaleros del Mediterráneo. Cuatro días junto a la Playa del Arenal con una mezcla amplia de pop, urbano y electrónica para vivir el verano sin salir del recinto.",
+            "paragraph2": "El festival combina conciertos, sesiones, zonas de descanso, camping y una programación pensada para moverse entre escenarios durante toda la jornada. Su ubicación en la costa de Castellón lo hace especialmente cómodo para quienes buscan playa y música en el mismo viaje.",
+            "posterGallery": {
+              "title": "Cartel oficial de Arenal Sound 2026",
+              "intro": "El cartel reúne nombres de pop, urbano y electrónica para la edición de Burriana.",
+              "dialog": {
+                "ariaLabel": "Cartel ampliado de Arenal Sound",
+                "close": "Cerrar cartel de Arenal Sound"
+              },
+              "labels": {
+                "general": "Cartel 2026"
+              }
+            },
             "highlights": {
               "beach": "Playa",
-              "camping": "Hoteles cercanos",
+              "camping": "Camping",
               "foodTrucks": "Food Trucks",
               "afterparties": "Afterparties",
               "activities": "Actividades"

@@ -56,7 +56,7 @@ El catálogo inicial documentado en la aplicación incluye estos festivales:
 - **Bigsound Festival**
 - **Latin Fest**
 - **Medusa Festival**
-- **Reggaeton Beach Festival**
+- **Arenal Sound**
 - **Reve Festival**
 - **Zevra Festival**
 

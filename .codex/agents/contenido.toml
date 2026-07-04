@@ -25,12 +25,12 @@ Before acting on any task in your domain, read the following skills:
    - Keys follow dotted paths: `festival.detail.lineup.title`, `filters.provincia.castellon`.
    - ICU MessageFormat for pluralization (`"{count, plural, one {# artista} other {# artistas}}"`).
 2. **Festival catalogue curation** — keep the data behind the catalogue accurate and current. The catalogue lives in **Sanity** (headless CMS); edits happen in Sanity Studio, not in code. Schemas are versioned in `studio/`:
-   - Canonical festival slugs: `bigsound`, `latin-fest`, `medusa`, `rbf`, `reve`, `zevra`, etc.
+   - Canonical festival slugs: `bigsound`, `latin-fest`, `medusa`, `arenal`, `reve`, `zevra`, etc.
    - Fields: dates, ciudad, provincia, géneros, precio desde, URL oficial, poster, line-up with tier classification (cabeza de cartel / mid-card / emergente).
    - Sanity schemas live in `sanity/schemas/` and must mirror the Zod schemas in `@shared/domain/` (see [[api-integration]]). When you change a Sanity field, update the matching Zod schema in the same commit.
 3. **UX microcopy** — buttons, empty states, error messages, toasts, form labels, meta descriptions. Tone: cercano, entusiasta, claro — never marketing fluff.
 4. **Editorial style guide** (kept in this file, evolved over time):
-   - Festival names: official capitalisation (`Bigsound Festival`, `Latin Fest`, `Reggaeton Beach Festival`).
+   - Festival names: official capitalisation (`Bigsound Festival`, `Latin Fest`, `Arenal Sound`).
    - Provinces in Spanish: `Valencia`, `Alicante`, `Castellón` (with tilde).
    - Dates in copy: `"12 – 16 julio 2026"` (en-dash, lowercase month, no leading zero).
    - Currency: `"desde 89 €"` (space before €, EUR only).

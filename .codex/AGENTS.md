@@ -115,7 +115,7 @@ To keep the architecture scalable and responsibilities clear, the project define
 - **`prueba`** 🧪 — Unit, component, and E2E tests (Vitest, Angular Testing Library, Playwright), `axe-core` for a11y, pre-merge validation. Consult it whenever services, components, pipes, guards, or critical flows are touched.
 - **`sistemas`** 🏗️ — Architecture, service layer, state management (Signals / NgRx SignalStore), routing, HTTP interceptors, SSR, environments, DTO contracts. Consult it when a change crosses a component boundary or touches data flow.
 - **`vistas`** 🎨 — Presentational components, design system, theming, SCSS, responsive layout, animations, visual accessibility. Consult it for any change to templates, styles, or visual experience.
-- **`contenido`** 📝 — Internationalization, festival catalogue curation (slugs, dates, line-up, prices), UX microcopy, editorial style guide. Consult it whenever copy or i18n keys are added or festival data is updated (Bigsound, Latin Fest, Medusa, RBF, Reve, Zevra…).
+- **`contenido`** 📝 — Internationalization, festival catalogue curation (slugs, dates, line-up, prices), UX microcopy, editorial style guide. Consult it whenever copy or i18n keys are added or festival data is updated (Bigsound, Latin Fest, Medusa, Arenal Sound, Reve, Zevra…).
 - **`rendimiento`** ⚡ — Core Web Vitals (LCP, CLS, INP), bundles, SSR / prerendering, JSON-LD `Event` schema, sitemap, canonicals, Open Graph, hreflang. Consult it for any change that could move metrics or affect SEO.
 
 Each agent explicitly declares who it collaborates with to avoid overlapping responsibilities.
@@ -231,7 +231,7 @@ The home carousel (`featured-festivals`), the `home.featured.cards.*` i18n keys,
 - **Bigsound Festival** (`bigsound`) — Valencia.
 - **Latin Fest** (`latin-fest`) — Valencia (también Benidorm) — latin, reggaeton.
 - **Medusa Festival** (`medusa`) — Cullera, Valencia — electronic.
-- **Reggaeton Beach Festival** (`rbf`) — Benidorm, Alicante — reggaeton, urban.
+- **Arenal Sound** (`arenal`) — Burriana, Castellón — pop, urbano, electrónica.
 - **Reve Festival** (`reve`) — Valencia (Roig Arena).
 - **Zevra Festival** (`zevra`) — Cullera, Valencia.
 - (… expandable season by season by the **contenido** agent)

@@ -45,8 +45,8 @@ describe('ReviewRotationService', () => {
   });
 
   it('all returned reviews belong to the requested festival', () => {
-    const result = service.getFeaturedReviews('rbf', new Date('2026-08-01'));
-    result.forEach(r => expect(r.festivalSlug).toBe('rbf'));
+    const result = service.getFeaturedReviews('arenal', new Date('2026-08-01'));
+    result.forEach(r => expect(r.festivalSlug).toBe('arenal'));
   });
 
   it('cycles correctly when startIndex is near the end of the pool', () => {

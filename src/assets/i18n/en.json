@@ -67,10 +67,10 @@
           "name": "Medusa Festival",
           "location": "Cullera, Valencia"
         },
-        "rbf": {
-          "date": "AUG 2026",
-          "name": "Reggaeton Beach Festival",
-          "location": "Benidorm, Alicante"
+        "arenal": {
+          "date": "JUL 30-AUG 2",
+          "name": "Arenal Sound",
+          "location": "Burriana, Castellón"
         },
         "reve": {
           "date": "2026",
@@ -157,6 +157,12 @@
           "location": "Cullera",
           "genre": "Urban"
         },
+        "arenal": {
+          "date": "30 Jul–2 Aug",
+          "name": "Arenal Sound",
+          "location": "Burriana",
+          "genre": "Pop, urban and electronic"
+        },
         "medusa": {
           "date": "Aug 13–17",
           "name": "Medusa Festival",
@@ -186,9 +192,9 @@
           "name": "Medusa Festival",
           "description": "La esencia electrónica del Mediterráneo."
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
-          "description": "Hits latinos para bailar frente al mar."
+        "arenal": {
+          "name": "Arenal Sound",
+          "description": "Pop, urban and electronic sounds for Burriana's big festival week."
         },
         "latinFest": {
           "name": "Latin Fest",
@@ -322,13 +328,13 @@
           "description": "A beachfront electronic macrofestival with multiple days of programming and immersive staging.",
           "howToGetThere": "Get directions to Medusa"
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
-          "dates": "4 Jul 2026",
-          "city": "Alicante",
-          "province": "Alicante",
-          "description": "The Alicante stop of the RBF circuit with a beach-club angle and major Latin urban acts.",
-          "howToGetThere": "Get directions to RBF"
+        "arenal": {
+          "name": "Arenal Sound",
+          "dates": "30 Jul – 2 Aug 2026",
+          "city": "Burriana",
+          "province": "Castellón",
+          "description": "A major festival by Playa del Arenal with pop, urban music, electronic sets, camping and a full summer atmosphere in Burriana.",
+          "howToGetThere": "Get directions to Arenal Sound"
         },
         "reve": {
           "name": "Reve Festival",
@@ -503,20 +509,31 @@
             }
           }
         },
-        "rbf": {
-          "name": "Reggaeton Beach Festival",
+        "arenal": {
+          "name": "Arenal Sound",
           "hero": {
-            "title": "RBF",
-            "subtitle": "REGGAETON BEACH",
-            "location": "Benidorm, Alicante",
-            "dates": "4 – 5 Jul 2026"
+            "title": "Arenal Sound",
+            "subtitle": "BEACH AND MUSIC",
+            "location": "Burriana, Castellón",
+            "dates": "30 Jul – 2 Aug 2026"
           },
           "overview": {
-            "paragraph1": "Reggaeton Beach Festival turns the Alicante coast into an epicentre of Latin urban music for a weekend. Main stop in Benidorm with a lineup of major reggaeton names, a beach-club format and a daytime party crowd.",
-            "paragraph2": "Beachside venue, Latin food trucks, themed bars and an afterparty calendar at clubs in the area. Easy access from Alicante and connections to the main Benidorm hotels.",
+            "paragraph1": "Arenal Sound turns Burriana into one of the Mediterranean summer's major festival meeting points. Four days by Playa del Arenal with a broad mix of pop, urban music and electronic sets.",
+            "paragraph2": "The festival combines live shows, DJ sessions, rest areas, camping and a programme built for moving between stages all day. Its Castellón coast location makes it an easy pick for a beach-and-music trip.",
+            "posterGallery": {
+              "title": "Official Arenal Sound 2026 poster",
+              "intro": "The poster brings together pop, urban and electronic names for the Burriana edition.",
+              "dialog": {
+                "ariaLabel": "Expanded Arenal Sound poster",
+                "close": "Close Arenal Sound poster"
+              },
+              "labels": {
+                "general": "2026 poster"
+              }
+            },
             "highlights": {
               "beach": "Beach",
-              "camping": "Nearby hotels",
+              "camping": "Camping",
               "foodTrucks": "Food Trucks",
               "afterparties": "Afterparties",
               "activities": "Activities"

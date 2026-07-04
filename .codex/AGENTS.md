@@ -23,7 +23,7 @@ Project stack (canonical choices — agents must respect these):
 | Icons            | **Lucide** (`@lucide/angular`)      | Single icon system, tree-shakeable, line style consistent with the UI |
 | Dates            | **date-fns** + `locale/es`          | Spanish formatting (`"12 – 16 jul 2026"`). Owned by **contenido**     |
 | Validation       | **Zod**                             | Boundary validation of HTTP DTOs. Owned by **sistemas**               |
-| Maps             | **MapLibre GL JS** + Protomaps tiles | OSS, no Mapbox/Google fees. Used in venue/festival detail pages       |
+| Maps             | **MapLibre GL JS** + Protomaps tiles | Reservado para el mapa interactivo `/mapa` (roadmap). El detalle de festival usa hoy el embed oficial de Google Maps (iframe `maps/embed?pb=…`, sin API key ni coste; único formato no bloqueado por X-Frame-Options). `maplibre-gl` se reinstalará al arrancar `/mapa` |
 | Search           | **MiniSearch**                      | Client-side fuzzy search with field boosts (`nombre`, `cabezasDeCartel`) |
 | Content (CMS)    | **Sanity**                          | Hosted headless CMS for the festival catalogue                        |
 | Hosting          | **Cloudflare Pages + Workers**      | Workers V8 isolates — vigilar el límite de 1 MB gz en plan free       |

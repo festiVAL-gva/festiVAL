@@ -10,6 +10,9 @@
       "toLight": "Activar el mode clar"
     },
     "menu": "Obrir menú",
+    "progress": {
+      "loading": "Carregant pàgina"
+    },
     "language": {
       "label": "Canviar idioma",
       "current": "Idioma actual: {lang}",

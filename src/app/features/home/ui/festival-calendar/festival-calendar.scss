@@ -128,6 +128,7 @@
 .festival-calendar__rail {
   height: 3px;
   border-radius: var(--fv-radius-pill);
+  // @compat Safari < 16.2 fallback (rgba estático) — sobrescrito abajo con color-mix().
   background: linear-gradient(
     90deg,
     var(--fv-accent-med-blue) 0%,

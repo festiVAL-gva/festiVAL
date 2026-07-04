@@ -21,7 +21,7 @@
 
         <!-- ── 1. Etiquetas de mes ─────────────────────────────── -->
         <div class="festival-calendar__months-row" aria-hidden="true">
-          @for (month of monthSegments; track month.key) {
+          @for (month of monthSegments(); track month.key) {
             <span
               class="festival-calendar__month festival-calendar__month--{{ month.key }}"
             >
@@ -35,7 +35,7 @@
 
         <!-- ── 3. Fila de números de día con marcadores ───────── -->
         <div class="festival-calendar__days-row" aria-hidden="true">
-          @for (month of monthSegments; track month.key) {
+          @for (month of monthSegments(); track month.key) {
             <div class="festival-calendar__day-scale">
               @for (day of month.days; track day) {
                 @let festivalOfDay = festivalForDay(month.key, day);
@@ -58,7 +58,7 @@
 
         <!-- ── 4. Tarjetas de festival (fila independiente) ────── -->
         <div class="festival-calendar__cards">
-          @for (festival of festivals; track trackBySlug($index, festival); let i = $index) {
+          @for (festival of festivals(); track trackBySlug($index, festival); let i = $index) {
             <article
               class="festival-calendar__festival festival-calendar__festival--{{ festival.tone }}"
               [class.festival-calendar__festival--active]="isActive(i)"

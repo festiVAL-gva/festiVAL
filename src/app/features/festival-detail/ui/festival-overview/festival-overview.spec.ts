@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { findFestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
 import { FestivalOverviewComponent } from './festival-overview';
 
 describe('FestivalOverviewComponent', () => {
@@ -11,7 +12,7 @@ describe('FestivalOverviewComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(FestivalOverviewComponent);
-    fixture.componentRef.setInput('slug', 'medusa');
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('medusa')!);
     fixture.detectChanges();
   });
 

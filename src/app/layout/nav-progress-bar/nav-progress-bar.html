@@ -3,7 +3,7 @@
     class="nav-progress-bar"
     [class.nav-progress-bar--completing]="transition.progressState() === 'completing'"
     role="progressbar"
-    aria-label="Cargando página"
+    [attr.aria-label]="'nav.progress.loading' | t"
     aria-valuemin="0"
     aria-valuemax="100"
   >

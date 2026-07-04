@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { FESTIVAL_LOCATIONS } from '@shared/data-access/festival-locations';
+import { FESTIVAL_LOCATIONS } from '../../data-access/festival-locations';
 
 import { HomeFestivalMapComponent } from './home-festival-map';
 

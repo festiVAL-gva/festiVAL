@@ -102,6 +102,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  // @compat Safari < 16.2 fallback (rgba estático, surface #0B0B14) — sobrescrito abajo con color-mix().
   background:
     linear-gradient(
       180deg,

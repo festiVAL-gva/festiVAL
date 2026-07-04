@@ -117,7 +117,10 @@
   </section>
 
   @defer (on viewport) {
-    <fv-festival-calendar />
+    <fv-festival-calendar
+      [monthSegments]="calendarMonthSegments"
+      [festivals]="calendarFestivals"
+    />
   } @placeholder {
     <div class="home-page__placeholder" aria-hidden="true"></div>
   }

@@ -10,6 +10,9 @@
       "toLight": "Switch to light mode"
     },
     "menu": "Open menu",
+    "progress": {
+      "loading": "Loading page"
+    },
     "language": {
       "label": "Change language",
       "current": "Current language: {lang}",

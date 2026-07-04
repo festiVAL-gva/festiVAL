@@ -10,6 +10,12 @@ description: >-
 
 Interactive maps of festival venues using **MapLibre GL JS** with **Protomaps** tiles.
 
+> **Estado actual (2026-07-04):** la página de detalle usa el **embed oficial de Google Maps**
+> (iframe `maps/embed?pb=…` del diálogo Share → Embed, sin API key; único formato de iframe no
+> bloqueado por X-Frame-Options) — ver `festival-location-map` y la fila Maps de `CLAUDE.md`.
+> Esta skill es el contrato para el mapa interactivo `/mapa` (roadmap): al arrancar esa fase se
+> reinstala `maplibre-gl` y se recupera el patrón `MapLoaderService` descrito abajo.
+
 ## Purpose
 
 Show the user where each festival happens — a single venue marker on detail pages, and a multi-marker overview on the listing page. The stack is fully OSS and free at our scale, avoiding Mapbox / Google Maps fees.

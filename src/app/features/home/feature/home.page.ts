@@ -16,8 +16,13 @@ import { FestivalCalendarComponent } from '../ui/festival-calendar/festival-cale
 import { HomeFaqComponent } from '../ui/home-faq/home-faq';
 import { HomeFestivalMapComponent } from '../ui/home-festival-map/home-festival-map';
 import { SpotifyPlaylistsComponent } from '../ui/spotify-playlists/spotify-playlists';
-import { NEXT_FESTIVALS, type NextFestivalEntry } from '../data-access/home-catalogue';
-import { FESTIVAL_LOCATIONS } from '@shared/data-access/festival-locations';
+import {
+  CALENDAR_FESTIVALS,
+  CALENDAR_MONTH_SEGMENTS,
+  NEXT_FESTIVALS,
+  type NextFestivalEntry,
+} from '../data-access/home-catalogue';
+import { FESTIVAL_LOCATIONS } from '../data-access/festival-locations';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
 interface CountdownState {
@@ -50,6 +55,8 @@ export class HomePageComponent {
   #countdownIntervalId: ReturnType<typeof setInterval> | null = null;
 
   protected readonly festivalLocations = FESTIVAL_LOCATIONS;
+  protected readonly calendarMonthSegments = CALENDAR_MONTH_SEGMENTS;
+  protected readonly calendarFestivals = CALENDAR_FESTIVALS;
   protected readonly now = signal(Date.now());
   protected readonly nextFestival = computed(() =>
     this.#findNextFestival(this.now()),

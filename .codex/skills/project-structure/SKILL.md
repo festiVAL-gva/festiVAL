@@ -53,7 +53,7 @@ layout    →  shared, core
 festiVAL/
 ├── .claude/                   # AI-assisted development (agents + skills) — do not move
 ├── docs/                      # project documentation (documentacion.md) — update on every structural commit
-├── sanity/                    # Sanity Studio (headless CMS) — independently deployable
+├── sanity/                    # (fase CMS — aún no creada; se reintroducirá al arrancar Sanity Studio)
 │   └── schemas/               # content schemas, mirror the Zod schemas in @shared/domain
 ├── scripts/                   # Node build scripts (WebP converter — see [[performance-optimization]])
 ├── src/
@@ -70,7 +70,8 @@ festiVAL/
 │   ├── main.ts
 │   ├── main.server.ts
 │   └── server.ts
-├── public/                    # static files served as-is (favicon, robots.txt, sitemap.xml)
+├── public/                    # static files served as-is (favicon, fuentes runtime, festival-detail-*.json;
+│                              #  robots.txt y sitemap.xml llegarán con [[seo-meta]])
 ├── angular.json
 ├── package.json
 ├── tsconfig.json
@@ -95,13 +96,15 @@ src/app/
 ├── core/                          # cross-cutting singletons, provided once at root
 │   ├── interceptors/              # HttpInterceptors: auth, error, cache, Zod-validation
 │   ├── handlers/                  # ErrorHandler → Sentry (see [[error-handling]])
-│   ├── initializers/              # APP_INITIALIZER factories (locale, theme, store hydration)
+│   ├── notifications/             # NotificationService (signal) consumed by shared/ui notification-banner
+│   ├── initializers/              # APP_INITIALIZER factories (locale, theme, store hydration) + Transloco loader
 │   ├── tokens/                    # InjectionTokens
 │   └── platform/                  # SSR helpers (isPlatformBrowser wrappers, window guards)
 │
 ├── layout/                        # the app shell, loaded eagerly
-│   ├── shell/                     # hosts <router-outlet>, nav, footer
+│   ├── shell/                     # hosts <router-outlet>, nav, progress bar, footer
 │   ├── nav-bar/
+│   ├── nav-progress-bar/          # slow-navigation indicator driven by PageTransitionService
 │   └── footer/
 │
 ├── features/                      # ── lazy chunk boundary ──
@@ -179,6 +182,8 @@ Every component — in `features/*/ui/`, `features/*/feature/`, `layout/`, or `s
 ```
 
 Route-bound pages use the `.page` suffix on the class file: `home.page.ts`. No `index.ts` barrel files anywhere — they defeat tree-shaking and obscure the import graph.
+
+A feature may omit `ui/` or `data-access/` while it has nothing to put in them (e.g. `festival-list`, `calendar`): empty scaffolds are not created ahead of need.
 
 ---
 
@@ -283,11 +288,11 @@ When creating a new file, ask in order — stop at the first **yes**:
 1. **A feature never imports from another feature.** Shared code goes to `shared/`.
 2. **`shared/` never imports from `features/` or `layout/`.**
 3. **`core/` never imports from `features/`, `layout/`, or `shared/ui/`.**
-4. Inside a feature, **`ui/` never imports from `data-access/`.** Presentational components receive data via inputs.
+4. Inside a feature, **`ui/` never imports runtime values from `data-access/`.** Presentational components receive data via inputs; `import type` from `data-access/` is allowed solely to type those inputs.
 5. **A feature's only public surface is its `<feature>.routes.ts`.** Never deep-import `features/x/ui/...` or `features/x/data-access/...` from outside the feature.
 6. **No NgModules.** Every component, directive, and pipe is standalone.
 7. **No `index.ts` barrel files.**
-8. **No HTTP calls outside a `data-access/` folder** (feature-local or `shared/data-access/`).
+8. **No HTTP calls outside a `data-access/` folder** (feature-local or `shared/data-access/`). Única excepción: loaders de infraestructura en `core/` exigidos por providers de `app.config.ts` (p. ej. el `TranslocoHttpLoader`).
 9. **No state mutations outside a store.**
 10. **No relative import that climbs above a feature root.** Use a path alias instead.
 11. **No new top-level folder under `src/app/`** without updating this document.

@@ -2,8 +2,10 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   inject,
+  input,
   signal,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
@@ -12,11 +14,10 @@ import { LucideMapPin } from '@lucide/angular';
 
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
-import {
-  CALENDAR_FESTIVALS,
-  CALENDAR_MONTH_SEGMENTS,
-  type CalendarFestivalEntry,
-  type CalendarMonth,
+import type {
+  CalendarFestivalEntry,
+  CalendarMonth,
+  CalendarMonthData,
 } from '../../data-access/home-catalogue';
 
 const INITIAL_ACTIVE_FESTIVAL_INDEX = 0;
@@ -39,14 +40,16 @@ const LABELED_DAYS: LabeledDayLookup = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FestivalCalendarComponent {
-  readonly monthSegments = CALENDAR_MONTH_SEGMENTS;
+  readonly monthSegments = input.required<readonly CalendarMonthData[]>();
 
-  readonly festivals = CALENDAR_FESTIVALS;
+  readonly festivals = input.required<readonly CalendarFestivalEntry[]>();
 
-  readonly festivalDays = this.festivals.reduce<FestivalDayLookup>((lookup, festival) => {
-    lookup[`${festival.month}:${festival.dayLabel}`] = festival;
-    return lookup;
-  }, {});
+  readonly festivalDays = computed(() =>
+    this.festivals().reduce<FestivalDayLookup>((lookup, festival) => {
+      lookup[`${festival.month}:${festival.dayLabel}`] = festival;
+      return lookup;
+    }, {}),
+  );
 
   // ── Estado del carrusel ─────────────────────────────────────────────────
   /** Índice del festival actualmente visible. */
@@ -62,7 +65,7 @@ export class FestivalCalendarComponent {
 
   /** El usuario pasa el ratón por encima del día destacado de un festival. */
   focusFestival(festival: CalendarFestivalEntry): void {
-    const idx = this.festivals.findIndex((f) => f.slug === festival.slug);
+    const idx = this.festivals().findIndex((f) => f.slug === festival.slug);
     if (idx >= 0) {
       this.activeIndex.set(idx);
       this.#restartAutoplay();
@@ -75,7 +78,7 @@ export class FestivalCalendarComponent {
 
   #startAutoplay(): void {
     this.#intervalId = setInterval(() => {
-      this.activeIndex.update((index) => (index + 1) % this.festivals.length);
+      this.activeIndex.update((index) => (index + 1) % this.festivals().length);
     }, AUTOPLAY_INTERVAL_MS);
   }
 
@@ -96,7 +99,7 @@ export class FestivalCalendarComponent {
   }
 
   festivalForDay(month: CalendarMonth, day: string): CalendarFestivalEntry | null {
-    return this.festivalDays[`${month}:${day}`] ?? null;
+    return this.festivalDays()[`${month}:${day}`] ?? null;
   }
 
   isLabeledDay(month: CalendarMonth, day: string): boolean {

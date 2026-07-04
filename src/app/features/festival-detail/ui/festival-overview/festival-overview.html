@@ -11,7 +11,7 @@
     <p class="festival-overview__body">{{ k.paragraph2 | t }}</p>
   </div>
 
-  <fv-festival-poster-gallery [slug]="slug()" />
+  <fv-festival-poster-gallery [entry]="entry()" />
 
   <ul class="festival-overview__highlights" [attr.aria-label]="'festival.detail.overview.highlightsAriaLabel' | t">
     <li class="festival-overview__highlight">

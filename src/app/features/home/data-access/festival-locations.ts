@@ -1,4 +1,4 @@
-import type { TranslationKey } from './i18n/translations';
+import type { TranslationKey } from '@shared/data-access/i18n/translations';
 
 export type FestivalCategory = 'electronic' | 'latin' | 'pop' | 'urban';
 export type MarkerTone = 'violet' | 'teal' | 'amber' | 'rose';

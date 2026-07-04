@@ -14,10 +14,7 @@ import { TranslationService } from '@shared/data-access/i18n/translation.service
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import type { ReviewStats } from '@shared/domain/review.model';
 
-import {
-  findFestivalDetailEntry,
-  type FestivalDetailEntry,
-} from '../../data-access/festival-detail-catalogue';
+import type { FestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
 
 const EMPTY_STATS: ReviewStats = { averageRating: 0, totalCount: 0 };
 
@@ -41,12 +38,8 @@ const EMPTY_STATS: ReviewStats = { averageRating: 0, totalCount: 0 };
 export class FestivalHeroComponent {
   readonly #i18n = inject(TranslationService);
 
-  readonly slug = input.required<string>();
+  readonly entry = input.required<FestivalDetailEntry>();
   readonly stats = input<ReviewStats>(EMPTY_STATS);
-
-  protected readonly entry = computed<FestivalDetailEntry | null>(() =>
-    findFestivalDetailEntry(this.slug()),
-  );
 
   protected readonly hasStats = computed(() => this.stats().totalCount > 0);
 

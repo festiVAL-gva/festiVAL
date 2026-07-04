@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { findFestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
 import { FestivalLocationMapComponent } from './festival-location-map';
 
 describe('FestivalLocationMapComponent', () => {
@@ -11,7 +12,7 @@ describe('FestivalLocationMapComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(FestivalLocationMapComponent);
-    fixture.componentRef.setInput('slug', 'medusa');
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('medusa')!);
     fixture.detectChanges();
   });
 
@@ -24,11 +25,5 @@ describe('FestivalLocationMapComponent', () => {
     expect(iframe).not.toBeNull();
     expect(iframe.getAttribute('src')).toContain('google.com/maps/embed');
     expect(iframe.getAttribute('src')).toContain('Medusa%20Festival');
-  });
-
-  it('hides the section when the slug is unknown', () => {
-    fixture.componentRef.setInput('slug', 'not-a-slug');
-    fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('[data-testid="festival-location-map"]')).toBeNull();
   });
 });

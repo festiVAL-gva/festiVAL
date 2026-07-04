@@ -2,6 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import {
+  CALENDAR_FESTIVALS,
+  CALENDAR_MONTH_SEGMENTS,
+} from '../../data-access/home-catalogue';
 import { FestivalCalendarComponent } from './festival-calendar';
 
 describe('FestivalCalendarComponent', () => {
@@ -17,6 +21,8 @@ describe('FestivalCalendarComponent', () => {
 
     fixture = TestBed.createComponent(FestivalCalendarComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('monthSegments', CALENDAR_MONTH_SEGMENTS);
+    fixture.componentRef.setInput('festivals', CALENDAR_FESTIVALS);
     fixture.detectChanges();
   });
 
@@ -48,7 +54,7 @@ describe('FestivalCalendarComponent', () => {
   });
 
   it('switches the active festival when focusFestival() is called', () => {
-    const third = component.festivals[2];
+    const third = component.festivals()[2];
     component.focusFestival(third);
 
     expect(component.activeIndex()).toBe(2);
@@ -58,7 +64,7 @@ describe('FestivalCalendarComponent', () => {
 
   it('cycles the active card automatically every 5 seconds in timeline order', () => {
     expect(component.activeIndex()).toBe(0);
-    expect(component.festivals.map((festival) => festival.slug)).toEqual([
+    expect(component.festivals().map((festival) => festival.slug)).toEqual([
       'bigsound',
       'latin-fest',
       'reve',
@@ -94,7 +100,7 @@ describe('FestivalCalendarComponent', () => {
     vi.advanceTimersByTime(3000);
     expect(component.activeIndex()).toBe(0);
 
-    component.focusFestival(component.festivals[2]);
+    component.focusFestival(component.festivals()[2]);
     expect(component.activeIndex()).toBe(2);
 
     vi.advanceTimersByTime(3000);
@@ -119,7 +125,7 @@ describe('FestivalCalendarComponent', () => {
 
   it('renders the Arenal card with the logo asset', () => {
     const root = fixture.nativeElement as HTMLElement;
-    const arenalIndex = component.festivals.findIndex((festival) => festival.slug === 'arenal');
+    const arenalIndex = component.festivals().findIndex((festival) => festival.slug === 'arenal');
     const arenalCard = root.querySelectorAll<HTMLElement>('[data-testid="festival-calendar-card"]')[arenalIndex];
     const image = arenalCard?.querySelector<HTMLImageElement>('img');
 

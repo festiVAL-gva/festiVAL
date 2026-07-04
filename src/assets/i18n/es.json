@@ -10,6 +10,9 @@
       "toLight": "Activar modo claro"
     },
     "menu": "Abrir menú",
+    "progress": {
+      "loading": "Cargando página"
+    },
     "language": {
       "label": "Cambiar idioma",
       "current": "Idioma actual: {lang}",

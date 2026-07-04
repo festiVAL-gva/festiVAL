@@ -10,7 +10,7 @@ import {
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
 
-import { findFestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
+import type { FestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
 import { FestivalPosterGalleryComponent } from '../festival-poster-gallery/festival-poster-gallery';
 
 interface OverviewKeys {
@@ -61,8 +61,7 @@ function slugNamespace(slug: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FestivalOverviewComponent {
-  readonly slug = input.required<string>();
+  readonly entry = input.required<FestivalDetailEntry>();
 
-  protected readonly entry = computed(() => findFestivalDetailEntry(this.slug()));
-  protected readonly keys = computed<OverviewKeys>(() => buildKeys(this.slug()));
+  protected readonly keys = computed<OverviewKeys>(() => buildKeys(this.entry().slug));
 }

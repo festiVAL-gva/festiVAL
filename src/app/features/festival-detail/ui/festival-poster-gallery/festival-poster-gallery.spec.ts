@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { findFestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
 import { FestivalPosterGalleryComponent } from './festival-poster-gallery';
 
 describe('FestivalPosterGalleryComponent', () => {
@@ -11,7 +12,7 @@ describe('FestivalPosterGalleryComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(FestivalPosterGalleryComponent);
-    fixture.componentRef.setInput('slug', 'medusa');
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('medusa')!);
     fixture.detectChanges();
   });
 
@@ -64,7 +65,10 @@ describe('FestivalPosterGalleryComponent', () => {
   });
 
   it('hides the gallery when the festival has no posters', () => {
-    fixture.componentRef.setInput('slug', 'festival-inexistente');
+    fixture.componentRef.setInput('entry', {
+      ...findFestivalDetailEntry('medusa')!,
+      posters: undefined,
+    });
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('[data-testid="festival-poster-gallery"]')).toBeNull();
   });

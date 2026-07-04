@@ -17,7 +17,7 @@ import {
   LucideMusic,
 } from '@lucide/angular';
 
-import type { FestivalLocation } from '@shared/data-access/festival-locations';
+import type { FestivalLocation } from '../../data-access/festival-locations';
 import { TranslationService } from '@shared/data-access/i18n/translation.service';
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';

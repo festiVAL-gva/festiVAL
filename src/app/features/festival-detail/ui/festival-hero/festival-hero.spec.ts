@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
+import { findFestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
 import { FestivalHeroComponent } from './festival-hero';
 
 describe('FestivalHeroComponent', () => {
@@ -13,7 +14,7 @@ describe('FestivalHeroComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(FestivalHeroComponent);
-    fixture.componentRef.setInput('slug', 'medusa');
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('medusa')!);
   });
 
   it('creates', () => {

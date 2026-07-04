@@ -11,7 +11,10 @@ import {
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
 
-import { findFestivalDetailEntry, type FestivalDetailPoster } from '../../data-access/festival-detail-catalogue';
+import type {
+  FestivalDetailEntry,
+  FestivalDetailPoster,
+} from '../../data-access/festival-detail-catalogue';
 
 interface PosterGalleryKeys {
   readonly title: TranslationKey;
@@ -43,15 +46,14 @@ function slugNamespace(slug: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FestivalPosterGalleryComponent {
-  readonly slug = input.required<string>();
+  readonly entry = input.required<FestivalDetailEntry>();
   readonly isPaused = signal(false);
   readonly activePoster = signal<FestivalDetailPoster | null>(null);
 
-  protected readonly entry = computed(() => findFestivalDetailEntry(this.slug()));
-  protected readonly keys = computed<PosterGalleryKeys>(() => buildKeys(this.slug()));
+  protected readonly keys = computed<PosterGalleryKeys>(() => buildKeys(this.entry().slug));
 
   protected readonly posters = computed<readonly FestivalDetailPoster[]>(
-    () => this.entry()?.posters ?? [],
+    () => this.entry().posters ?? [],
   );
   protected readonly featuredPoster = computed<FestivalDetailPoster | null>(
     () => this.posters().find((poster) => poster.featured) ?? this.posters()[0] ?? null,

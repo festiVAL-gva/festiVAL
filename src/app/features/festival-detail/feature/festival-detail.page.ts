@@ -5,6 +5,10 @@ import { FestivalHeroComponent } from '../ui/festival-hero/festival-hero';
 import { FestivalDetailFactsComponent } from '../ui/festival-detail-facts/festival-detail-facts';
 import { FestivalLocationMapComponent } from '../ui/festival-location-map/festival-location-map';
 import { FestivalOverviewComponent } from '../ui/festival-overview/festival-overview';
+import {
+  findFestivalDetailEntry,
+  type FestivalDetailEntry,
+} from '../data-access/festival-detail-catalogue';
 import { FestivalDetailFactsService } from '../data-access/festival-detail-facts.service';
 import { ReviewRotationService } from '../data-access/review-rotation.service';
 import type { ReviewStats } from '@shared/domain/review.model';
@@ -23,6 +27,10 @@ import type { ReviewStats } from '@shared/domain/review.model';
 })
 export class FestivalDetailPageComponent {
   protected readonly slug = inject(ActivatedRoute).snapshot.params['slug'] as string;
+
+  // festivalDetailGuard sólo activa la ruta para slugs presentes en el catálogo.
+  protected readonly entry: FestivalDetailEntry = findFestivalDetailEntry(this.slug)!;
+
   protected readonly facts = inject(FestivalDetailFactsService).facts(this.slug);
 
   protected readonly reviewStats: ReviewStats =

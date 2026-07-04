@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { PageTransitionService } from '@core/platform/page-transition.service';
+import type { TranslationKey } from '@shared/data-access/i18n/translations';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
 @Component({
@@ -12,4 +13,5 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
 })
 export class NavProgressBarComponent {
   protected readonly transition = inject(PageTransitionService);
+  protected readonly loadingLabelKey: TranslationKey = 'nav.progress.loading';
 }

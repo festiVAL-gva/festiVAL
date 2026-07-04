@@ -22,7 +22,7 @@
     var(--fv-space-6)
     var(--fv-space-4)
     var(--fv-space-8);
-  background: var(--fv-bg-canvas);
+  background: var(--fv-bg-page);
 
   @include from(md) {
     padding:
@@ -70,7 +70,7 @@
 }
 
 .festival-calendar__title {
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   font-family: var(--fv-font-heading);
   font-size: var(--fv-text-4xl);
   line-height: var(--fv-leading-display);
@@ -84,8 +84,7 @@
 
 .festival-calendar__subtitle {
   max-width: 45rem;
-  color: rgba(244, 244, 250, 0.64); // @compat
-  color: color-mix(in srgb, var(--fv-text-primary) 64%, transparent);
+  color: var(--fv-text-footer-muted);
   font-size: var(--fv-text-lg);
   line-height: var(--fv-leading-relaxed);
 }
@@ -108,8 +107,7 @@
 }
 
 .festival-calendar__month {
-  color: rgba(244, 244, 250, 0.8); // @compat
-  color: color-mix(in srgb, var(--fv-text-primary) 80%, transparent);
+  color: var(--fv-text-nav);
   font-family: var(--fv-font-heading);
   font-size: var(--fv-text-2xl);
   font-weight: 800;
@@ -187,14 +185,12 @@
   width: 2px;
   height: 0.8rem;
   border-radius: var(--fv-radius-pill);
-  background: rgba(244, 244, 250, 0.22); // @compat
-  background: color-mix(in srgb, var(--fv-text-primary) 22%, transparent);
+  background: var(--fv-border-nav);
   transform: translateX(-50%);
 }
 
 .festival-calendar__day--labeled {
-  color: rgba(244, 244, 250, 0.52); // @compat
-  color: color-mix(in srgb, var(--fv-text-primary) 52%, transparent);
+  color: var(--fv-text-footer-faint);
   font-size: var(--fv-text-base);
 }
 
@@ -303,10 +299,8 @@
   gap: var(--fv-space-2);
   padding: var(--fv-space-2);
   border-radius: var(--fv-radius-lg);
-  background: rgba(17, 17, 29, 0.94); // @compat
-  background: color-mix(in srgb, var(--fv-bg-elevated) 94%, transparent);
-  border: 1px solid rgba(244, 244, 250, 0.08); // @compat
-  border: 1px solid color-mix(in srgb, var(--fv-text-primary) 8%, transparent);
+  background: var(--fv-bg-card-light);
+  border: 1px solid var(--fv-border-nav);
   box-shadow: var(--fv-shadow-card);
   color: inherit;
   text-decoration: none;
@@ -331,12 +325,12 @@
   min-height: 4.25rem;
   padding: var(--fv-space-2);
   border-radius: var(--fv-radius-md);
-  background: rgba(244, 244, 250, 0.08); // @compat
+  background: var(--fv-bg-nav);
   color: var(--festival-color);
   text-align: center;
 
   @supports (color: color-mix(in srgb, red 50%, blue)) {
-    background: color-mix(in srgb, var(--festival-color) 18%, var(--fv-bg-elevated));
+    background: color-mix(in srgb, var(--festival-color) 16%, var(--fv-bg-card-light));
   }
 }
 
@@ -379,7 +373,7 @@
 }
 
 .festival-calendar__card-title {
-  color: var(--fv-text-primary);
+  color: var(--fv-text-nav);
   font-family: var(--fv-font-heading);
   font-size: var(--calendar-card-title-size);
   line-height: 1.1;
@@ -390,8 +384,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--fv-space-1);
-  color: rgba(244, 244, 250, 0.62); // @compat
-  color: color-mix(in srgb, var(--fv-text-primary) 62%, transparent);
+  color: var(--fv-text-footer-muted);
   font-size: var(--calendar-card-location-size);
 }
 
@@ -419,7 +412,7 @@
 }
 
 .festival-calendar__badge--genre {
-  background: rgba(244, 244, 250, 0.08); // @compat
+  background: var(--fv-bg-nav);
   color: var(--festival-color);
 }
 

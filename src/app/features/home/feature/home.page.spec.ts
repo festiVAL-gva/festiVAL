@@ -5,14 +5,24 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { afterEach, vi } from 'vitest';
 
 import { HomePageComponent } from './home.page';
+
+interface HomePageClockHandle {
+  readonly now: {
+    set(value: number): void;
+  };
+}
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
   let fixture: ComponentFixture<HomePageComponent>;
 
   beforeEach(async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-07-03T12:00:00+02:00'));
+
     globalThis.IntersectionObserver ??= class {
       readonly root = null;
       readonly rootMargin = '';
@@ -41,6 +51,10 @@ describe('HomePageComponent', () => {
     fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('creates', () => {
@@ -87,6 +101,24 @@ describe('HomePageComponent', () => {
     expect(countdownCards).toHaveLength(4);
     expect(primaryCta?.getAttribute('href')).toBe('/festivales/latin-fest');
     expect(secondaryCta?.getAttribute('href')).toBe('/calendario');
+  });
+
+  it('moves the next festival block forward when the countdown target is reached', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const clockHandle = component as unknown as HomePageClockHandle;
+
+    clockHandle.now.set(new Date('2026-07-04T00:00:00+02:00').getTime());
+    fixture.detectChanges();
+
+    const primaryCta = root.querySelector(
+      '[data-testid="home-next-festival-primary-cta"]',
+    ) as HTMLAnchorElement | null;
+    const image = root.querySelector<HTMLImageElement>('.home-next-festival__image');
+
+    expect(primaryCta?.getAttribute('href')).toBe('/festivales/reve');
+    expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
+      '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
+    );
   });
 
   it('renders the calendar, featured festivals, faq section and the interactive map section', async () => {

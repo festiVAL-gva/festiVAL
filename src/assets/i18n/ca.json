@@ -47,6 +47,71 @@
         "hours": "hores",
         "minutes": "min",
         "seconds": "seg"
+      },
+      "festivals": {
+        "bigsound": {
+          "titleAccent": "Bigsound Festival",
+          "title": "arranca el 26 de juny. Ja tens el teu pla?",
+          "date": "26 juny 2026",
+          "location": "Parc Central de Torrent, València",
+          "genre": "Pop i directe",
+          "imageAlt": "Cartell de Bigsound Festival València 2026",
+          "primaryCta": "Veure Bigsound"
+        },
+        "latinFestBenidorm": {
+          "titleAccent": "Latin Fest",
+          "title": "arranca el 4 de juliol. Ja tens el teu pla?",
+          "date": "4 juliol 2026",
+          "location": "Benidorm, Alacant",
+          "genre": "Llatí en directe",
+          "imageAlt": "Cartell de Latin Fest Benidorm 2026",
+          "primaryCta": "Veure Latin Fest"
+        },
+        "reve": {
+          "titleAccent": "Reve Festival",
+          "title": "arranca el 16 de juliol. Ja tens el teu pla?",
+          "date": "16 juliol 2026",
+          "location": "Roig Arena, València",
+          "genre": "Pop i show",
+          "imageAlt": "Cartell de Reve Festival Roig Arena València 2026",
+          "primaryCta": "Veure Reve"
+        },
+        "latinFestValencia": {
+          "titleAccent": "Latin Fest",
+          "title": "arriba a València el 17 de juliol. Ja tens el teu pla?",
+          "date": "17 juliol 2026",
+          "location": "València",
+          "genre": "Llatí en directe",
+          "imageAlt": "Recinte visual de Latin Fest València 2026",
+          "primaryCta": "Veure Latin Fest"
+        },
+        "zevra": {
+          "titleAccent": "Zevra Festival",
+          "title": "arranca el 24 de juliol. Ja tens el teu pla?",
+          "date": "24 juliol 2026",
+          "location": "Cullera, València",
+          "genre": "Urbà",
+          "imageAlt": "Cartell general de Zevra Festival 2026",
+          "primaryCta": "Veure Zevra"
+        },
+        "arenal": {
+          "titleAccent": "Arenal Sound",
+          "title": "arranca el 30 de juliol. Ja tens el teu pla?",
+          "date": "30 juliol 2026",
+          "location": "Platja de l'Arenal, Borriana",
+          "genre": "Pop, urbà i electrònica",
+          "imageAlt": "Cartell d'Arenal Sound 2026",
+          "primaryCta": "Veure Arenal"
+        },
+        "medusa": {
+          "titleAccent": "Medusa Festival",
+          "title": "arranca el 13 d'agost. Ja tens el teu pla?",
+          "date": "13 agost 2026",
+          "location": "Platja de Cullera, València",
+          "genre": "Electrònica",
+          "imageAlt": "Cartell general de Medusa Festival 2026",
+          "primaryCta": "Veure Medusa"
+        }
       }
     },
     "featured": {

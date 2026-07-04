@@ -54,14 +54,18 @@
     [attr.aria-label]="'home.nextFestival.ariaLabel' | t"
     data-testid="home-next-festival"
   >
-    <img
-      class="home-next-festival__image"
-      ngSrc="/assets/images/festivals/latin-fest/venue-valencia-recinto.webp"
-      width="1289"
-      height="980"
-      sizes="100vw"
-      [alt]="'home.nextFestival.imageAlt' | t"
-    />
+    @let festival = nextFestival();
+
+    @for (festivalImage of nextFestivalImage(); track festivalImage.slug) {
+      <img
+        class="home-next-festival__image"
+        [ngSrc]="festivalImage.image.src"
+        [width]="festivalImage.image.width"
+        [height]="festivalImage.image.height"
+        sizes="100vw"
+        [alt]="festivalImage.imageAltKey | t"
+      />
+    }
 
     <div class="home-next-festival__overlay" aria-hidden="true"></div>
 
@@ -70,15 +74,15 @@
 
       <h2 class="home-next-festival__title" data-testid="home-next-festival-title">
         <span class="home-next-festival__title-accent">
-          {{ 'home.nextFestival.titleAccent' | t }}
+          {{ festival.titleAccentKey | t }}
         </span>
-        <span>{{ 'home.nextFestival.title' | t }}</span>
+        <span>{{ festival.titleKey | t }}</span>
       </h2>
 
       <div class="home-next-festival__meta">
-        <span class="home-next-festival__meta-pill">{{ 'home.nextFestival.date' | t }}</span>
-        <span class="home-next-festival__meta-pill">{{ 'home.nextFestival.location' | t }}</span>
-        <span class="home-next-festival__meta-pill">{{ 'home.nextFestival.genre' | t }}</span>
+        <span class="home-next-festival__meta-pill">{{ festival.dateKey | t }}</span>
+        <span class="home-next-festival__meta-pill">{{ festival.locationKey | t }}</span>
+        <span class="home-next-festival__meta-pill">{{ festival.genreKey | t }}</span>
       </div>
 
       <div class="home-next-festival__countdown" data-testid="home-next-festival-countdown">
@@ -93,10 +97,10 @@
       <div class="home-next-festival__actions">
         <a
           class="home-page__button home-page__button--primary home-next-festival__cta"
-          routerLink="/festivales/latin-fest"
+          [routerLink]="['/festivales', festival.routeSlug]"
           data-testid="home-next-festival-primary-cta"
         >
-          <span>{{ 'home.nextFestival.primaryCta' | t }}</span>
+          <span>{{ festival.primaryCtaKey | t }}</span>
           <svg lucideArrowRight aria-hidden="true" focusable="false" size="22" strokeWidth="2"></svg>
         </a>
 

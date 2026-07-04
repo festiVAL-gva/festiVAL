@@ -47,6 +47,71 @@
         "hours": "hours",
         "minutes": "min",
         "seconds": "sec"
+      },
+      "festivals": {
+        "bigsound": {
+          "titleAccent": "Bigsound Festival",
+          "title": "starts on 26 June. Ready for your plan?",
+          "date": "26 June 2026",
+          "location": "Parc Central de Torrent, Valencia",
+          "genre": "Pop & live",
+          "imageAlt": "Bigsound Festival Valencia 2026 poster",
+          "primaryCta": "View Bigsound"
+        },
+        "latinFestBenidorm": {
+          "titleAccent": "Latin Fest",
+          "title": "lands on 4 July. Ready for your plan?",
+          "date": "4 July 2026",
+          "location": "Benidorm, Alicante",
+          "genre": "Live Latin sounds",
+          "imageAlt": "Latin Fest Benidorm 2026 poster",
+          "primaryCta": "View Latin Fest"
+        },
+        "reve": {
+          "titleAccent": "Reve Festival",
+          "title": "starts on 16 July. Ready for your plan?",
+          "date": "16 July 2026",
+          "location": "Roig Arena, Valencia",
+          "genre": "Pop & show",
+          "imageAlt": "Reve Festival Roig Arena Valencia 2026 poster",
+          "primaryCta": "View Reve"
+        },
+        "latinFestValencia": {
+          "titleAccent": "Latin Fest",
+          "title": "arrives in Valencia on 17 July. Ready for your plan?",
+          "date": "17 July 2026",
+          "location": "Valencia",
+          "genre": "Live Latin sounds",
+          "imageAlt": "Latin Fest Valencia 2026 visual venue",
+          "primaryCta": "View Latin Fest"
+        },
+        "zevra": {
+          "titleAccent": "Zevra Festival",
+          "title": "starts on 24 July. Ready for your plan?",
+          "date": "24 July 2026",
+          "location": "Cullera, Valencia",
+          "genre": "Urban",
+          "imageAlt": "Zevra Festival 2026 main poster",
+          "primaryCta": "View Zevra"
+        },
+        "arenal": {
+          "titleAccent": "Arenal Sound",
+          "title": "starts on 30 July. Ready for your plan?",
+          "date": "30 July 2026",
+          "location": "Playa El Arenal, Burriana",
+          "genre": "Pop, urban and electronic",
+          "imageAlt": "Arenal Sound 2026 poster",
+          "primaryCta": "View Arenal"
+        },
+        "medusa": {
+          "titleAccent": "Medusa Festival",
+          "title": "starts on 13 August. Ready for your plan?",
+          "date": "13 August 2026",
+          "location": "Playa de Cullera, Valencia",
+          "genre": "Electronic",
+          "imageAlt": "Medusa Festival 2026 main poster",
+          "primaryCta": "View Medusa"
+        }
       }
     },
     "featured": {

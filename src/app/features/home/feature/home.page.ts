@@ -16,6 +16,7 @@ import { FestivalCalendarComponent } from '../ui/festival-calendar/festival-cale
 import { HomeFaqComponent } from '../ui/home-faq/home-faq';
 import { HomeFestivalMapComponent } from '../ui/home-festival-map/home-festival-map';
 import { SpotifyPlaylistsComponent } from '../ui/spotify-playlists/spotify-playlists';
+import { NEXT_FESTIVALS, type NextFestivalEntry } from '../data-access/home-catalogue';
 import { FESTIVAL_LOCATIONS } from '@shared/data-access/festival-locations';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
@@ -46,12 +47,16 @@ interface CountdownState {
 })
 export class HomePageComponent {
   readonly #destroyRef = inject(DestroyRef);
-  readonly #latinFestStartsAt = new Date('2026-07-04T00:00:00+02:00').getTime();
   #countdownIntervalId: ReturnType<typeof setInterval> | null = null;
 
   protected readonly festivalLocations = FESTIVAL_LOCATIONS;
-  protected readonly nextFestivalCountdown = signal<CountdownState>(
-    this.#buildCountdown(Date.now()),
+  protected readonly now = signal(Date.now());
+  protected readonly nextFestival = computed(() =>
+    this.#findNextFestival(this.now()),
+  );
+  protected readonly nextFestivalImage = computed(() => [this.nextFestival()] as const);
+  protected readonly nextFestivalCountdown = computed(() =>
+    this.#buildCountdown(this.nextFestival().startsAt, this.now()),
   );
   protected readonly countdownItems = computed(() => {
     const countdown = this.nextFestivalCountdown();
@@ -66,7 +71,7 @@ export class HomePageComponent {
   constructor() {
     afterNextRender(() => {
       this.#countdownIntervalId = setInterval(() => {
-        this.nextFestivalCountdown.set(this.#buildCountdown(Date.now()));
+        this.now.set(Date.now());
       }, 1000);
     });
     this.#destroyRef.onDestroy(() => {
@@ -76,8 +81,15 @@ export class HomePageComponent {
     });
   }
 
-  #buildCountdown(now: number): CountdownState {
-    const diff = Math.max(this.#latinFestStartsAt - now, 0);
+  #findNextFestival(now: number): NextFestivalEntry {
+    return (
+      NEXT_FESTIVALS.find((festival) => new Date(festival.startsAt).getTime() > now) ??
+      NEXT_FESTIVALS[NEXT_FESTIVALS.length - 1]
+    );
+  }
+
+  #buildCountdown(startsAt: string, now: number): CountdownState {
+    const diff = Math.max(new Date(startsAt).getTime() - now, 0);
     const totalSeconds = Math.floor(diff / 1000);
     const days = Math.floor(totalSeconds / 86400);
     const hours = Math.floor((totalSeconds % 86400) / 3600);

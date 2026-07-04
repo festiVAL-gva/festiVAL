@@ -27,6 +27,24 @@ export interface CalendarFestivalEntry {
   readonly cardOffset: string;
 }
 
+export interface NextFestivalEntry {
+  readonly slug: string;
+  readonly routeSlug: string;
+  readonly startsAt: string;
+  readonly titleAccentKey: TranslationKey;
+  readonly titleKey: TranslationKey;
+  readonly dateKey: TranslationKey;
+  readonly locationKey: TranslationKey;
+  readonly genreKey: TranslationKey;
+  readonly imageAltKey: TranslationKey;
+  readonly primaryCtaKey: TranslationKey;
+  readonly image: {
+    readonly src: string;
+    readonly width: number;
+    readonly height: number;
+  };
+}
+
 export const CALENDAR_MONTH_SEGMENTS = [
   {
     key: 'june',
@@ -47,6 +65,128 @@ export const CALENDAR_MONTH_SEGMENTS = [
     days: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
   },
 ] as const satisfies readonly CalendarMonthData[];
+
+export const NEXT_FESTIVALS = [
+  {
+    slug: 'bigsound',
+    routeSlug: 'bigsound',
+    startsAt: '2026-06-26T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.bigsound.titleAccent',
+    titleKey: 'home.nextFestival.festivals.bigsound.title',
+    dateKey: 'home.nextFestival.festivals.bigsound.date',
+    locationKey: 'home.nextFestival.festivals.bigsound.location',
+    genreKey: 'home.nextFestival.festivals.bigsound.genre',
+    imageAltKey: 'home.nextFestival.festivals.bigsound.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.bigsound.primaryCta',
+    image: {
+      src: '/assets/images/festivals/bigsound/cartel-bigsound-valencia-2026.webp',
+      width: 550,
+      height: 688,
+    },
+  },
+  {
+    slug: 'latin-fest-benidorm',
+    routeSlug: 'latin-fest',
+    startsAt: '2026-07-04T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.latinFestBenidorm.titleAccent',
+    titleKey: 'home.nextFestival.festivals.latinFestBenidorm.title',
+    dateKey: 'home.nextFestival.festivals.latinFestBenidorm.date',
+    locationKey: 'home.nextFestival.festivals.latinFestBenidorm.location',
+    genreKey: 'home.nextFestival.festivals.latinFestBenidorm.genre',
+    imageAltKey: 'home.nextFestival.festivals.latinFestBenidorm.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.latinFestBenidorm.primaryCta',
+    image: {
+      src: '/assets/images/festivals/latin-fest/cartel-latin-fest-benidorm-2026.webp',
+      width: 1048,
+      height: 1394,
+    },
+  },
+  {
+    slug: 'reve',
+    routeSlug: 'reve',
+    startsAt: '2026-07-16T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.reve.titleAccent',
+    titleKey: 'home.nextFestival.festivals.reve.title',
+    dateKey: 'home.nextFestival.festivals.reve.date',
+    locationKey: 'home.nextFestival.festivals.reve.location',
+    genreKey: 'home.nextFestival.festivals.reve.genre',
+    imageAltKey: 'home.nextFestival.festivals.reve.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.reve.primaryCta',
+    image: {
+      src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
+      width: 1920,
+      height: 1080,
+    },
+  },
+  {
+    slug: 'latin-fest-valencia',
+    routeSlug: 'latin-fest',
+    startsAt: '2026-07-17T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.latinFestValencia.titleAccent',
+    titleKey: 'home.nextFestival.festivals.latinFestValencia.title',
+    dateKey: 'home.nextFestival.festivals.latinFestValencia.date',
+    locationKey: 'home.nextFestival.festivals.latinFestValencia.location',
+    genreKey: 'home.nextFestival.festivals.latinFestValencia.genre',
+    imageAltKey: 'home.nextFestival.festivals.latinFestValencia.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.latinFestValencia.primaryCta',
+    image: {
+      src: '/assets/images/festivals/latin-fest/venue-valencia-recinto.webp',
+      width: 1289,
+      height: 980,
+    },
+  },
+  {
+    slug: 'zevra',
+    routeSlug: 'zevra',
+    startsAt: '2026-07-24T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.zevra.titleAccent',
+    titleKey: 'home.nextFestival.festivals.zevra.title',
+    dateKey: 'home.nextFestival.festivals.zevra.date',
+    locationKey: 'home.nextFestival.festivals.zevra.location',
+    genreKey: 'home.nextFestival.festivals.zevra.genre',
+    imageAltKey: 'home.nextFestival.festivals.zevra.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.zevra.primaryCta',
+    image: {
+      src: '/assets/images/festivals/zevra/cartel-zevra-2026.webp',
+      width: 1080,
+      height: 1350,
+    },
+  },
+  {
+    slug: 'arenal',
+    routeSlug: 'arenal',
+    startsAt: '2026-07-30T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.arenal.titleAccent',
+    titleKey: 'home.nextFestival.festivals.arenal.title',
+    dateKey: 'home.nextFestival.festivals.arenal.date',
+    locationKey: 'home.nextFestival.festivals.arenal.location',
+    genreKey: 'home.nextFestival.festivals.arenal.genre',
+    imageAltKey: 'home.nextFestival.festivals.arenal.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.arenal.primaryCta',
+    image: {
+      src: '/assets/images/festivals/arenal/cartel-arenal.webp',
+      width: 1114,
+      height: 1386,
+    },
+  },
+  {
+    slug: 'medusa',
+    routeSlug: 'medusa',
+    startsAt: '2026-08-13T00:00:00+02:00',
+    titleAccentKey: 'home.nextFestival.festivals.medusa.titleAccent',
+    titleKey: 'home.nextFestival.festivals.medusa.title',
+    dateKey: 'home.nextFestival.festivals.medusa.date',
+    locationKey: 'home.nextFestival.festivals.medusa.location',
+    genreKey: 'home.nextFestival.festivals.medusa.genre',
+    imageAltKey: 'home.nextFestival.festivals.medusa.imageAlt',
+    primaryCtaKey: 'home.nextFestival.festivals.medusa.primaryCta',
+    image: {
+      src: '/assets/images/festivals/medusa/cartel-medusa-2026.webp',
+      width: 1080,
+      height: 1350,
+    },
+  },
+] as const satisfies readonly NextFestivalEntry[];
 
 export const CALENDAR_FESTIVALS = [
   {

@@ -47,6 +47,71 @@
         "hours": "horas",
         "minutes": "min",
         "seconds": "seg"
+      },
+      "festivals": {
+        "bigsound": {
+          "titleAccent": "Bigsound Festival",
+          "title": "arranca el 26 de junio. ¿Ya tienes tu plan?",
+          "date": "26 junio 2026",
+          "location": "Parc Central de Torrent, Valencia",
+          "genre": "Pop & directo",
+          "imageAlt": "Cartel de Bigsound Festival Valencia 2026",
+          "primaryCta": "Ver Bigsound"
+        },
+        "latinFestBenidorm": {
+          "titleAccent": "Latin Fest",
+          "title": "arranca el 4 de julio. ¿Ya tienes tu plan?",
+          "date": "4 julio 2026",
+          "location": "Benidorm, Alicante",
+          "genre": "Latino en directo",
+          "imageAlt": "Cartel de Latin Fest Benidorm 2026",
+          "primaryCta": "Ver Latin Fest"
+        },
+        "reve": {
+          "titleAccent": "Reve Festival",
+          "title": "arranca el 16 de julio. ¿Ya tienes tu plan?",
+          "date": "16 julio 2026",
+          "location": "Roig Arena, Valencia",
+          "genre": "Pop y show",
+          "imageAlt": "Cartel de Reve Festival Roig Arena Valencia 2026",
+          "primaryCta": "Ver Reve"
+        },
+        "latinFestValencia": {
+          "titleAccent": "Latin Fest",
+          "title": "llega a Valencia el 17 de julio. ¿Ya tienes tu plan?",
+          "date": "17 julio 2026",
+          "location": "Valencia",
+          "genre": "Latino en directo",
+          "imageAlt": "Recinto visual de Latin Fest Valencia 2026",
+          "primaryCta": "Ver Latin Fest"
+        },
+        "zevra": {
+          "titleAccent": "Zevra Festival",
+          "title": "arranca el 24 de julio. ¿Ya tienes tu plan?",
+          "date": "24 julio 2026",
+          "location": "Cullera, Valencia",
+          "genre": "Urbano",
+          "imageAlt": "Cartel general de Zevra Festival 2026",
+          "primaryCta": "Ver Zevra"
+        },
+        "arenal": {
+          "titleAccent": "Arenal Sound",
+          "title": "arranca el 30 de julio. ¿Ya tienes tu plan?",
+          "date": "30 julio 2026",
+          "location": "Playa El Arenal, Burriana",
+          "genre": "Pop, urbano y electrónica",
+          "imageAlt": "Cartel de Arenal Sound 2026",
+          "primaryCta": "Ver Arenal"
+        },
+        "medusa": {
+          "titleAccent": "Medusa Festival",
+          "title": "arranca el 13 de agosto. ¿Ya tienes tu plan?",
+          "date": "13 agosto 2026",
+          "location": "Playa de Cullera, Valencia",
+          "genre": "Electrónica",
+          "imageAlt": "Cartel general de Medusa Festival 2026",
+          "primaryCta": "Ver Medusa"
+        }
       }
     },
     "featured": {

@@ -9,6 +9,7 @@
   --calendar-card-title-size: var(--fv-text-lg);
   --calendar-card-location-size: var(--fv-text-sm);
   --calendar-badge-size: var(--fv-text-xs);
+  --calendar-featured-marker-size: var(--fv-space-5);
 }
 
 .festival-calendar {
@@ -18,24 +19,15 @@
   box-sizing: border-box;
   margin-inline: calc(50% - 50vw);
   scroll-margin-top: var(--fv-space-10);
-  padding:
-    var(--fv-space-6)
-    var(--fv-space-4)
-    var(--fv-space-8);
+  padding: var(--fv-space-6) var(--fv-space-4) var(--fv-space-8);
   background: var(--fv-bg-page);
 
   @include from(md) {
-    padding:
-      var(--fv-space-7)
-      calc(var(--fv-space-6) + var(--fv-space-1))
-      var(--fv-space-8);
+    padding: var(--fv-space-7) calc(var(--fv-space-6) + var(--fv-space-1)) var(--fv-space-8);
   }
 
   @include from(lg) {
-    padding:
-      var(--fv-space-7)
-      var(--fv-space-7)
-      var(--fv-space-8);
+    padding: var(--fv-space-7) var(--fv-space-7) var(--fv-space-8);
   }
 }
 
@@ -101,7 +93,8 @@
 
 .festival-calendar__months-row {
   display: grid;
-  grid-template-columns: 15fr 31fr 18fr;
+  grid-template-columns: 5fr 31fr 13fr;
+  gap: var(--fv-space-4);
   align-items: end;
   padding-bottom: var(--fv-space-1);
 }
@@ -134,7 +127,7 @@
     var(--fv-accent-med-blue) 0%,
     var(--fv-accent-coral) 55%,
     var(--fv-accent-orange) 82%,
-    rgba(255, 138, 61, 0.70) 100%
+    rgba(255, 138, 61, 0.7) 100%
   );
   background: linear-gradient(
     90deg,
@@ -148,8 +141,8 @@
 
 .festival-calendar__days-row {
   display: grid;
-  grid-template-columns: 15fr 31fr 18fr;
-  gap: var(--fv-space-2);
+  grid-template-columns: 5fr 31fr 13fr;
+  gap: var(--fv-space-4);
   padding-top: var(--fv-space-2);
 }
 
@@ -200,7 +193,7 @@
   padding-top: 0;
   z-index: 1;
   color: var(--fv-bg-canvas);
-  font-size: var(--fv-text-lg);
+  font-size: var(--fv-text-base);
   font-weight: 800;
   cursor: pointer;
 }
@@ -214,8 +207,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 3.35rem;
-  height: 3.35rem;
+  width: var(--calendar-featured-marker-size);
+  height: var(--calendar-featured-marker-size);
   border-radius: var(--fv-radius-pill);
   // Safari < 16.2: --festival-day-color is a CSS var inside color-mix → @supports guard.
   background: var(--festival-day-color); // flat fallback
@@ -259,7 +252,7 @@
   left: var(--festival-position, 50%);
   width: 13.75rem;
   padding-top: var(--fv-space-5);
-  transform: translateX(-50%) translateY(var(--fv-space-2));
+  transform: translateX(var(--festival-card-shift, -50%)) translateY(var(--fv-space-2));
   opacity: 0;
   pointer-events: none;
   transition:
@@ -270,14 +263,14 @@
 .festival-calendar__festival--active {
   opacity: 1;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(var(--festival-card-shift, -50%)) translateY(0);
   z-index: 3;
 }
 
 .festival-calendar__connector {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: var(--festival-connector-left, 50%);
   width: 2px;
   height: var(--fv-space-5);
   background-image: linear-gradient(
@@ -306,7 +299,8 @@
   color: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition: transform var(--fv-duration-base) var(--fv-ease-standard),
+  transition:
+    transform var(--fv-duration-base) var(--fv-ease-standard),
     box-shadow var(--fv-duration-base) var(--fv-ease-standard);
 
   @include focus-ring;
@@ -358,12 +352,22 @@
   overflow: hidden;
 }
 
+.festival-calendar__card-media--logo-plate {
+  padding: var(--fv-space-1);
+  background: var(--fv-text-primary);
+}
+
 .festival-calendar__card-image {
   display: block;
   width: 100%;
   height: 4.25rem;
   object-fit: contain;
   padding: var(--fv-space-1);
+}
+
+.festival-calendar__card-media--logo-plate .festival-calendar__card-image {
+  height: 100%;
+  padding: 0;
 }
 
 .festival-calendar__card-body {
@@ -433,7 +437,13 @@
   --festival-color: var(--fv-accent-blue);
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1439px) {
+  .festival-calendar__months-row,
+  .festival-calendar__rail,
+  .festival-calendar__days-row {
+    display: none;
+  }
+
   .festival-calendar__cards {
     position: static;
     min-height: 0;
@@ -471,12 +481,6 @@
 
   .festival-calendar__subtitle {
     font-size: var(--fv-text-base);
-  }
-
-  .festival-calendar__months-row,
-  .festival-calendar__rail,
-  .festival-calendar__days-row {
-    display: none;
   }
 
   .festival-calendar__cards {

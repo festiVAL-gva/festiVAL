@@ -27,9 +27,9 @@ type FestivalDayLookup = Record<string, CalendarFestivalEntry>;
 type LabeledDayLookup = Record<CalendarMonth, ReadonlySet<string>>;
 
 const LABELED_DAYS: LabeledDayLookup = {
-  june: new Set(['16', '20', '24', '26', '28', '30']),
-  july: new Set(['1', '4', '8', '12', '16', '17', '21', '24', '28', '31']),
-  august: new Set(['1', '4', '8', '12', '13', '16', '18']),
+  june: new Set(['26']),
+  july: new Set(['4', '16', '17', '24', '30']),
+  august: new Set(['13']),
 };
 
 @Component({

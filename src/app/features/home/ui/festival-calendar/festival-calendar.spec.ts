@@ -2,10 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import {
-  CALENDAR_FESTIVALS,
-  CALENDAR_MONTH_SEGMENTS,
-} from '../../data-access/home-catalogue';
+import { CALENDAR_FESTIVALS, CALENDAR_MONTH_SEGMENTS } from '../../data-access/home-catalogue';
 import { FestivalCalendarComponent } from './festival-calendar';
 
 describe('FestivalCalendarComponent', () => {
@@ -39,12 +36,16 @@ describe('FestivalCalendarComponent', () => {
     expect(root.querySelectorAll('[data-testid="festival-calendar-card"]')).toHaveLength(7);
   });
 
-  it('renders three month labels, the gradient rail and the full day scale', () => {
+  it('renders three month labels, the gradient rail and the trimmed day scale', () => {
     const root = fixture.nativeElement as HTMLElement;
+    const visibleDayCount = CALENDAR_MONTH_SEGMENTS.reduce(
+      (total, month) => total + month.days.length,
+      0,
+    );
 
     expect(root.querySelectorAll('.festival-calendar__month')).toHaveLength(3);
     expect(root.querySelector('.festival-calendar__rail')).not.toBeNull();
-    expect(root.querySelectorAll('.festival-calendar__day').length).toBeGreaterThan(60);
+    expect(root.querySelectorAll('.festival-calendar__day')).toHaveLength(visibleDayCount);
   });
 
   it('marks the first timeline festival as the initially active card', () => {
@@ -116,21 +117,26 @@ describe('FestivalCalendarComponent', () => {
     expect(component.festivalForDay('august', '13')?.slug).toBe('medusa');
   });
 
-  it('labels only the editorial reference days on the scale', () => {
+  it('labels only festival days on the scale', () => {
     expect(component.isLabeledDay('july', '4')).toBe(true);
-    expect(component.isLabeledDay('july', '5')).toBe(false);
     expect(component.isLabeledDay('july', '16')).toBe(true);
-    expect(component.isLabeledDay('august', '18')).toBe(true);
+    expect(component.isLabeledDay('august', '13')).toBe(true);
+    expect(component.isLabeledDay('july', '5')).toBe(false);
+    expect(component.isLabeledDay('july', '21')).toBe(false);
+    expect(component.isLabeledDay('august', '18')).toBe(false);
   });
 
   it('renders the Arenal card with the logo asset', () => {
     const root = fixture.nativeElement as HTMLElement;
     const arenalIndex = component.festivals().findIndex((festival) => festival.slug === 'arenal');
-    const arenalCard = root.querySelectorAll<HTMLElement>('[data-testid="festival-calendar-card"]')[arenalIndex];
+    const arenalCard = root.querySelectorAll<HTMLElement>('[data-testid="festival-calendar-card"]')[
+      arenalIndex
+    ];
     const image = arenalCard?.querySelector<HTMLImageElement>('img');
 
     expect(arenalIndex).toBeGreaterThan(-1);
     expect(image).not.toBeNull();
+    expect(arenalCard?.querySelector('.festival-calendar__card-media--logo-plate')).not.toBeNull();
     expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
       '/assets/images/festivals/arenal/logo-arenal.webp',
     );

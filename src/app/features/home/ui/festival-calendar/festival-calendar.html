@@ -18,13 +18,10 @@
 
     <div class="festival-calendar__timeline-shell">
       <div class="festival-calendar__timeline" data-testid="festival-calendar-timeline">
-
         <!-- ── 1. Etiquetas de mes ─────────────────────────────── -->
         <div class="festival-calendar__months-row" aria-hidden="true">
           @for (month of monthSegments(); track month.key) {
-            <span
-              class="festival-calendar__month festival-calendar__month--{{ month.key }}"
-            >
+            <span class="festival-calendar__month festival-calendar__month--{{ month.key }}">
               {{ month.labelKey | t }}
             </span>
           }
@@ -63,6 +60,16 @@
               class="festival-calendar__festival festival-calendar__festival--{{ festival.tone }}"
               [class.festival-calendar__festival--active]="isActive(i)"
               [style.--festival-position]="festival.position + '%'"
+              [style.--festival-card-shift]="
+                festival.cardAlign === 'start'
+                  ? '0'
+                  : festival.cardAlign === 'end'
+                    ? '-100%'
+                    : '-50%'
+              "
+              [style.--festival-connector-left]="
+                festival.cardAlign === 'start' ? '0' : festival.cardAlign === 'end' ? '100%' : '50%'
+              "
               data-testid="festival-calendar-card"
             >
               <div class="festival-calendar__connector" aria-hidden="true"></div>
@@ -79,7 +86,10 @@
                   }}</span>
                 </div>
 
-                <div class="festival-calendar__card-media">
+                <div
+                  class="festival-calendar__card-media"
+                  [class.festival-calendar__card-media--logo-plate]="festival.slug === 'arenal'"
+                >
                   <img
                     class="festival-calendar__card-image"
                     [ngSrc]="festival.imageSrc"
@@ -111,7 +121,6 @@
             </article>
           }
         </div>
-
       </div>
     </div>
   </div>

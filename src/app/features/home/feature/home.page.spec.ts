@@ -69,19 +69,23 @@ describe('HomePageComponent', () => {
     );
   });
 
-  it('renders the hero copy and static buttons', () => {
+  it('renders the hero copy and navigable ctas', () => {
     const root = fixture.nativeElement as HTMLElement;
     const overlay = root.querySelector('.home-page__overlay');
     const title = root.querySelector('[data-testid="home-hero-title"]');
     const description = root.querySelector('[data-testid="home-hero-description"]');
-    const buttons = root.querySelectorAll('[data-testid="home-hero-actions"] .home-page__button');
+    const primaryCta = root.querySelector(
+      '[data-testid="home-hero-primary-cta"]',
+    ) as HTMLAnchorElement | null;
+    const secondaryCta = root.querySelector(
+      '[data-testid="home-hero-secondary-cta"]',
+    ) as HTMLAnchorElement | null;
 
     expect(overlay).not.toBeNull();
     expect(title?.textContent?.trim()).toBeTruthy();
     expect(description?.textContent?.trim()).toBeTruthy();
-    expect(buttons).toHaveLength(2);
-    expect(buttons[0]?.getAttribute('type')).toBe('button');
-    expect(buttons[1]?.getAttribute('type')).toBe('button');
+    expect(primaryCta?.getAttribute('href')).toBe('/festivales');
+    expect(secondaryCta?.getAttribute('href')).toBe('/calendario');
   });
 
   it('renders the next festival editorial block for Latin Fest', () => {

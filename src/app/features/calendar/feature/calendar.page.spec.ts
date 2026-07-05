@@ -34,13 +34,16 @@ describe('CalendarPageComponent', () => {
     expect(root.querySelector('[data-testid="calendar-card-bigsound-2026-06-26"]')).not.toBeNull();
   });
 
-  it('moves festivals that have already ended below upcoming ones', () => {
+  it('keeps month groups in natural chronological order', () => {
     const root = fixture.nativeElement as HTMLElement;
-    const renderedMonths = Array.from(root.querySelectorAll('[data-testid^="calendar-month-"]')).map(
-      (element) => element.getAttribute('data-testid'),
-    );
+    const renderedMonths = Array.from(
+      root.querySelectorAll('[data-testid^="calendar-month-"]'),
+    ).map((element) => element.getAttribute('data-testid'));
 
-    expect(renderedMonths[0]).toBe('calendar-month-2026-07');
-    expect(renderedMonths.at(-1)).toBe('calendar-month-2026-06');
+    expect(renderedMonths).toEqual([
+      'calendar-month-2026-06',
+      'calendar-month-2026-07',
+      'calendar-month-2026-08',
+    ]);
   });
 });

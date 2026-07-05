@@ -10,10 +10,7 @@ import { TranslationService } from '@shared/data-access/i18n/translation.service
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
 import { TranslatePipe } from '@shared/pipes/translate.pipe';
 
-import {
-  CALENDAR_FESTIVALS,
-  type CalendarFestival,
-} from '../data-access/calendar-catalogue';
+import { CALENDAR_FESTIVALS, type CalendarFestival } from '../data-access/calendar-catalogue';
 
 type BadgeTone = 'single' | 'start' | 'middle' | 'final';
 
@@ -53,8 +50,13 @@ const DATE_LOCALES = {
   en: enGB,
 } as const;
 
-const EXPANDED_CALENDAR_ENTRIES = CALENDAR_FESTIVALS.flatMap((festival) => expandFestivalDays(festival))
-  .sort((left, right) => left.isoDate.localeCompare(right.isoDate) || left.festival.name.localeCompare(right.festival.name));
+const EXPANDED_CALENDAR_ENTRIES = CALENDAR_FESTIVALS.flatMap((festival) =>
+  expandFestivalDays(festival),
+).sort(
+  (left, right) =>
+    left.isoDate.localeCompare(right.isoDate) ||
+    left.festival.name.localeCompare(right.festival.name),
+);
 
 @Component({
   selector: 'fv-calendar-page',
@@ -66,12 +68,15 @@ const EXPANDED_CALENDAR_ENTRIES = CALENDAR_FESTIVALS.flatMap((festival) => expan
 })
 export class CalendarPageComponent {
   protected readonly filteredEntries = computed(() =>
-    [...EXPANDED_CALENDAR_ENTRIES].sort((left, right) => compareCalendarEntries(left, right, startOfToday())),
+    [...EXPANDED_CALENDAR_ENTRIES].sort(compareCalendarEntries),
   );
 
   protected readonly monthGroups = computed<readonly CalendarMonthGroupView[]>(() => {
     const locale = resolveLocale(this.#i18n.activeLang());
-    const monthGroups = new Map<string, { title: string; days: Map<string, CalendarDateGroupView> }>();
+    const monthGroups = new Map<
+      string,
+      { title: string; days: Map<string, CalendarDateGroupView> }
+    >();
 
     for (const entry of this.filteredEntries()) {
       const monthId = format(entry.date, 'yyyy-MM');
@@ -174,7 +179,8 @@ function formatFestivalRange(startIso: string, endIso: string, locale: Locale): 
     return format(start, 'd MMMM', { locale });
   }
 
-  const isSameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+  const isSameMonth =
+    start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
   if (isSameMonth) {
     return `${format(start, 'd', { locale })}–${format(end, 'd MMMM', { locale })}`;
   }
@@ -182,27 +188,11 @@ function formatFestivalRange(startIso: string, endIso: string, locale: Locale): 
   return `${format(start, 'd MMMM', { locale })}–${format(end, 'd MMMM', { locale })}`;
 }
 
-function compareCalendarEntries(
-  left: CalendarExpandedEntry,
-  right: CalendarExpandedEntry,
-  today: Date,
-): number {
-  const leftEnded = hasFestivalEnded(left.festival, today);
-  const rightEnded = hasFestivalEnded(right.festival, today);
-
-  if (leftEnded !== rightEnded) {
-    return leftEnded ? 1 : -1;
-  }
-
-  return left.isoDate.localeCompare(right.isoDate) || left.festival.name.localeCompare(right.festival.name);
-}
-
-function hasFestivalEnded(festival: CalendarFestival, today: Date): boolean {
-  return parseISO(festival.endDate) < today;
-}
-
-function startOfToday(now = new Date()): Date {
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+function compareCalendarEntries(left: CalendarExpandedEntry, right: CalendarExpandedEntry): number {
+  return (
+    left.isoDate.localeCompare(right.isoDate) ||
+    left.festival.name.localeCompare(right.festival.name)
+  );
 }
 
 function resolveLocale(lang: string): Locale {

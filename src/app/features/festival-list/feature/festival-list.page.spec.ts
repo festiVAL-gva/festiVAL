@@ -38,6 +38,23 @@ describe('FestivalListPageComponent', () => {
     expect(cards.length).toBe(component.festivals.length);
   });
 
+  it('renders festivals in chronological month order', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const cards = Array.from(root.querySelectorAll('[data-testid^="festival-card-"]')).map((card) =>
+      card.getAttribute('data-testid'),
+    );
+
+    expect(cards).toEqual([
+      'festival-card-bigsound',
+      'festival-card-latin-fest-benidorm',
+      'festival-card-reve',
+      'festival-card-latin-fest-valencia',
+      'festival-card-zevra',
+      'festival-card-arenal',
+      'festival-card-medusa',
+    ]);
+  });
+
   it('links each card to the festival detail page', () => {
     const root = fixture.nativeElement as HTMLElement;
     const firstCard = root.querySelector('[data-testid="festival-card-bigsound"]');
@@ -48,7 +65,9 @@ describe('FestivalListPageComponent', () => {
 
   it('renders the Bigsound card with the poster dimensions', () => {
     const root = fixture.nativeElement as HTMLElement;
-    const image = root.querySelector<HTMLImageElement>('[data-testid="festival-card-bigsound"] img');
+    const image = root.querySelector<HTMLImageElement>(
+      '[data-testid="festival-card-bigsound"] img',
+    );
 
     expect(image).not.toBeNull();
     expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(

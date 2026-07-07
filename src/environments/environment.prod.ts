@@ -2,12 +2,12 @@
 // environment.prod.ts — festiVAL · production
 // ============================================================================
 
-import type { Environment } from './environment';
+import type { Environment } from './environment.model';
 
 export const environment: Environment = {
   production: true,
   defaultLocale: 'es-ES',
-  baseUrl: 'https://festival.example.com',
+  baseUrl: 'https://festival.rngheru.workers.dev',
   sanity: {
     projectId: '',
     dataset: 'production',

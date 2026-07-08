@@ -142,9 +142,9 @@ export const NEXT_FESTIVALS = [
     imageAltKey: 'home.nextFestival.festivals.reve.imageAlt',
     primaryCtaKey: 'home.nextFestival.festivals.reve.primaryCta',
     image: {
-      src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
-      width: 1920,
-      height: 1080,
+      src: '/assets/images/festivals/reve/cartel-reve-vertical-2026.webp',
+      width: 1080,
+      height: 1350,
     },
   },
   {

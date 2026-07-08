@@ -66,4 +66,17 @@ describe('FeaturedFestivalsComponent', () => {
       '/assets/images/festivals/arenal/cartel-arenal.webp',
     );
   });
+
+  it('renders the Reve card with the press kit vertical poster dimensions', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const card = root.querySelector<HTMLElement>('[data-testid="featured-festivals-card-reve"]');
+    const image = card?.querySelector<HTMLImageElement>('img');
+
+    expect(image).not.toBeNull();
+    expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
+      '/assets/images/festivals/reve/cartel-reve-vertical-2026.webp',
+    );
+    expect(image?.getAttribute('width')).toBe('1080');
+    expect(image?.getAttribute('height')).toBe('1350');
+  });
 });

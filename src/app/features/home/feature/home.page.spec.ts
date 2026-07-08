@@ -121,7 +121,7 @@ describe('HomePageComponent', () => {
 
     expect(primaryCta?.getAttribute('href')).toBe('/festivales/reve');
     expect(image?.getAttribute('ng-reflect-ng-src') ?? image?.getAttribute('src')).toContain(
-      '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
+      '/assets/images/festivals/reve/cartel-reve-vertical-2026.webp',
     );
   });
 

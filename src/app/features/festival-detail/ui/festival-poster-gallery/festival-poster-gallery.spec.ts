@@ -27,6 +27,23 @@ describe('FestivalPosterGalleryComponent', () => {
     expect(fixture.nativeElement.querySelectorAll('.festival-poster-gallery__item')).toHaveLength(8);
   });
 
+  it('renders the Reve press kit posters in the detail gallery', () => {
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('reve')!);
+    fixture.detectChanges();
+
+    const featuredImage = fixture.nativeElement.querySelector(
+      '.festival-poster-gallery__featured img',
+    );
+
+    expect(fixture.nativeElement.querySelectorAll('.festival-poster-gallery__featured')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('.festival-poster-gallery__group')).toHaveLength(2);
+    expect(fixture.nativeElement.querySelectorAll('.festival-poster-gallery__image')).toHaveLength(17);
+    expect(fixture.nativeElement.querySelectorAll('.festival-poster-gallery__item')).toHaveLength(16);
+    expect(
+      featuredImage?.getAttribute('ng-reflect-ng-src') ?? featuredImage?.getAttribute('src'),
+    ).toContain('/assets/images/festivals/reve/cartel-reve-vertical-2026.webp');
+  });
+
   it('pauses and resumes the track state', () => {
     fixture.componentInstance.pause();
     fixture.detectChanges();

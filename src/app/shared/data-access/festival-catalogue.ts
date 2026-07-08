@@ -48,10 +48,10 @@ export const FEATURED_FESTIVALS: readonly FeaturedFestivalEntry[] = [
     nameKey: 'home.featured.cards.reve.name',
     locationKey: 'home.featured.cards.reve.location',
     image: {
-      src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
+      src: '/assets/images/festivals/reve/cartel-reve-vertical-2026.webp',
       alt: 'Cartel de Reve Festival Roig Arena Valencia 2026',
-      width: 1920,
-      height: 1080,
+      width: 1080,
+      height: 1350,
     },
   },
   {

@@ -180,10 +180,10 @@ export const CALENDAR_FESTIVALS = [
     startDate: '2026-07-16',
     endDate: '2026-07-16',
     poster: {
-      src: '/assets/images/festivals/reve/cartel-reve-roig-arena-valencia-2026.webp',
+      src: '/assets/images/festivals/reve/cartel-reve-vertical-2026.webp',
       alt: 'Cartel de Reve Festival Roig Arena Valencia 2026',
-      width: 1920,
-      height: 1080,
+      width: 1080,
+      height: 1350,
     },
     detailUrl: '/festivales/reve',
     accentColor: 'var(--fv-accent-orange)',

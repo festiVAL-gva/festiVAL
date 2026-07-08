@@ -638,7 +638,15 @@
                 "close": "Close expanded poster"
               },
               "labels": {
-                "general": "Roig Arena"
+                "general": "Vertical poster",
+                "horizontal": "Horizontal poster",
+                "story": "Story poster",
+                "mariaBecerra": "María Becerra",
+                "kiddVoodoo": "Kidd Voodoo",
+                "lorna": "Lorna",
+                "cMari": "C Marí",
+                "laZowi": "La Zowi",
+                "rvfv": "RVFV"
               }
             },
             "highlights": {

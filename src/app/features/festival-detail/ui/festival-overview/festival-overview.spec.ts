@@ -23,4 +23,22 @@ describe('FestivalOverviewComponent', () => {
   it('renders the five highlight items', () => {
     expect(fixture.nativeElement.querySelectorAll('.festival-overview__highlight')).toHaveLength(5);
   });
+
+  it('renders the featured video only when the festival provides one', () => {
+    expect(fixture.nativeElement.querySelector('[data-testid="festival-featured-video"]')).toBeNull();
+
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('reve')!);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[data-testid="festival-featured-video"]')).not.toBeNull();
+  });
+
+  it('renders the photo gallery only when the festival provides one', () => {
+    expect(fixture.nativeElement.querySelector('[data-testid="festival-photo-gallery"]')).toBeNull();
+
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('reve')!);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[data-testid="festival-photo-gallery"]')).not.toBeNull();
+  });
 });

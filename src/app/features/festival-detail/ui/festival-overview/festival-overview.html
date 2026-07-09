@@ -11,6 +11,14 @@
     <p class="festival-overview__body">{{ k.paragraph2 | t }}</p>
   </div>
 
+  @if (entry().featuredVideo; as video) {
+  <fv-festival-featured-video [video]="video" />
+  }
+
+  @if (entry().photoGallery; as gallery) {
+  <fv-festival-photo-gallery [gallery]="gallery" />
+  }
+
   <fv-festival-poster-gallery [entry]="entry()" />
 
   <ul class="festival-overview__highlights" [attr.aria-label]="'festival.detail.overview.highlightsAriaLabel' | t">

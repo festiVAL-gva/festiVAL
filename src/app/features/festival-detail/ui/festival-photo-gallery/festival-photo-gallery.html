@@ -1,0 +1,75 @@
+@if (gallery().photos.length) {
+<section
+  class="festival-photo-gallery"
+  [attr.aria-label]="gallery().ariaLabelKey | t"
+  data-testid="festival-photo-gallery"
+>
+  <h2 class="festival-photo-gallery__title">{{ gallery().titleKey | t }}</h2>
+
+  <div class="festival-photo-gallery__stage">
+    @for (photo of activePhotos(); track photo.src) {
+    <div class="festival-photo-gallery__viewer">
+      <button
+        type="button"
+        class="festival-photo-gallery__control festival-photo-gallery__control--previous"
+        [attr.aria-label]="previousLabelKey | t"
+        data-testid="festival-photo-gallery-previous"
+        (click)="previousPhoto()"
+      >
+        ‹
+      </button>
+
+      <figure class="festival-photo-gallery__feature" [attr.aria-label]="photo.labelKey | t">
+        <img
+          class="festival-photo-gallery__image festival-photo-gallery__image--active"
+          [class.festival-photo-gallery__image--wide]="photo.variant === 'wide'"
+          [class.festival-photo-gallery__image--tall]="photo.variant === 'tall'"
+          data-testid="festival-photo-gallery-active-image"
+          [ngSrc]="photo.src"
+          [width]="photo.width"
+          [height]="photo.height"
+          [alt]="photo.alt"
+          sizes="(min-width: 1280px) 83vw, (min-width: 768px) 78vw, calc(100vw - 8rem)"
+          priority
+        />
+      </figure>
+
+      <button
+        type="button"
+        class="festival-photo-gallery__control festival-photo-gallery__control--next"
+        [attr.aria-label]="nextLabelKey | t"
+        data-testid="festival-photo-gallery-next"
+        (click)="nextPhoto()"
+      >
+        ›
+      </button>
+    </div>
+    }
+
+    <ul class="festival-photo-gallery__strip" role="list" [attr.aria-label]="gallery().titleKey | t">
+      @for (photo of photos(); track photo.src; let index = $index) {
+      <li class="festival-photo-gallery__item">
+        <button
+          type="button"
+          class="festival-photo-gallery__thumb"
+          [class.festival-photo-gallery__thumb--active]="activeIndex() === index"
+          [attr.aria-current]="activeIndex() === index ? 'true' : null"
+          [attr.aria-label]="photo.labelKey | t"
+          [attr.data-testid]="'festival-photo-gallery-thumb-' + index"
+          (click)="selectPhoto(index)"
+        >
+          <img
+            class="festival-photo-gallery__image festival-photo-gallery__image--thumb"
+            [ngSrc]="photo.src"
+            [width]="photo.width"
+            [height]="photo.height"
+            [alt]="photo.alt"
+            sizes="7rem"
+          />
+        </button>
+      </li>
+      }
+    </ul>
+  </div>
+</section>
+}

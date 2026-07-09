@@ -11,6 +11,8 @@ import { TranslatePipe } from '@shared/pipes/translate.pipe';
 import type { TranslationKey } from '@shared/data-access/i18n/translations';
 
 import type { FestivalDetailEntry } from '../../data-access/festival-detail-catalogue';
+import { FestivalFeaturedVideoComponent } from '../festival-featured-video/festival-featured-video';
+import { FestivalPhotoGalleryComponent } from '../festival-photo-gallery/festival-photo-gallery';
 import { FestivalPosterGalleryComponent } from '../festival-poster-gallery/festival-poster-gallery';
 
 interface OverviewKeys {
@@ -53,6 +55,8 @@ function slugNamespace(slug: string): string {
     LucideMoonStar,
     LucideTentTree,
     LucideWavesLadder,
+    FestivalFeaturedVideoComponent,
+    FestivalPhotoGalleryComponent,
     FestivalPosterGalleryComponent,
     TranslatePipe,
   ],

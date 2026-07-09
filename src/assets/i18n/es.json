@@ -630,6 +630,28 @@
           "overview": {
             "paragraph1": "Reve Festival es la cita pop nocturna del verano valenciano, con un cartel orientado al mainstream y al espectáculo visual de gran formato. Concebido para grandes audiencias, prioriza la puesta en escena y la calidad de sonido sobre la fórmula clásica de festival al aire libre.",
             "paragraph2": "Ubicado en Roig Arena, ofrece una experiencia cómoda con buena conectividad en transporte público, hoteles cercanos, zonas de restauración y producciones audiovisuales que prolongan la noche hasta tarde.",
+            "featuredVideo": {
+              "ariaLabel": "Teaser oficial de Reve Festival con María Becerra en pantalla",
+              "fallback": "Tu navegador no puede reproducir este vídeo."
+            },
+            "photoGallery": {
+              "title": "Galería REVE",
+              "intro": "Un mosaico de prensa con la imagen principal del festival y retratos de la noche urbana que toma el Roig Arena.",
+              "ariaLabel": "Galería de fotos de Reve Festival",
+              "controls": {
+                "previous": "Ver foto anterior",
+                "next": "Ver foto siguiente"
+              },
+              "labels": {
+                "main": "Imagen principal",
+                "mariaBecerraLive": "María Becerra en directo",
+                "mariaBecerraPortrait": "María Becerra",
+                "cMari": "C Marí",
+                "lorna": "Lorna",
+                "laZowi": "La Zowi",
+                "rvfv": "RVFV"
+              }
+            },
             "posterGallery": {
               "title": "Carteles oficiales",
               "intro": "El cartel principal del festival para consultar su propuesta visual completa.",

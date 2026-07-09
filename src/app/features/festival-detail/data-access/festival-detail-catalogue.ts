@@ -23,6 +23,8 @@ export interface FestivalDetailEntry {
     readonly officialUrl: string;
   };
   readonly posters?: readonly FestivalDetailPoster[];
+  readonly featuredVideo?: FestivalDetailVideo;
+  readonly photoGallery?: FestivalPhotoGallery;
   readonly map: {
     readonly lat: number;
     readonly lng: number;
@@ -45,6 +47,32 @@ export interface FestivalDetailPoster {
   readonly width: number;
   readonly height: number;
   readonly featured?: boolean;
+}
+
+export interface FestivalDetailVideo {
+  readonly ariaLabelKey: TranslationKey;
+  readonly fallbackKey: TranslationKey;
+  readonly src: string;
+  readonly posterSrc?: string;
+  readonly width: number;
+  readonly height: number;
+}
+
+export interface FestivalPhotoGallery {
+  readonly titleKey: TranslationKey;
+  readonly introKey: TranslationKey;
+  readonly ariaLabelKey: TranslationKey;
+  readonly photos: readonly FestivalGalleryPhoto[];
+}
+
+export interface FestivalGalleryPhoto {
+  readonly labelKey: TranslationKey;
+  readonly src: string;
+  readonly alt: string;
+  readonly width: number;
+  readonly height: number;
+  readonly featured?: boolean;
+  readonly variant?: 'wide' | 'tall';
 }
 
 const ENTRIES: readonly FestivalDetailEntry[] = [
@@ -245,20 +273,6 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
         featured: true,
       },
       {
-        labelKey: 'festival.detail.byFestival.reve.overview.posterGallery.labels.horizontal',
-        src: '/assets/images/festivals/reve/cartel-reve-horizontal-2026.webp',
-        alt: 'Cartel horizontal de Reve Festival Roig Arena Valencia 2026',
-        width: 1600,
-        height: 900,
-      },
-      {
-        labelKey: 'festival.detail.byFestival.reve.overview.posterGallery.labels.story',
-        src: '/assets/images/festivals/reve/cartel-reve-story-2026.webp',
-        alt: 'Cartel story de Reve Festival Roig Arena Valencia 2026',
-        width: 1080,
-        height: 1920,
-      },
-      {
         labelKey: 'festival.detail.byFestival.reve.overview.posterGallery.labels.mariaBecerra',
         src: '/assets/images/festivals/reve/cartel-reve-maria-becerra-2026.webp',
         alt: 'Cartel de María Becerra para Reve Festival 2026',
@@ -301,6 +315,78 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
         height: 1125,
       },
     ],
+    featuredVideo: {
+      ariaLabelKey: 'festival.detail.byFestival.reve.overview.featuredVideo.ariaLabel',
+      fallbackKey: 'festival.detail.byFestival.reve.overview.featuredVideo.fallback',
+      src: '/assets/images/festivals/reve/reve-maria-becerra-live-2026.mp4',
+      posterSrc: '/assets/images/festivals/reve/reve-maria-becerra-live-2026-poster.webp',
+      width: 1280,
+      height: 720,
+    },
+    photoGallery: {
+      titleKey: 'festival.detail.byFestival.reve.overview.photoGallery.title',
+      introKey: 'festival.detail.byFestival.reve.overview.photoGallery.intro',
+      ariaLabelKey: 'festival.detail.byFestival.reve.overview.photoGallery.ariaLabel',
+      photos: [
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.main',
+          src: '/assets/images/festivals/reve/reve-gallery-prensa-main-2026.webp',
+          alt: 'Fotografía principal de prensa de Reve Festival con estética azul y rosa',
+          width: 1600,
+          height: 900,
+          featured: true,
+          variant: 'wide',
+        },
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.mariaBecerraLive',
+          src: '/assets/images/festivals/reve/reve-gallery-maria-becerra-concert-2026.webp',
+          alt: 'María Becerra actuando en concierto',
+          width: 1400,
+          height: 788,
+          variant: 'wide',
+        },
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.mariaBecerraPortrait',
+          src: '/assets/images/festivals/reve/reve-gallery-maria-becerra-portrait-2026.webp',
+          alt: 'Retrato promocional de María Becerra',
+          width: 1400,
+          height: 934,
+          variant: 'wide',
+        },
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.cMari',
+          src: '/assets/images/festivals/reve/reve-gallery-c-mari-2026.webp',
+          alt: 'Imagen promocional de C Marí',
+          width: 900,
+          height: 1108,
+          variant: 'tall',
+        },
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.lorna',
+          src: '/assets/images/festivals/reve/reve-gallery-lorna-2026.webp',
+          alt: 'Imagen promocional de Lorna',
+          width: 900,
+          height: 1200,
+          variant: 'tall',
+        },
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.laZowi',
+          src: '/assets/images/festivals/reve/reve-gallery-la-zowi-2026.webp',
+          alt: 'Imagen promocional de La Zowi',
+          width: 900,
+          height: 1348,
+          variant: 'tall',
+        },
+        {
+          labelKey: 'festival.detail.byFestival.reve.overview.photoGallery.labels.rvfv',
+          src: '/assets/images/festivals/reve/reve-gallery-rvfv-2026.webp',
+          alt: 'Imagen promocional de RVFV',
+          width: 900,
+          height: 1336,
+          variant: 'tall',
+        },
+      ],
+    },
     map: {
       lat: 39.44921869967149,
       lng: -0.3643244397614549,

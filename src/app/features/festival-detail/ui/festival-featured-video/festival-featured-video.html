@@ -1,0 +1,36 @@
+@let item = video();
+<section
+  class="festival-featured-video"
+  [attr.aria-label]="item.ariaLabelKey | t"
+  data-testid="festival-featured-video"
+>
+  <div class="festival-featured-video__frame">
+    <video
+      #media
+      class="festival-featured-video__media"
+      data-testid="festival-featured-video-media"
+      autoplay
+      controls
+      loop
+      muted
+      playsinline
+      preload="auto"
+      [autoplay]="true"
+      [defaultMuted]="true"
+      [loop]="true"
+      [muted]="true"
+      [playsInline]="true"
+      [attr.aria-label]="item.ariaLabelKey | t"
+      [attr.poster]="item.posterSrc ?? null"
+      [src]="item.src"
+      [attr.width]="item.width"
+      [attr.height]="item.height"
+      (loadedmetadata)="startAutoplay($event)"
+      (loadeddata)="startAutoplay($event)"
+      (canplay)="startAutoplay($event)"
+      (canplaythrough)="startAutoplay($event)"
+    >
+      {{ item.fallbackKey | t }}
+    </video>
+  </div>
+</section>

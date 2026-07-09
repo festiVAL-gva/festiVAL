@@ -1,0 +1,50 @@
+@use 'styles/breakpoints' as *;
+
+:host {
+  display: block;
+}
+
+.festival-featured-video {
+  position: relative;
+  overflow: hidden;
+  padding: var(--fv-space-3);
+  border: 1px solid var(--fv-border-subtle);
+  border-radius: var(--fv-radius-2xl);
+  background: var(--fv-bg-canvas);
+  color: var(--fv-text-primary);
+
+  @supports (color: color-mix(in srgb, red 50%, blue)) {
+    background:
+      radial-gradient(
+        circle at 10% 10%,
+        color-mix(in srgb, var(--fv-accent-coral) 24%, transparent),
+        transparent 34%
+      ),
+      linear-gradient(
+        135deg,
+        var(--fv-bg-canvas) 0%,
+        color-mix(in srgb, var(--fv-bg-surface) 84%, var(--fv-accent-blue)) 100%
+      );
+  }
+
+  @include from(md) {
+    padding: var(--fv-space-4);
+  }
+}
+
+.festival-featured-video__frame {
+  overflow: hidden;
+  border: 1px solid var(--fv-border-default);
+  border-radius: var(--fv-radius-xl);
+  background: var(--fv-bg-overlay);
+  box-shadow: var(--fv-shadow-card);
+}
+
+.festival-featured-video__media {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--fv-bg-canvas);
+}

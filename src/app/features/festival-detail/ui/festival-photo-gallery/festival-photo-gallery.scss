@@ -1,0 +1,206 @@
+@use 'styles/breakpoints' as *;
+@use 'styles/mixins' as *;
+
+:host {
+  display: block;
+}
+
+.festival-photo-gallery {
+  display: grid;
+  gap: var(--fv-space-3);
+
+  @include from(md) {
+    gap: var(--fv-space-4);
+  }
+}
+
+.festival-photo-gallery__title {
+  margin: 0;
+  color: var(--fv-text-nav);
+  font-family: var(--fv-font-hero-emphasis);
+  font-size: clamp(var(--fv-text-xl), 3.6vw, var(--fv-text-3xl));
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: var(--fv-leading-tight);
+  text-transform: uppercase;
+}
+
+.festival-photo-gallery__stage {
+  --festival-photo-gallery-feature-height: clamp(14rem, 52vw, 38rem);
+
+  position: relative;
+  display: grid;
+  gap: var(--fv-space-4);
+  padding: var(--fv-space-2);
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.12); // @compat
+  border: 1px solid color-mix(in srgb, var(--fv-border-nav) 72%, transparent);
+  border-radius: var(--fv-radius-2xl);
+  background: var(--fv-bg-card-light);
+  box-shadow: var(--fv-shadow-card);
+
+  @supports (color: color-mix(in srgb, red 50%, blue)) {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--fv-bg-card-light) 92%, transparent) 0%,
+        color-mix(in srgb, var(--fv-bg-card-light) 72%, var(--fv-bg-page)) 100%
+      );
+  }
+
+  @include from(lg) {
+    padding: var(--fv-space-3);
+  }
+}
+
+.festival-photo-gallery__viewer {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+.festival-photo-gallery__feature {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  overflow: hidden;
+  border-radius: calc(var(--fv-radius-2xl) - var(--fv-space-1));
+  background: var(--fv-bg-tile-dark);
+  isolation: isolate;
+  min-height: var(--festival-photo-gallery-feature-height);
+  box-shadow: var(--fv-shadow-card);
+}
+
+.festival-photo-gallery__feature::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(244, 244, 250, 0.18); // @compat
+  border: 1px solid color-mix(in srgb, var(--fv-border-strong) 74%, transparent);
+  border-radius: inherit;
+}
+
+.festival-photo-gallery__strip {
+  display: flex;
+  gap: var(--fv-space-2);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--fv-space-1);
+
+  @include from(md) {
+    gap: var(--fv-space-3);
+  }
+
+  @include from(lg) {
+    justify-content: center;
+    gap: var(--fv-space-3);
+  }
+}
+
+.festival-photo-gallery__item {
+  flex: 0 0 auto;
+  min-width: 0;
+  scroll-snap-align: center;
+}
+
+.festival-photo-gallery__control,
+.festival-photo-gallery__thumb {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.festival-photo-gallery__control {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94); // @compat
+  background: color-mix(in srgb, var(--fv-bg-card-light) 94%, transparent);
+  border: 1px solid var(--fv-border-nav);
+  color: var(--fv-text-nav);
+  cursor: pointer;
+  font-family: var(--fv-font-ui);
+  font-size: var(--fv-text-3xl);
+  line-height: 1;
+  box-shadow: var(--fv-shadow-card);
+
+  @include focus-ring;
+}
+
+.festival-photo-gallery__control--previous {
+  left: var(--fv-space-2);
+}
+
+.festival-photo-gallery__control--next {
+  right: var(--fv-space-2);
+}
+
+.festival-photo-gallery__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(4.75rem, 18vw, 7rem);
+  min-height: 4.75rem;
+  border-radius: var(--fv-radius-xl);
+  background: var(--fv-bg-tile-dark);
+  border: 2px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+
+  @include focus-ring;
+}
+
+.festival-photo-gallery__thumb--active {
+  border-color: var(--fv-accent-blue);
+}
+
+.festival-photo-gallery__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
+
+.festival-photo-gallery__image--active {
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  object-fit: contain;
+}
+
+.festival-photo-gallery__image--wide,
+.festival-photo-gallery__image--tall {
+  width: 100%;
+  height: var(--festival-photo-gallery-feature-height);
+}
+
+.festival-photo-gallery__image--thumb {
+  width: auto;
+  max-width: 100%;
+  max-height: 7rem;
+}
+
+@media (max-width: 479px) {
+  .festival-photo-gallery__control {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+  }
+}

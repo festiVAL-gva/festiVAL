@@ -655,6 +655,28 @@
               "foodTrucks": "Food Trucks",
               "afterparties": "Afterparties",
               "activities": "Activities"
+            },
+            "featuredVideo": {
+              "ariaLabel": "Official Reve Festival teaser with María Becerra on screen",
+              "fallback": "Your browser cannot play this video."
+            },
+            "photoGallery": {
+              "title": "REVE gallery",
+              "intro": "A press gallery with the festival's main image and portraits from the urban night taking over Roig Arena.",
+              "ariaLabel": "Reve Festival photo gallery",
+              "controls": {
+                "previous": "View previous photo",
+                "next": "View next photo"
+              },
+              "labels": {
+                "main": "Main image",
+                "mariaBecerraLive": "María Becerra live",
+                "mariaBecerraPortrait": "María Becerra",
+                "cMari": "C Marí",
+                "lorna": "Lorna",
+                "laZowi": "La Zowi",
+                "rvfv": "RVFV"
+              }
             }
           }
         },

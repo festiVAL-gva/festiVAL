@@ -35,7 +35,11 @@
               {
                 "glob": "**/*",
                 "input": "src/assets",
-                "output": "assets"
+                "output": "assets",
+                "ignore": [
+                  "images-src/**",
+                  "**/.DS_Store"
+                ]
               }
             ],
             "styles": [

@@ -7,7 +7,7 @@ description: >-
 
 # 🧠 State Management
 
-Reusable patterns for managing application state across the **festiVAL** Angular app.
+Reusable patterns for managing application state across the **TuriaFest** Angular app.
 
 ## Purpose
 

@@ -8,7 +8,7 @@ description: >-
 
 # 🗂️ Project Structure
 
-Canonical, **non-negotiable** architecture for the **festiVAL** Angular application. The project uses a **feature-sliced** structure with **enforced module boundaries** — the professional standard for Angular apps that need to scale past a handful of routes.
+Canonical, **non-negotiable** architecture for the **TuriaFest** Angular application. The project uses a **feature-sliced** structure with **enforced module boundaries** — the professional standard for Angular apps that need to scale past a handful of routes.
 
 ## Purpose
 
@@ -50,7 +50,7 @@ layout    →  shared, core
 ## Top-level layout
 
 ```
-festiVAL/
+TuriaFest/
 ├── .Codex/                   # AI-assisted development (agents + skills) — do not move
 ├── docs/                      # project documentation (documentacion.md) — update on every structural commit
 ├── sanity/                    # (fase CMS — aún no creada; se reintroducirá al arrancar Sanity Studio)

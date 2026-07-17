@@ -288,8 +288,8 @@
       "description": "Una capa ràpida de context per a decidir millor: quin gènere encaixa, on comparar dates i quan saltar a la web oficial abans de comprar.",
       "items": {
         "tickets": {
-          "question": "Les entrades es compren directament en festival?",
-          "answer": "No. festiVAL funciona com a guia editorial: t'ajuda a comparar festivals, dates i seus, i després et porta a l'enllaç oficial de cada esdeveniment per a acabar la compra."
+          "question": "Les entrades es compren directament a TuriaFest?",
+          "answer": "No. TuriaFest funciona com a guia editorial: t'ajuda a comparar festivals, dates i seus, i després et porta a l'enllaç oficial de cada esdeveniment per a acabar la compra."
         },
         "genres": {
           "question": "Puc descobrir festivals per estil musical?",
@@ -305,7 +305,7 @@
         },
         "details": {
           "question": "On mire cartell, recinte i detalls pràctics abans de decidir-me?",
-          "answer": "Cada festival té la seua pròpia fitxa dins de festiVAL amb context editorial, dates, mapa i accés directe al lloc oficial, que és on trobaràs cartell confirmat, horaris i normativa final."
+          "answer": "Cada festival té la seua pròpia fitxa dins de TuriaFest amb context editorial, dates, mapa i accés directe al lloc oficial, que és on trobaràs cartell confirmat, horaris i normativa final."
         },
         "dates": {
           "question": "Què faig si primer vull ordenar l'estiu per dates?",
@@ -720,11 +720,11 @@
   "footer": {
     "ariaLabel": "Peu de pàgina",
     "brand": {
-      "logoAlt": "festival",
+      "logoAlt": "TuriaFest",
       "description": "La teua guia de festivals en la Comunitat Valenciana. Música, cultura i estiu."
     },
     "social": {
-      "ariaLabel": "Xarxes socials de festival",
+      "ariaLabel": "Xarxes socials de TuriaFest",
       "instagram": "Síguenos en Instagram",
       "x": "Síguenos en X",
       "youtube": "Síguenos en YouTube",
@@ -739,7 +739,7 @@
     },
     "info": {
       "title": "Informació",
-      "about": "Sobre festival",
+      "about": "Sobre TuriaFest",
       "contact": "Contacte",
       "faq": "FAQ"
     },
@@ -751,7 +751,7 @@
       "terms": "Términos d'ús"
     },
     "bottom": {
-      "copyright": "© 2026 festival. Tots els drets reservats."
+      "copyright": "© 2026 TuriaFest. Tots els drets reservats."
     }
   },
   "error": {

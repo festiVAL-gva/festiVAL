@@ -1,5 +1,5 @@
 // ============================================================================
-// environment.ts — festiVAL · default (development)
+// environment.ts — TuriaFest · default (development)
 // ============================================================================
 // Base URLs, feature flags and endpoints belong here — never hardcoded in
 // services. See `CLAUDE.md` § Configuration.

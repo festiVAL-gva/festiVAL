@@ -9,11 +9,11 @@ description: >-
 
 # i18n Commit Translation Policy
 
-**MANDATORY** when finalizing a commit that touches user-facing copy in **festiVAL**.
+**MANDATORY** when finalizing a commit that touches user-facing copy in **TuriaFest**.
 
 ## Purpose
 
-festiVAL's UI source language is **Spanish (`es-ES`)**. Any other locale file is a translation derived from it. This skill defines two strict modes:
+TuriaFest's UI source language is **Spanish (`es-ES`)**. Any other locale file is a translation derived from it. This skill defines two strict modes:
 
 - **Development mode** (the default): only `es.json` is touched.
 - **Commit mode** (`/autocommit` or any final-step task that prepares a commit): every supported locale file is brought back into key parity with `es.json` **before** the commit is recorded.

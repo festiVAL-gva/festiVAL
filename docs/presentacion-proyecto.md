@@ -22,13 +22,13 @@
 
 1. # Presentación del proyecto {#presentación-del-proyecto}
 
-   festiVAL es una aplicación web desarrollada con Angular que constituye un portal de información dedicado a los principales festivales de música de la Comunidad Valenciana, abarcando las provincias de Valencia, Alicante y Castellón.  
+   TuriaFest es una aplicación web desarrollada con Angular que constituye un portal de información dedicado a los principales festivales de música de la Comunidad Valenciana, abarcando las provincias de Valencia, Alicante y Castellón.
      
    El presente proyecto tiene como finalidad ofrecer a los usuarios un punto de consulta centralizado donde descubrir festivales y acceder a información relativa a fechas de celebración, ubicaciones, géneros musicales, carteles de artistas, precios de partida y enlaces oficiales.
 
 2. # Objetivo principal {#objetivo-principal}
 
-El objetivo principal de festiVAL es centralizar en un único portal web toda la información relevante sobre los principales festivales de música de la Comunidad Valenciana (Valencia, Alicante y Castellón), de modo que el usuario pueda descubrir festivales y comparar con rapidez fechas, ubicaciones, géneros musicales, carteles de artistas y precios de partida antes de decidir a cuál asistir.
+El objetivo principal de TuriaFest es centralizar en un único portal web toda la información relevante sobre los principales festivales de música de la Comunidad Valenciana (Valencia, Alicante y Castellón), de modo que el usuario pueda descubrir festivales y comparar con rapidez fechas, ubicaciones, géneros musicales, carteles de artistas y precios de partida antes de decidir a cuál asistir.
 
 En términos más concretos, el proyecto persigue resolver una necesidad específica: la del aficionado a la música de la Comunidad Valenciana que, habitualmente desde un dispositivo móvil, desea determinar qué festival se ajusta mejor a sus preferencias durante la temporada estival, sin necesidad de consultar múltiples fuentes dispersas.
 
@@ -45,7 +45,7 @@ Cabe subrayar dos rasgos que delimitan este objetivo:
 
 3. # Qué ofrece la página {#qué-ofrece-la-página}
 
-**festiVAL** ofrece al usuario un servicio de consulta integral sobre los festivales de música de la Comunidad Valenciana, articulado en las siguientes funcionalidades:
+**TuriaFest** ofrece al usuario un servicio de consulta integral sobre los festivales de música de la Comunidad Valenciana, articulado en las siguientes funcionalidades:
 
 ### **Contenido informativo**
 
@@ -115,7 +115,7 @@ El enfoque evolutivo es incremental y por fases: consolidar primero el valor inf
 
    ### **1\. Perfil principal**
 
-El público objetivo primario de festiVAL es el aficionado a la música residente en la Comunidad Valenciana, con edad comprendida aproximadamente entre los 18 y los 35 años, que asiste o planea asistir a festivales durante la temporada estival. Sus rasgos definitorios son:
+El público objetivo primario de TuriaFest es el aficionado a la música residente en la Comunidad Valenciana, con edad comprendida aproximadamente entre los 18 y los 35 años, que asiste o planea asistir a festivales durante la temporada estival. Sus rasgos definitorios son:
 
 * **Consulta desde el móvil**: planificar su ocio desde el smartphone, a menudo en momentos breves (transporte, descansos), por lo que exige inmediatez y claridad.  
 * **Compara antes de decidir**: valora fechas, precio de partida, cartel y distancia al recinto antes de comprometerse con una entrada.  
@@ -133,7 +133,7 @@ El público objetivo primario de festiVAL es el aficionado a la música resident
 
    ## **Catálogo actual de festivales**
 
-El catálogo inicial de festiVAL comprende seis festivales, cuyos datos —verificados por última vez el 14 de junio de 2026— residen en los ficheros festival-detail-\*.json del directorio [public/](https://claude.ai/epitaxy/public/). Se describen a continuación.
+El catálogo inicial de TuriaFest comprende seis festivales, cuyos datos —verificados por última vez el 14 de junio de 2026— residen en los ficheros festival-detail-\*.json del directorio [public/](https://claude.ai/epitaxy/public/). Se describen a continuación.
 
 * **Bigsound Festival**. Se celebra en la ciudad de Valencia. Su género principal es el pop, con presencia de indie y electrónica. El precio de las entradas parte de 55 euros, sin gastos de gestión incluidos. El acceso se permite desde los 16 años, con autorización paterna para los menores de 18\.
 
@@ -157,7 +157,7 @@ Por lo que respecta a los horarios, a fecha de la última verificación ninguno 
 
    ## **Secciones principales de la web**
 
-El portal festiVAL se estructura en un conjunto de secciones concebidas para acompañar al usuario en todo el proceso de decisión: descubrir los festivales, compararlos y planificar su asistencia. Conviene distinguir entre las secciones actualmente disponibles y aquellas previstas para futuras etapas del proyecto.
+El portal TuriaFest se estructura en un conjunto de secciones concebidas para acompañar al usuario en todo el proceso de decisión: descubrir los festivales, compararlos y planificar su asistencia. Conviene distinguir entre las secciones actualmente disponibles y aquellas previstas para futuras etapas del proyecto.
 
 ### **Secciones disponibles**
 
@@ -191,7 +191,7 @@ En su estado actual, el portal ofrece cuatro secciones plenamente operativas —
 
    ## **Características actuales**
 
-En su estado presente, el portal festiVAL reúne el siguiente conjunto de características, plenamente operativas.
+En su estado presente, el portal TuriaFest reúne el siguiente conjunto de características, plenamente operativas.
 
 ### **Consulta y exploración**
 
@@ -224,11 +224,11 @@ Más allá de lo visible para el usuario, el proyecto se apoya en prácticas rig
 
    ### **Definición**
 
-festiVAL se posiciona como el portal de referencia para la información sobre festivales de música de la Comunidad Valenciana. Su aspiración no es ser el más grande, sino el más fiable y completo dentro de su ámbito: cuando un usuario se pregunte a qué festival asistir en Valencia, Alicante o Castellón, festiVAL debe ser la primera respuesta que encuentre y la única que necesite.
+TuriaFest se posiciona como el portal de referencia para la información sobre festivales de música de la Comunidad Valenciana. Su aspiración no es ser el más grande, sino el más fiable y completo dentro de su ámbito: cuando un usuario se pregunte a qué festival asistir en Valencia, Alicante o Castellón, TuriaFest debe ser la primera respuesta que encuentre y la única que necesite.
 
 ### **Especialización como ventaja**
 
-Frente a los grandes agregadores de eventos de alcance nacional o internacional, festiVAL opta deliberadamente por la especialización territorial y temática. Esta elección le confiere ventajas difíciles de replicar por actores generalistas: un catálogo verdaderamente exhaustivo dentro de su ámbito, datos verificados de manera periódica por un equipo editorial, y un conocimiento próximo del territorio, sus recintos y su público. Allí donde un portal generalista ofrece amplitud sin profundidad, festiVAL ofrece profundidad total en un ámbito acotado.
+Frente a los grandes agregadores de eventos de alcance nacional o internacional, TuriaFest opta deliberadamente por la especialización territorial y temática. Esta elección le confiere ventajas difíciles de replicar por actores generalistas: un catálogo verdaderamente exhaustivo dentro de su ámbito, datos verificados de manera periódica por un equipo editorial, y un conocimiento próximo del territorio, sus recintos y su público. Allí donde un portal generalista ofrece amplitud sin profundidad, TuriaFest ofrece profundidad total en un ámbito acotado.
 
 ### **Independencia y neutralidad**
 
@@ -247,11 +247,11 @@ El posicionamiento se completa con un conjunto de compromisos que distinguen al 
 
   ### **Vocación de permanencia**
 
-festiVAL no se concibe como un producto de temporada, sino como una infraestructura informativa estable que se renueva año tras año con cada edición de los festivales. Su estrategia de visibilidad descansa en el posicionamiento orgánico en buscadores —consolidado mediante direcciones web permanentes y contenido de calidad— antes que en la inversión publicitaria, lo que refuerza su sostenibilidad a largo plazo.
+TuriaFest no se concibe como un producto de temporada, sino como una infraestructura informativa estable que se renueva año tras año con cada edición de los festivales. Su estrategia de visibilidad descansa en el posicionamiento orgánico en buscadores —consolidado mediante direcciones web permanentes y contenido de calidad— antes que en la inversión publicitaria, lo que refuerza su sostenibilidad a largo plazo.
 
 ### **Síntesis**
 
-En una frase: festiVAL se posiciona como la fuente especializada, independiente y de confianza para la información festivalera de la Comunidad Valenciana — un proyecto de nicho con vocación de referencia, que compite por profundidad y rigor allí donde otros compiten por volumen.
+En una frase: TuriaFest se posiciona como la fuente especializada, independiente y de confianza para la información festivalera de la Comunidad Valenciana — un proyecto de nicho con vocación de referencia, que compite por profundidad y rigor allí donde otros compiten por volumen.
 
 # 
 
@@ -259,7 +259,7 @@ En una frase: festiVAL se posiciona como la fuente especializada, independiente 
 
     ### **Horizonte general**
 
-La visión de festiVAL a largo plazo es consolidarse como el punto de encuentro digital entre los festivales de la Comunidad Valenciana y su público: un espacio que no solo informe, sino que acompañe al usuario durante todo el ciclo festivalero — desde el descubrimiento inicial hasta la asistencia, y de una temporada a la siguiente. El proyecto evolucionará por fases sucesivas, cada una construida sobre la anterior, sin comprometer jamás la sencillez y la inmediatez que definen su esencia.
+La visión de TuriaFest a largo plazo es consolidarse como el punto de encuentro digital entre los festivales de la Comunidad Valenciana y su público: un espacio que no solo informe, sino que acompañe al usuario durante todo el ciclo festivalero — desde el descubrimiento inicial hasta la asistencia, y de una temporada a la siguiente. El proyecto evolucionará por fases sucesivas, cada una construida sobre la anterior, sin comprometer jamás la sencillez y la inmediatez que definen su esencia.
 
 ### **Fases de evolución**
 
@@ -281,4 +281,4 @@ En paralelo a las fases funcionales, el catálogo crecerá temporada a temporada
 
 ### **Principio rector**
 
-Todo este crecimiento queda subordinado a un principio invariable: consultar debe seguir siendo instantáneo, libre y sin barreras, por más que el producto gane en profundidad. La visión de futuro de festiVAL no consiste en acumular funcionalidades, sino en profundizar en su promesa original — que decidir a qué festival asistir sea cada vez más fácil, más rico y más placentero.  
+Todo este crecimiento queda subordinado a un principio invariable: consultar debe seguir siendo instantáneo, libre y sin barreras, por más que el producto gane en profundidad. La visión de futuro de TuriaFest no consiste en acumular funcionalidades, sino en profundizar en su promesa original — que decidir a qué festival asistir sea cada vez más fácil, más rico y más placentero.

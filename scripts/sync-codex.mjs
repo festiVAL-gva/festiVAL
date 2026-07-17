@@ -86,7 +86,7 @@ function syncAgents() {
 function buildAgentsMd() {
   let s = readFileSync(join(CLAUDE, 'CLAUDE.md'), 'utf8');
 
-  s = s.replace('# CLAUDE.md — festiVAL', '# AGENTS.md — festiVAL');
+  s = s.replace('# CLAUDE.md — TuriaFest', '# AGENTS.md — TuriaFest');
   s = s.replaceAll('humans and Claude alike', 'humans and Codex alike');
   // Referencias al contrato (no a la carpeta ni a "Claude Code").
   s = s.replaceAll('read `CLAUDE.md`', 'read `AGENTS.md`');

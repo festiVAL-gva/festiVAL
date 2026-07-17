@@ -1,20 +1,20 @@
 ---
 name: liquid-glass
 description: >-
-  Premium Liquid Glass visual system for festiVAL: semi-transparent surfaces with soft blur,
+  Premium Liquid Glass visual system for TuriaFest: semi-transparent surfaces with soft blur,
   layered depth, edge glow, and accessibility. Use when implementing glassmorphic components,
   card overlays, panels, or any translucent surface requiring premium appearance.
 ---
 
 # 🌊 Liquid Glass
 
-Premium Liquid Glass visual system for **festiVAL**.
+Premium Liquid Glass visual system for **TuriaFest**.
 
 ## Purpose
 
-Define how translucent, premium glass surfaces must be designed and implemented across the entire festiVAL application. The Liquid Glass system creates depth, atmospheric lighting, and a premium festival experience while remaining consistent with the existing design system.
+Define how translucent, premium glass surfaces must be designed and implemented across the entire TuriaFest application. The Liquid Glass system creates depth, atmospheric lighting, and a premium festival experience while remaining consistent with the existing design system.
 
-This skill **builds on top of** the festiVAL design system (not replaces it). All colors, tokens, and effects are sourced from existing design tokens in `_tokens.scss` and `_semantic.scss`.
+This skill **builds on top of** the TuriaFest design system (not replaces it). All colors, tokens, and effects are sourced from existing design tokens in `_tokens.scss` and `_semantic.scss`.
 
 ---
 
@@ -39,7 +39,7 @@ This skill **builds on top of** the festiVAL design system (not replaces it). Al
 ### Visual Consistency
 
 - **Consistent border radius** across all glass components
-- **Consistent spacing** following the festiVAL spacing scale
+- **Consistent spacing** following the TuriaFest spacing scale
 - **Consistent elevation system** with semantic tokens
 - **Consistent shadows** from the design system
 
@@ -59,7 +59,7 @@ This skill **builds on top of** the festiVAL design system (not replaces it). Al
 
 ## Color System Rules (MANDATORY)
 
-Liquid Glass components **MUST** use ONLY colors defined in the festiVAL Design System.
+Liquid Glass components **MUST** use ONLY colors defined in the TuriaFest Design System.
 
 **Never introduce:**
 
@@ -124,7 +124,7 @@ $fv-gray-500: #4A4A66;
 - Colors not defined in `_tokens.scss`
 - Colors not defined in `_semantic.scss`
 
-The Liquid Glass implementation must always feel like a native part of festiVAL's visual identity.
+The Liquid Glass implementation must always feel like a native part of TuriaFest's visual identity.
 
 ---
 
@@ -458,7 +458,7 @@ Five worked examples (festival card, map overlay, filter panel, hero overlay, An
 - ✓ Use consistent spacing from `--fv-space-*`
 - ✓ Use consistent radius values from `--fv-radius-*`
 - ✓ Reuse utility classes from `_liquid-glass.scss`
-- ✓ Follow festiVAL branding (blue, navy, Mediterranean)
+- ✓ Follow TuriaFest branding (blue, navy, Mediterranean)
 - ✓ Test accessibility and performance
 - ✓ Document custom modifications in component comments
 

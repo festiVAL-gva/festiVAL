@@ -1,14 +1,14 @@
 ---
 name: seo-meta
 description: >-
-  Discoverability for festiVAL: per-route title and description, JSON-LD Event schema, canonicals,
+  Discoverability for TuriaFest: per-route title and description, JSON-LD Event schema, canonicals,
   sitemap, Open Graph and hreflang. Use when adding a route, changing page metadata or structured
   data, or working on organic search.
 ---
 
 # 🔎 SEO & Meta
 
-Search engine optimization for **festiVAL**.
+Search engine optimization for **TuriaFest**.
 
 ## Purpose
 
@@ -26,7 +26,7 @@ Make every festival page discoverable through organic search for queries like "f
 
 ## Per-Festival Meta Template
 
-- **Title**: `{nombreFestival} {año} — Cartel, fechas y entradas | festiVAL`
+- **Title**: `{nombreFestival} {año} — Cartel, fechas y entradas | TuriaFest`
 - **Description**: `Descubre toda la información del {nombre}: fechas, ubicación en {ciudad}, cartel completo y precios.`
 - **OG image**: `1200×630` WebP, served from `src/assets/images/og-*.webp` (built by the [[performance-optimization]] converter pipeline) or from the Sanity CDN with `?fm=webp&w=1200&q=80`. Never PNG / JPEG.
 
@@ -57,13 +57,13 @@ export const festivalMetaResolver: ResolveFn<void> = async (route) => {
   const year = new Date(f.fechaInicio).getFullYear();
 
   title.setTitle(
-    `${f.nombre} ${year} — Cartel, fechas y entradas | festiVAL`,
+    `${f.nombre} ${year} — Cartel, fechas y entradas | TuriaFest`,
   );
   meta.updateTag({
     name: 'description',
     content: `Descubre toda la información del ${f.nombre}: fechas, ubicación en ${f.ciudad}, cartel completo y precios desde ${f.precioDesde} €.`,
   });
-  meta.updateTag({ property: 'og:title',       content: `${f.nombre} ${year} | festiVAL` });
+  meta.updateTag({ property: 'og:title',       content: `${f.nombre} ${year} | TuriaFest` });
   meta.updateTag({ property: 'og:description', content: `${f.ciudad} · desde ${f.precioDesde} €` });
   meta.updateTag({ property: 'og:image',       content: f.poster.src });
   meta.updateTag({ property: 'og:type',        content: 'event' });

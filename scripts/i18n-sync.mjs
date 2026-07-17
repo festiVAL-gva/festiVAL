@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // ============================================================================
-// i18n-sync.mjs — festiVAL · Multilingual merge utility
+// i18n-sync.mjs — TuriaFest · Multilingual merge utility
 // ============================================================================
 // Reads the Spanish source file (es.json) and propagates any missing keys to
 // every other locale file, using the Spanish value as a fallback placeholder.
@@ -99,7 +99,7 @@ function diff(source, target, path = '') {
 const source = readJson(SOURCE_LANG);
 let hasIssues = false;
 
-console.log(`\nfestiVAL · i18n-sync (source: ${SOURCE_LANG}.json)\n`);
+console.log(`\nTuriaFest · i18n-sync (source: ${SOURCE_LANG}.json)\n`);
 
 for (const lang of TARGET_LANGS) {
   const target = readJson(lang);

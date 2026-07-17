@@ -8,7 +8,7 @@ description: >-
 
 # Asset Organization
 
-Mandatory rules for image and visual asset management in **festiVAL**.
+Mandatory rules for image and visual asset management in **TuriaFest**.
 
 ## Purpose
 

@@ -8,7 +8,7 @@ description: >-
 
 # 🛑 Error Handling
 
-Unified error capture, presentation, and reporting for **festiVAL**.
+Unified error capture, presentation, and reporting for **TuriaFest**.
 
 ## Purpose
 
@@ -102,7 +102,7 @@ export class FestivalErrorHandler implements ErrorHandler {
   handleError(error: unknown): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    console.error('[festiVAL]', error);
+    console.error('[TuriaFest]', error);
 
     if (environment.production) {
       Sentry.captureException(error);

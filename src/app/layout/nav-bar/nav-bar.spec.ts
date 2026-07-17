@@ -58,7 +58,7 @@ describe('NavBar', () => {
     ) as HTMLImageElement | null;
     expect(img).not.toBeNull();
     expect(img?.getAttribute('ng-img')).toBe('true');
-    expect(img?.getAttribute('alt')).toBe('festiVAL');
+    expect(img?.getAttribute('alt')).toBe('TuriaFest');
     expect(img?.getAttribute('src') ?? '').toContain(
       'assets/branding/festi-val-logo.webp',
     );

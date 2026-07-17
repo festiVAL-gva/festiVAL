@@ -2,13 +2,13 @@
 name: performance-optimization
 description: >-
   Core Web Vitals discipline: OnPush, @defer, NgOptimizedImage, bundle budgets and SSR /
-  prerendering to keep festiVAL fast on 4G. Use for any change that could move LCP, CLS or INP,
+  prerendering to keep TuriaFest fast on 4G. Use for any change that could move LCP, CLS or INP,
   affect bundle size, or touch lazy loading and image delivery.
 ---
 
 # ⚡ Performance Optimization
 
-Guidelines to keep **festiVAL** fast on mobile devices during festival season traffic spikes.
+Guidelines to keep **TuriaFest** fast on mobile devices during festival season traffic spikes.
 
 ## Targets
 
@@ -163,11 +163,11 @@ export class FestivalListPageComponent {
 ```bash
 # Build with stats and open the visualizer
 npm run build -- --stats-json
-npx webpack-bundle-analyzer dist/festiVAL/browser/stats.json
+npx webpack-bundle-analyzer dist/TuriaFest/browser/stats.json
 
 # Quick budget check — initial bundle must stay under 250 KB gzipped
-ls -lh dist/festiVAL/browser/*.js | sort -k5 -rh | head -5
-gzip -c dist/festiVAL/browser/main-*.js | wc -c   # bytes gzipped
+ls -lh dist/TuriaFest/browser/*.js | sort -k5 -rh | head -5
+gzip -c dist/TuriaFest/browser/main-*.js | wc -c   # bytes gzipped
 ```
 
 ## Related skills

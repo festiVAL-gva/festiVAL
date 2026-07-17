@@ -24,7 +24,7 @@ Show the user where each festival happens — a single venue marker on detail pa
 
 - **MapLibre GL JS** (~200 KB gzipped) — fork of Mapbox GL JS, vector tiles, WebGL renderer.
 - **Protomaps** — single static `.pmtiles` file served from a CDN; no tile server to run. Plan B: **Stadia Maps** free tier if Protomaps' self-hosted route is too much ops for the MVP.
-- **Custom dark style** matching the festiVAL design system (deep navy land, muted gray streets, violet POI accents).
+- **Custom dark style** matching the TuriaFest design system (deep navy land, muted gray streets, violet POI accents).
 
 ## Scope
 

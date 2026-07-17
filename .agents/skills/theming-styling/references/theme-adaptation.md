@@ -3,7 +3,7 @@
 
 Reference of the [theming-styling skill](../SKILL.md). Formerly the standalone `light-dark-mode` skill; merged here because the semantic-token system IS the theming mechanism.
 
-Mandatory gate for **any new visual work** in festiVAL. The app ships with three theme
+Mandatory gate for **any new visual work** in TuriaFest. The app ships with three theme
 states (`light | dark | system`, default `system`). Every surface you add must look
 intentional in **both** resolved themes without manual toggling hacks in components.
 

@@ -1,6 +1,6 @@
-# CLAUDE.md — festiVAL
+# CLAUDE.md — TuriaFest
 
-**festiVAL** is an Angular web application that serves as an information portal for the main music festivals in the Valencian Community (Valencia, Alicante, and Castellón provinces of Spain). Users can discover festivals and consult dates, locations, music genres, artist line-ups, starting prices, and official links. The primary UI language is **Spanish (es-ES)**, with Valencian (`ca-ES-valencia`) and English (`en-GB`) on the roadmap.
+**TuriaFest** is an Angular web application that serves as an information portal for the main music festivals in the Valencian Community (Valencia, Alicante, and Castellón provinces of Spain). Users can discover festivals and consult dates, locations, music genres, artist line-ups, starting prices, and official links. The primary UI language is **Spanish (es-ES)**, with Valencian (`ca-ES-valencia`) and English (`en-GB`) on the roadmap.
 
 ## Technologies
 
@@ -136,7 +136,7 @@ The project defines reusable skills in `.claude/skills/` that document patterns 
 - **`error-handling`** — Normalized `FestivalError`, `HttpInterceptor` + global `ErrorHandler`, user-facing messages via i18n.
 - **`search`** — **Roadmap spec** (MiniSearch not installed yet). Client-side fuzzy search with MiniSearch, field boosts, diacritic-stripping for Spanish.
 - **`maps`** — MapLibre GL JS + Protomaps tiles, lazy-loaded, SSR-safe, accessible with text equivalents.
-- **`design-responsive-validation`** 🎨 — **MANDATORY for every UI task.** Bans generic AI-looking layouts, requires a distinctive festiVAL identity, enforces responsive checks across desktop / laptop / tablet / mobile (320 px floor), and demands a Design & Responsive Validation Report at task completion.
+- **`design-responsive-validation`** 🎨 — **MANDATORY for every UI task.** Bans generic AI-looking layouts, requires a distinctive TuriaFest identity, enforces responsive checks across desktop / laptop / tablet / mobile (320 px floor), and demands a Design & Responsive Validation Report at task completion.
 - **`i18n-commit-policy`** 🌍 — **MANDATORY at commit time.** During normal development only `es.json` is edited; at commit / finalization the matching keys are propagated to every supported locale (`ca`, `en`), JSON parity is verified with `npm run i18n:check`, and an i18n Commit Translation Report is emitted before `git commit` runs.
 - **`angular-developer`** — Official Angular Team reference skill (Google LLC). Angular 21 API docs: signals, linkedSignal, resource, DI, routing, forms, SSR, ARIA, animations, CLI, migrations, MCP server. Use when you need to look up Angular internals or best practices. Adapted for this project: Tailwind removed, E2E via Playwright, gate is `npm run lint && npm test -- --run`.
 
@@ -214,7 +214,7 @@ URL paths remain in Spanish on purpose — they are user-facing, shareable, and 
 
 ## The application
 
-festiVAL is a **public information portal**, not transactional: it does not sell tickets and does not require registration in its first phase. The typical user is a music lover from the Valencian Community who wants to decide which festival to attend this summer and needs to quickly compare dates, prices, and line-ups from a mobile device.
+TuriaFest is a **public information portal**, not transactional: it does not sell tickets and does not require registration in its first phase. The typical user is a music lover from the Valencian Community who wants to decide which festival to attend this summer and needs to quickly compare dates, prices, and line-ups from a mobile device.
 
 ### Festivals in the initial catalogue
 

@@ -1,5 +1,5 @@
 // ============================================================================
-// translate.pipe.ts — festiVAL · Shared · i18n binding for templates
+// translate.pipe.ts — TuriaFest · Shared · i18n binding for templates
 // ============================================================================
 // Use:  {{ 'nav.home' | t }}
 // Impure so Angular re-runs `transform` whenever change detection fires after

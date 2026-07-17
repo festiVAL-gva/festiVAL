@@ -1,5 +1,5 @@
 // ============================================================================
-// translation.service.ts — festiVAL · Shared · runtime translator
+// translation.service.ts — TuriaFest · Shared · runtime translator
 // ============================================================================
 // Adapts between the internal `t(key)` API and Transloco. When Transloco is
 // provided (production, via app.config.ts), all translation calls delegate to

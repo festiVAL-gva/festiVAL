@@ -8,7 +8,7 @@ description: >-
 
 # 🧩 UI Components
 
-Reusable presentational component library for **festiVAL**.
+Reusable presentational component library for **TuriaFest**.
 
 ## Purpose
 

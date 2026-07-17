@@ -1,4 +1,4 @@
-# festiVAL — browser targets
+# TuriaFest — browser targets
 # Kept narrow enough to ship modern CSS (color-mix, backdrop-filter, aspect-ratio, gap in flex)
 # without polyfill overhead, while covering the real Valencian festival audience.
 

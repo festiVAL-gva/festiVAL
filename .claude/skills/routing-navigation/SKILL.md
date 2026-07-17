@@ -8,7 +8,7 @@ description: >-
 
 # 🧭 Routing & Navigation
 
-Conventions for Angular Router usage across **festiVAL**.
+Conventions for Angular Router usage across **TuriaFest**.
 
 ## Purpose
 

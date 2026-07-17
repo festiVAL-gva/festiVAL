@@ -1,14 +1,14 @@
 ---
 name: accessibility
 description: >-
-  Enforces WCAG 2.1 AA for the festiVAL portal: colour contrast, visible focus, minimal ARIA,
+  Enforces WCAG 2.1 AA for the TuriaFest portal: colour contrast, visible focus, minimal ARIA,
   keyboard navigation and descriptive alt text. Use when building or reviewing any UI, when adding
   interactive controls, images or forms, or when running an accessibility audit before merge.
 ---
 
 # ♿ Accessibility (a11y)
 
-WCAG 2.1 AA compliance for the **festiVAL** portal.
+WCAG 2.1 AA compliance for the **TuriaFest** portal.
 
 ## Purpose
 

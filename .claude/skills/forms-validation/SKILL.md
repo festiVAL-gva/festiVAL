@@ -13,7 +13,7 @@ Patterns for reactive forms used in search, filtering, and (future) authenticati
 
 ## Purpose
 
-Centralize form construction, validation, and error messaging for **festiVAL**.
+Centralize form construction, validation, and error messaging for **TuriaFest**.
 
 ## Use Cases
 

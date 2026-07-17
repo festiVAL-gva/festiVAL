@@ -288,8 +288,8 @@
       "description": "A quick layer of context to decide better: which genre fits, where to compare dates, and when to jump to the official site before buying.",
       "items": {
         "tickets": {
-          "question": "Can I buy tickets directly on festiVAL?",
-          "answer": "No. festiVAL works as an editorial guide: it helps you compare festivals, dates and venues, then takes you to each event's official link to complete your purchase."
+          "question": "Can I buy tickets directly on TuriaFest?",
+          "answer": "No. TuriaFest works as an editorial guide: it helps you compare festivals, dates and venues, then takes you to each event's official link to complete your purchase."
         },
         "genres": {
           "question": "Can I discover festivals by music style?",
@@ -305,7 +305,7 @@
         },
         "details": {
           "question": "Where do I check line-up, venue and practical details before deciding?",
-          "answer": "Every festival has its own festiVAL page with editorial context, dates, map and direct access to the official site, where you'll find the confirmed line-up, schedules and final rules."
+          "answer": "Every festival has its own TuriaFest page with editorial context, dates, map and direct access to the official site, where you'll find the confirmed line-up, schedules and final rules."
         },
         "dates": {
           "question": "What if I want to plan my summer by dates first?",
@@ -720,11 +720,11 @@
   "footer": {
     "ariaLabel": "Footer",
     "brand": {
-      "logoAlt": "festiVAL",
+      "logoAlt": "TuriaFest",
       "description": "Your festival guide for the Valencian Community. Music, culture and summer."
     },
     "social": {
-      "ariaLabel": "festiVAL social media",
+      "ariaLabel": "TuriaFest social media",
       "instagram": "Follow us on Instagram",
       "x": "Follow us on X",
       "youtube": "Follow us on YouTube",
@@ -739,7 +739,7 @@
     },
     "info": {
       "title": "Information",
-      "about": "About festiVAL",
+      "about": "About TuriaFest",
       "contact": "Contact",
       "faq": "FAQ"
     },
@@ -751,7 +751,7 @@
       "terms": "Terms of use"
     },
     "bottom": {
-      "copyright": "© 2026 festiVAL. All rights reserved."
+      "copyright": "© 2026 TuriaFest. All rights reserved."
     }
   },
   "error": {

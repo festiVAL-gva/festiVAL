@@ -1,4 +1,4 @@
-# 🎵 festiVAL
+# 🎵 TuriaFest
 
 > Tu portal de los principales festivales de música de la Comunidad Valenciana.
 
@@ -6,7 +6,7 @@
 
 ## 📖 Descripción
 
-**festiVAL** es una aplicación web informativa desarrollada con **Angular 21 + SSR** para reunir, en un solo sitio, la información más útil de los principales festivales de música de la Comunidad Valenciana. La página está pensada para ayudar a una persona a entender rápidamente qué festivales hay, cuándo se celebran, dónde se hacen y qué tipo de experiencia ofrece cada uno.
+**TuriaFest** es una aplicación web informativa desarrollada con **Angular 21 + SSR** para reunir, en un solo sitio, la información más útil de los principales festivales de música de la Comunidad Valenciana. La página está pensada para ayudar a una persona a entender rápidamente qué festivales hay, cuándo se celebran, dónde se hacen y qué tipo de experiencia ofrece cada uno.
 
 No es una plataforma de venta de entradas ni una red social. Su función es servir como **portal de descubrimiento y consulta**: muestra fechas, ubicaciones, géneros, carteles visuales, precios orientativos, enlaces oficiales y contexto general para que el usuario compare opciones antes de decidir a cuál festival quiere ir.
 
@@ -18,7 +18,7 @@ La interfaz está orientada principalmente a **móvil**, usa **español (es-ES)*
 
 La web gira alrededor de una idea simple: **facilitar la planificación festivalera dentro de la Comunidad Valenciana**.
 
-En lugar de obligar al usuario a saltar entre Instagram, carteles sueltos, webs oficiales y mapas externos, `festiVAL` concentra la información base en una experiencia única y visual:
+En lugar de obligar al usuario a saltar entre Instagram, carteles sueltos, webs oficiales y mapas externos, `TuriaFest` concentra la información base en una experiencia única y visual:
 
 - Qué festivales hay en la temporada.
 - En qué ciudad y provincia se celebran.
@@ -122,8 +122,8 @@ Quedan **fuera de scope** por decisión arquitectónica: Tailwind, Material/Prim
 ### Pasos
 
 ```bash
-git clone https://github.com/R4r4s/festiVAL.git
-cd festiVAL
+git clone https://github.com/R4r4s/TuriaFest.git
+cd TuriaFest
 npm install
 npm start
 ```
@@ -141,7 +141,7 @@ La aplicación arranca en [http://localhost:4200](http://localhost:4200) y se re
 | `npm test`                    | Tests unitarios (Vitest)                                 |
 | `npm run lint`                | Linter (ESLint + Angular ESLint + boundaries)            |
 | `npm run watch`               | Build en modo desarrollo con observación de cambios      |
-| `npm run serve:ssr:festiVAL`  | Sirve el build SSR (Express, puerto 4000)                |
+| `npm run serve:ssr:TuriaFest`  | Sirve el build SSR (Express, puerto 4000)                |
 
 ---
 

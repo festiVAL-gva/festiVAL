@@ -60,6 +60,7 @@ When working as Codex, use the `.codex/` folder as the source of truth for agent
 When the user writes `/audit-structure`, load and follow `.codex/commands/audit-structure.md`.
 When the user writes `/autocommit`, load and follow `.codex/commands/autocommit.md`.
 When the user writes `/merge-develop-into-branches`, load and follow `.codex/commands/merge-develop-into-branches.md`.
+When the user writes `/upload-news`, load and follow `.codex/commands/upload-news.md`.
 Treat slash commands as workflow instructions for the current turn, not as plain text to acknowledge.
 
 ## Pre-commit gate (MANDATORY)

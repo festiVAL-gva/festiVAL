@@ -63,8 +63,6 @@
   display: block;
   height: 40px;
   width: auto;
-  transform: scale(1.14);
-  transform-origin: left center;
 
   @include from(md) {
     height: 46px;

@@ -219,7 +219,7 @@ public/
 ```
 src/
 ├── index.html           → Documento HTML principal. `lang="es-ES"`, título `festiVAL`,
-│                          meta theme-color, favicon SVG + .ico, monta <fv-root>. Incluye un
+│                          meta theme-color, favicon PNG + .ico, monta <fv-root>. Incluye un
 │                          script inline bloqueante anti-parpadeo que aplica `data-theme` desde
 │                          localStorage('fv-theme') antes del primer pintado (ver ThemeService).
 ├── main.ts              → Punto de entrada del cliente. Llama a bootstrapApplication con la
@@ -286,7 +286,7 @@ src/assets/
 │   ├── festi-val-logo.webp → Logo principal (letras navy) usado por la cabecera en tema claro
 │   ├── festi-val-logo-dark.webp → Variante del logo con letras blancas para el tema oscuro
 │   │                              (mismo icono en color; conmutado por ThemeService en nav-bar/footer)
-│   └── favicon.svg         → Favicon vectorial
+│   └── favicon.png         → Icono de marca de alta resolución usado como favicon moderno
 ├── i18n/                → Ficheros de traducción JSON. `es.json` es la fuente de verdad; el resto
 │   │                      mantiene paridad de claves. La propagación a los locales soportados
 │   │                      (`ca`, `en`) ocurre durante un commit (skill `i18n-commit-policy`).

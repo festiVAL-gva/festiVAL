@@ -62,9 +62,12 @@
 
   <div class="festival-hero__img-wrap" aria-hidden="true">
     <img
+      class="festival-hero__image"
+      [class.festival-hero__image--contain]="e.hero.poster.fit === 'contain'"
       [ngSrc]="e.hero.poster.src"
       [alt]="e.hero.poster.alt"
-      fill
+      [width]="e.hero.poster.width"
+      [height]="e.hero.poster.height"
       priority
       sizes="(min-width: 1024px) 58vw, 100vw"
     />

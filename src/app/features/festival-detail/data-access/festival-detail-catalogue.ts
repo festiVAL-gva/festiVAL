@@ -18,7 +18,13 @@ export interface FestivalDetailEntry {
     readonly datesKey: TranslationKey;
     /** ISO 8601 range for the <time datetime> attribute. */
     readonly datetime: string;
-    readonly poster: { readonly src: string; readonly alt: string };
+    readonly poster: {
+      readonly src: string;
+      readonly alt: string;
+      readonly width: number;
+      readonly height: number;
+      readonly fit: 'cover' | 'contain';
+    };
     readonly ticketUrl: string;
     readonly officialUrl: string;
   };
@@ -86,8 +92,11 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       datesKey: 'festival.detail.byFestival.bigsound.hero.dates',
       datetime: '2026-06-26/2026-06-27',
       poster: {
-        src: '/assets/images/festivals/bigsound/logo-bigsound.webp',
-        alt: 'Identidad visual de Bigsound Festival',
+        src: '/assets/images/festivals/bigsound/cartel-bigsound-valencia-2026.webp',
+        alt: 'Cartel de Bigsound Festival Valencia 2026',
+        width: 550,
+        height: 688,
+        fit: 'contain',
       },
       ticketUrl: 'https://bigsoundfestival.com/entradas',
       officialUrl: 'https://bigsoundfestival.com/',
@@ -122,6 +131,9 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       poster: {
         src: '/assets/images/festivals/latin-fest/logo-latin-fest.webp',
         alt: 'Identidad visual de Latin Fest',
+        width: 1615,
+        height: 969,
+        fit: 'contain',
       },
       ticketUrl: 'https://latinfest.es/entradas',
       officialUrl: 'https://latinfest.es/',
@@ -163,6 +175,9 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       poster: {
         src: '/assets/images/festivals/medusa/hero-medusa-festival-2026.webp',
         alt: 'Escenario principal del Medusa Festival iluminado de noche',
+        width: 1500,
+        height: 843,
+        fit: 'cover',
       },
       ticketUrl: 'https://www.medusasunbeach.com/entradas',
       officialUrl: 'https://www.medusasunbeach.com/',
@@ -225,6 +240,9 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       poster: {
         src: '/assets/images/festivals/arenal/cartel-arenal.webp',
         alt: 'Cartel de Arenal Sound 2026',
+        width: 1114,
+        height: 1386,
+        fit: 'contain',
       },
       ticketUrl: 'https://arenalsound.com/comprar/',
       officialUrl: 'https://arenalsound.com/',
@@ -259,6 +277,9 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       poster: {
         src: '/assets/images/festivals/reve/cartel-reve-horizontal-2026.webp',
         alt: 'Cartel horizontal de Reve Festival Roig Arena Valencia 2026',
+        width: 1600,
+        height: 900,
+        fit: 'cover',
       },
       ticketUrl: 'https://revefestival.com/entradas',
       officialUrl: 'https://revefestival.com/',
@@ -407,6 +428,9 @@ const ENTRIES: readonly FestivalDetailEntry[] = [
       poster: {
         src: '/assets/images/festivals/zevra/logo-zevra.webp',
         alt: 'Identidad visual de Zevra Festival',
+        width: 3212,
+        height: 1276,
+        fit: 'contain',
       },
       ticketUrl: 'https://zevrafestival.com/entradas',
       officialUrl: 'https://zevrafestival.com/',

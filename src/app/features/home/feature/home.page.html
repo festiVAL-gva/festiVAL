@@ -7,7 +7,7 @@
       [loaderParams]="{ variants: true }"
       sizes="(min-width: 1320px) 1200px, calc(100vw - 40px)"
       width="1200"
-      height="798"
+      height="800"
       priority
       [alt]="'home.hero.imageAlt' | t"
     />
@@ -70,7 +70,7 @@
         [ngSrc]="festivalImage.image.src"
         [width]="festivalImage.image.width"
         [height]="festivalImage.image.height"
-        sizes="100vw"
+        sizes="(min-width: 768px) min(44vw, 29rem), 100vw"
         [alt]="festivalImage.imageAltKey | t"
       />
     }

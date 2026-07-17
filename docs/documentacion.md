@@ -17,6 +17,7 @@ Responsable: cualquier agente o persona que realice el commit. La regla se aplic
 
 ```
 festiVAL/
+├── .agents/            → Skills compatibles con agentes de Cursor
 ├── .codex/             → Desarrollo asistido por IA para Codex (agentes, skills, commands)
 ├── .claude/            → Desarrollo asistido por IA para Claude Code (agentes, skills, workflows)
 ├── .vscode/            → Configuración del editor VS Code
@@ -31,10 +32,26 @@ festiVAL/
 ├── eslint.config.js    → Configuración de ESLint (Angular ESLint + template accessibility)
 ├── package.json        → Dependencias, scripts npm y metadatos del proyecto
 ├── package-lock.json   → Lockfile de dependencias (versionado exacto)
+├── AGENTS.md           → Contrato raíz para agentes ejecutados desde Cursor
 ├── README.md           → Presentación pública del proyecto para GitHub
 ├── tsconfig.json       → Configuración base de TypeScript (strict, paths aliases, target)
 ├── tsconfig.app.json   → Configuración TS para el build de la aplicación (extiende tsconfig.json)
 └── tsconfig.spec.json  → Configuración TS para los tests (extiende tsconfig.json, incluye vitest/globals)
+```
+
+---
+
+## `.agents/` — Skills para Cursor
+
+Contiene una copia de las skills del proyecto adaptada para agentes ejecutados desde Cursor. Las
+referencias al contrato principal apuntan a `AGENTS.md`; los patrones funcionales permanecen
+alineados con las skills de `.claude/` y `.codex/`.
+
+```
+.agents/
+└── skills/
+    ├── <skill>/SKILL.md        → Contrato y patrones de cada área
+    └── <skill>/references/     → Referencias extensas cargadas bajo demanda
 ```
 
 ---
@@ -804,6 +821,7 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 
 | Fecha      | Cambio                                                  | Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ---------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-07-17 | Configuración de agentes para Cursor                    | Añadidos `AGENTS.md` como contrato raíz y `.agents/skills/` como catálogo de skills adaptado para agentes ejecutados desde Cursor. |
 | 2026-07-09 | Media editorial REVE en `festival-detail`               | Añadidas `src/app/features/festival-detail/ui/festival-featured-video/` y `festival-photo-gallery/`: el detalle de REVE incorpora vídeo destacado autoplay muted, galería fotográfica con imagen activa y miniaturas, y catálogo tipado (`featuredVideo`, `photoGallery`) en `festival-detail-catalogue.ts`. `festival-overview` monta las secciones solo cuando la entry las define. Assets runtime añadidos en `src/assets/images/festivals/reve/` para vídeo, poster y galería. i18n `es/ca/en` sincronizada para las nuevas claves y tests de componentes/overview actualizados. |
 | 2026-07-04 | Auditoría `/audit-structure`: remediación completa | Inversión del patrón `ui/ → data-access/`: `festival-hero`, `festival-overview`, `festival-poster-gallery` y `festival-location-map` reciben `input.required<FestivalDetailEntry>('entry')` desde `festival-detail.page` (que resuelve el catálogo una vez; nuevo `festival-detail.guard.spec.ts` cubre la redirección con slug desconocido), y `festival-calendar` recibe `monthSegments`/`festivals` por input desde `home.page`. `shared/data-access/festival-locations.ts` movido a `features/home/data-access/` (único consumidor). Eliminados `shared/data-access/map-loader.service.ts` y la dependencia `maplibre-gl` (cero consumidores): el detalle usa deliberadamente el embed oficial de Google Maps — decisión ahora documentada en `CLAUDE.md` y en la skill `maps` (regulariza la reversión de MapLibre introducida en `b962ca4` que no quedó registrada aquí); MapLibre queda reservado para la fase `/mapa`. `aria-label` del `nav-progress-bar` internacionalizado (`nav.progress.loading` en es/ca/en). Marcadores `@compat` añadidos a los fallbacks rgba de `festival-calendar.scss` y `festival-list.page.scss`. Árboles de este documento sincronizados con el disco (shell en `app.ts`/`app.html`, RenderMode.Server del detalle, selector de idioma del nav-bar, `_safari-compat.scss`, JSON de `public/`, ficheros de `docs/`, skills `angular-developer` y `cross-device-compat`, `launch.json`) y `project-structure/SKILL.md` actualizado (`core/notifications/`, `layout/nav-progress-bar/`, excepción `import type` en la regla 4, excepción del loader Transloco en la regla 8, variante de feature ligera). |
 | 2026-07-03 | Sustitución de Arenal Sound en el catálogo semilla      | Reemplazado el festival urbano alicantino anterior por **Arenal Sound** (`arenal`) en catálogos de home, detalle, calendario, mapa, playlists y reseñas. `festival-locations.ts` usa coordenadas de Playa del Arenal en Burriana (`39.865027, -0.066728`) y el mapa editorial posiciona el pin en la costa de Castellón. Assets runtime actualizados: `src/assets/images/festivals/arenal/` contiene `logo-arenal.webp` y `cartel-arenal.webp`; eliminada la carpeta runtime del festival sustituido. JSON público de facts renombrado a `public/festival-detail-arenal.json`. Claves i18n `*.arenal` añadidas en `es`, `ca` y `en`; tests actualizados para el nuevo slug. |

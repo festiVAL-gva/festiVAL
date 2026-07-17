@@ -27,4 +27,9 @@ export const routes: Routes = [
         (m) => m.CALENDAR_ROUTES,
       ),
   },
+  {
+    path: 'noticias',
+    loadChildren: () =>
+      import('@features/news/news.routes').then((m) => m.NEWS_ROUTES),
+  },
 ];

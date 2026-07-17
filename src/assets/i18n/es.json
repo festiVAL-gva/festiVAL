@@ -3,6 +3,7 @@
     "home": "Inicio",
     "festivals": "Festivales",
     "calendar": "Calendario",
+    "news": "Noticias",
     "map": "Mapa",
     "search": "Buscar",
     "theme": {
@@ -22,6 +23,20 @@
     },
     "aria": {
       "primary": "Navegación principal"
+    }
+  },
+  "news": {
+    "meta": {
+      "title": "Noticias — TuriaFest"
+    },
+    "eyebrow": "Actualidad festivalera",
+    "title": "Noticias",
+    "description": "Novedades, anuncios y actualidad de los festivales de la Comunitat Valenciana.",
+    "empty": {
+      "ariaLabel": "Noticias aún no disponibles",
+      "title": "Aún no hay noticias",
+      "description": "Estamos preparando este espacio para contarte las últimas novedades del panorama festivalero valenciano.",
+      "cta": "Explorar festivales"
     }
   },
   "home": {

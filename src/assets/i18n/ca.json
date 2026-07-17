@@ -22,7 +22,8 @@
     },
     "aria": {
       "primary": "Navegació principal"
-    }
+    },
+    "news": "Notícies"
   },
   "home": {
     "ariaLabel": "Inici",
@@ -831,6 +832,20 @@
       "title": "No hi ha festivals amb eixos filtres",
       "body": "Prova de canviar el mes, la província o el gènere per a tornar a veure dies amb festivals actius.",
       "cta": "Restablir filtres"
+    }
+  },
+  "news": {
+    "meta": {
+      "title": "Notícies — TuriaFest"
+    },
+    "eyebrow": "Actualitat festivalera",
+    "title": "Notícies",
+    "description": "Novetats, anuncis i actualitat dels festivals de la Comunitat Valenciana.",
+    "empty": {
+      "ariaLabel": "Notícies encara no disponibles",
+      "title": "Encara no hi ha notícies",
+      "description": "Estem preparant aquest espai per a contar-te les últimes novetats del panorama festivaler valencià.",
+      "cta": "Explorar festivals"
     }
   }
 }

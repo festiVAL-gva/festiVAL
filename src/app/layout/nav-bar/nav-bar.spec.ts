@@ -64,15 +64,15 @@ describe('NavBar', () => {
     );
   });
 
-  it('renders three primary navigation items with Spanish labels', () => {
+  it('renders four primary navigation items with Spanish labels', () => {
     const fixture = TestBed.createComponent(NavBar);
     fixture.detectChanges();
     const links = (fixture.nativeElement as HTMLElement).querySelectorAll(
       '.nav-bar__nav-link',
     );
-    expect(links.length).toBe(3);
+    expect(links.length).toBe(4);
     const labels = Array.from(links).map((link) => link.textContent?.trim());
-    expect(labels).toEqual(['Inicio', 'Festivales', 'Calendario']);
+    expect(labels).toEqual(['Inicio', 'Festivales', 'Calendario', 'Noticias']);
   });
 
   it('renders the inicio link with routerLink and test id', () => {
@@ -83,6 +83,18 @@ describe('NavBar', () => {
     ) as HTMLAnchorElement | null;
     expect(inicioLink).not.toBeNull();
     expect(inicioLink?.getAttribute('href')).toBe('/');
+  });
+
+  it('links Noticias to its route', () => {
+    const fixture = TestBed.createComponent(NavBar);
+    fixture.detectChanges();
+    const newsItem = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="nav-link-noticias"]',
+    ) as HTMLAnchorElement;
+
+    expect(newsItem?.tagName).toBe('A');
+    expect(newsItem?.getAttribute('href')).toBe('/noticias');
+    expect(newsItem?.hasAttribute('aria-disabled')).toBe(false);
   });
 
   it('exposes the search, theme toggle and hamburger controls', () => {

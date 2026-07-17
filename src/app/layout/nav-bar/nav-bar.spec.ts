@@ -126,6 +126,7 @@ describe('NavBar', () => {
     expect(darkLogo.getAttribute('ng-reflect-ng-src') ?? darkLogo.src).toContain(
       'assets/branding/festi-val-logo-dark.webp',
     );
+    expect(darkLogo.getAttribute('loading')).toBe('eager');
     expect(darkLogo.getAttribute('aria-hidden')).toBe('true');
   });
 

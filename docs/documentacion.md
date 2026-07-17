@@ -128,7 +128,14 @@ Contiene la configuración de agentes especializados, skills reutilizables y wor
     ├── routing-navigation/SKILL.md      → Esquema de URLs en español, loadChildren/loadComponent, resolvers
     ├── sanity-cms/SKILL.md              → Catálogo desde Sanity (CMS) vía @sanity/client: GROQ, cliente en data-access, Zod en frontera
     ├── search/SKILL.md                  → [SPEC de roadmap] MiniSearch: búsqueda fuzzy client-side con boost por campo (MiniSearch sin instalar)
-    ├── seo-meta/SKILL.md                → Title/description por ruta, JSON-LD Event, OG, sitemap, canonicals
+    ├── seo-meta/SKILL.md                → Contrato SEO canónico, ownership, fases e índice normativo
+    │   └── references/                  → Reglas SEO obligatorias por ámbito
+    │       ├── technical-seo.md         → SSR/prerender, indexación, estados, redirects, robots y sitemap
+    │       ├── route-metadata.md        → Title/description, OG, Twitter, canonical y fallbacks SSR
+    │       ├── structured-data.md       → MusicEvent, BreadcrumbList, Organization y WebSite
+    │       ├── content-local-international.md → SEO de festivales/artistas, local, freshness y hreflang
+    │       ├── performance-editorial.md → Core Web Vitals, imágenes, mobile-first y SEO editorial
+    │       └── testing-definition-of-done.md → Gates, evidencias y Definition of Done SEO
     ├── state-management/SKILL.md        → Signals, NgRx SignalStore, persistencia localStorage/idb-keyval
     ├── testing-patterns/SKILL.md        → Vitest, Playwright, pre-commit gate, data-testid, cobertura
     │   └── references/examples.md         → Ejemplos de test (Vitest, ATL, Zod) extraídos
@@ -824,3 +831,10 @@ core      →  core (solo a sí mismo)
 
 Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `eslint.config.js`).
 
+---
+
+## Historial de cambios estructurales
+
+| Fecha | Cambio | Motivo |
+| --- | --- | --- |
+| 2026-07-17 | Se añadieron seis referencias normativas bajo `.codex/skills/seo-meta/references/` y su espejo generado en `.claude/skills/seo-meta/references/`. | Convertir `seo-meta` en un estándar SEO mantenible y verificable sin crear una nueva jerarquía documental. |

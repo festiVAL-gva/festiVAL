@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "festival",
+  "name": "turiafest",
   "compatibility_date": "2026-06-16",
   "compatibility_flags": ["nodejs_compat"],
   "build": {
@@ -10,6 +10,16 @@
     "directory": "./dist/festival/browser",
     "not_found_handling": "single-page-application"
   },
+  "routes": [
+    {
+      "pattern": "turiafest.com/*",
+      "zone_name": "turiafest.com"
+    },
+    {
+      "pattern": "www.turiafest.com/*",
+      "zone_name": "turiafest.com"
+    }
+  ],
   "observability": {
     "enabled": true
   }

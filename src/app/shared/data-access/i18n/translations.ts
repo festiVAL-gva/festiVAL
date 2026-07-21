@@ -1,5 +1,5 @@
 // ============================================================================
-// translations.ts — festiVAL · Shared · i18n source dictionary
+// translations.ts — TuriaFest · Shared · i18n source dictionary
 // ============================================================================
 // Imports the `es-ES` source-of-truth JSON via the `@assets/*` alias so this
 // boundary file holds no relative climb (see `project-structure` skill).

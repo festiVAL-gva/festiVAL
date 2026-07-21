@@ -1,7 +1,7 @@
 ---
 name: design-responsive-validation
 description: >-
-  Mandatory UI gate: bans generic AI-looking layouts, demands a distinctive festiVAL identity and
+  Mandatory UI gate: bans generic AI-looking layouts, demands a distinctive TuriaFest identity and
   enforces responsive checks across desktop, laptop, tablet and mobile down to 320px, ending with
   a Design and Responsive Validation Report. Use for every UI, layout, styling, component or page
   change.
@@ -9,7 +9,7 @@ description: >-
 
 # Design & Responsive Validation
 
-**MANDATORY** skill for any UI, layout, styling, component, page, or design-related change in **festiVAL**.
+**MANDATORY** skill for any UI, layout, styling, component, page, or design-related change in **TuriaFest**.
 
 ## Purpose
 
@@ -39,7 +39,7 @@ Collaborates with: **vistas** (owner), **rendimiento** (CLS / responsive perf), 
 
 ## Part 1 — Design originality
 
-festiVAL must not look like a generic AI-generated website. Every new page, section, or component must carry a distinctive visual identity aligned with the festiVAL brand.
+TuriaFest must not look like a generic AI-generated website. Every new page, section, or component must carry a distinctive visual identity aligned with the TuriaFest brand.
 
 ### Requirements
 
@@ -61,7 +61,7 @@ festiVAL must not look like a generic AI-generated website. Every new page, sect
 - Full-bleed `<section>` blocks stacked without rhythm changes.
 - Generic FAQ accordions, generic pricing tables, generic testimonial cards.
 
-### Design grounding for festiVAL
+### Design grounding for TuriaFest
 
 Anchor every decision in at least one of these:
 

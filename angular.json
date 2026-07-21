@@ -9,7 +9,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "festiVAL": {
+    "TuriaFest": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -114,10 +114,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "festiVAL:build:production"
+              "buildTarget": "TuriaFest:build:production"
             },
             "development": {
-              "buildTarget": "festiVAL:build:development"
+              "buildTarget": "TuriaFest:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,5 +1,5 @@
 // ============================================================================
-// nav-bar.scss — festiVAL · Layout · Sticky header
+// nav-bar.scss — TuriaFest · Layout · Sticky header
 // ============================================================================
 
 @use 'styles/breakpoints' as *;
@@ -63,8 +63,6 @@
   display: block;
   height: 40px;
   width: auto;
-  transform: scale(1.14);
-  transform-origin: left center;
 
   @include from(md) {
     height: 46px;
@@ -187,7 +185,7 @@
   width: var(--nav-flag-size-sm);
   height: var(--nav-flag-size-sm);
   border-radius: var(--fv-radius-sm);
-  object-fit: cover;
+  object-fit: contain;
 
   @include from(md) {
     width: var(--nav-flag-size);
@@ -251,7 +249,7 @@
   width: var(--nav-flag-size-sm);
   height: var(--nav-flag-size-sm);
   border-radius: var(--fv-radius-sm);
-  object-fit: cover;
+  object-fit: contain;
   flex-shrink: 0;
 }
 

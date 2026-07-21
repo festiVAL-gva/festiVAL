@@ -10,7 +10,7 @@ description: >-
 # 🛰️ Sanity CMS
 
 The festival catalogue (festivals, artists, venues, line-ups) lives in **Sanity**, a hosted
-headless CMS. festiVAL is a **read-only consumer** of that content at runtime; editors curate the
+headless CMS. TuriaFest is a **read-only consumer** of that content at runtime; editors curate the
 data in Sanity Studio. This skill defines how the Angular app talks to Sanity.
 
 ## Purpose

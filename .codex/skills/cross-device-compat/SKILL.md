@@ -1,7 +1,7 @@
 ---
 name: cross-device-compat
 description: >-
-  Cross-browser and cross-device compatibility for festiVAL: browser targets via .browserslistrc,
+  Cross-browser and cross-device compatibility for TuriaFest: browser targets via .browserslistrc,
   CSS vendor prefix rules, color-mix() fallback strategy, hover guards for touch devices,
   prefers-reduced-motion compliance, and the @compat marker convention.
   Consulted automatically by the autocommit gate (Method B checks B.10–B.11).
@@ -9,11 +9,11 @@ description: >-
 
 # 💻 Cross-Device Compatibility
 
-Single source of truth for cross-browser and cross-device compatibility in **festiVAL**.
+Single source of truth for cross-browser and cross-device compatibility in **TuriaFest**.
 
 ## Purpose
 
-Ensure the festiVAL portal works correctly and looks premium across all major browsers
+Ensure the TuriaFest portal works correctly and looks premium across all major browsers
 and devices — desktop Chrome/Firefox/Edge/Safari, iOS Safari, and Android Chrome —
 without sacrificing the modern CSS features that define the design system.
 

@@ -1,5 +1,5 @@
 // ============================================================================
-// _semantic.scss — festiVAL Design System · Semantic tokens
+// _semantic.scss — TuriaFest Design System · Semantic tokens
 // ============================================================================
 // CSS custom properties under the `--fv-*` namespace. Components ONLY consume
 // these — never the primitive SCSS variables from `_tokens.scss`.
@@ -13,6 +13,7 @@
   --fv-bg-surface:  #{$fv-gray-900};
   --fv-bg-elevated: #{$fv-gray-850};
   --fv-bg-overlay:  rgba(24, 24, 38, 0.6); // translucent glass
+  --fv-bg-image-matte: #{$fv-sand-50}; // fixed neutral matte for transparent logos/posters
 
   // --- Borders (hairline by default) ---
   --fv-border-subtle:  rgba(255, 255, 255, 0.06);

@@ -1,5 +1,5 @@
 // ============================================================================
-// environment.prod.ts — festiVAL · production
+// environment.prod.ts — TuriaFest · production
 // ============================================================================
 
 import type { Environment } from './environment.model';

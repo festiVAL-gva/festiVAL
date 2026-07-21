@@ -8,7 +8,7 @@ description: >-
 
 # 🌍 Internationalization (i18n)
 
-Multi-language support for **festiVAL**.
+Multi-language support for **TuriaFest**.
 
 ## Purpose
 

@@ -20,7 +20,7 @@ describe('Footer', () => {
     ) as HTMLImageElement | null;
     expect(img).not.toBeNull();
     expect(img?.getAttribute('ng-img')).toBe('true');
-    expect(img?.getAttribute('alt')).toBe('festiVAL');
+    expect(img?.getAttribute('alt')).toBe('TuriaFest');
     expect(img?.getAttribute('src') ?? '').toContain(
       'assets/branding/festi-val-logo.webp',
     );
@@ -62,7 +62,7 @@ describe('Footer', () => {
     fixture.detectChanges();
     const root = fixture.nativeElement as HTMLElement;
     expect(root.querySelector('.footer__copyright')?.textContent?.trim()).toBe(
-      '© 2026 festiVAL. Todos los derechos reservados.',
+      '© 2026 TuriaFest. Todos los derechos reservados.',
     );
   });
 });

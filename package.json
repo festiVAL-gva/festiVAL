@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "sh -c 'if printf \"%s\\n\" \"$@\" | grep -qx -- \"--run\"; then ng test --watch=false; else ng test \"$@\"; fi' --",
-    "serve:ssr:festiVAL": "node dist/festiVAL/server/server.mjs",
+    "serve:ssr:TuriaFest": "node dist/festival/server/server.mjs",
     "lint": "ng lint",
     "i18n:sync": "node scripts/i18n-sync.mjs",
     "sync:codex": "node scripts/sync-codex.mjs",

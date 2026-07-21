@@ -1,6 +1,6 @@
-# Audit festiVAL Architecture
+# Audit TuriaFest Architecture
 
-Automated architecture auditor for the festiVAL Angular project.
+Automated architecture auditor for the TuriaFest Angular project.
 
 Read-only. Strict. Objective. Reports — never modifies.
 

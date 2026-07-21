@@ -1,144 +1,149 @@
 ---
 name: seo-meta
 description: >-
-  Discoverability for festiVAL: per-route title and description, JSON-LD Event schema, canonicals,
-  sitemap, Open Graph and hreflang. Use when adding a route, changing page metadata or structured
-  data, or working on organic search.
+  Enforceable organic-search standard for TuriaFest: Angular SSR/prerender, route metadata,
+  canonicals, structured data, local and international SEO, editorial quality, validation and DoD.
+  Use for every indexable route, content update, metadata change, redirect, sitemap or SEO audit.
 ---
 
-# 🔎 SEO & Meta
+# SEO & Meta
 
-Search engine optimization for **festiVAL**.
+This skill is the canonical SEO contract for **TuriaFest**. It is an engineering standard, not a
+generic optimization guide. RFC keywords `MUST`, `MUST NOT`, `SHOULD`, `SHOULD NOT` and `MAY` are
+normative.
 
-## Purpose
+## Outcome
 
-Make every festival page discoverable through organic search for queries like "festivales Valencia 2026", "cartel FIB", or "Arenal Sound entradas".
+Every indexable TuriaFest URL MUST return useful Spanish HTML without requiring browser JavaScript,
+represent verified festival information, expose one internally consistent canonical identity, and
+remain fast and accessible on a mobile connection.
 
-## Tactics
+## Non-negotiable principles
 
-- **Angular SSR / prerender** for `/festivales` and `/festivales/:slug`.
-- **`Title` + `Meta` services** updated per route via a route data resolver.
-- **Open Graph + Twitter Cards** for social sharing of festival cards.
-- **JSON-LD structured data**: `Event` schema with `location`, `startDate`, `endDate`, `performer`, `offers`.
-- **Canonical URLs** to avoid duplicate content with filter query params.
-- **`sitemap.xml`** generated at build time from the festival catalogue.
-- **`robots.txt`** allowing all crawlers; disallow `/admin` (future).
+1. Festival dates, performers, prices, venues, locations, ticket availability and event status
+   **MUST come from a current official source**. Agents MUST NOT invent or infer these facts. Any
+   unavoidable inference MUST be labelled as an inference and MUST NOT enter structured data.
+2. A published slug MUST NOT change without a documented permanent redirect from every historic URL.
+3. Metadata and JSON-LD MUST be present in SSR/prerendered HTML. Client-only injection is insufficient.
+4. Structured data MUST describe visible page content and MUST NOT be used to add hidden claims.
+5. Indexable routes MUST return meaningful HTML with the correct HTTP status. Error content rendered
+   with status `200` is a soft 404 and MUST NOT ship.
+6. Canonical, Open Graph, sitemap and `hreflang` URLs MUST be absolute HTTPS production URLs derived
+   from `environment.baseUrl`; they MUST NOT be hardcoded in a feature.
+7. Hidden content, keyword stuffing, doorway pages, cloaking and artificial link schemes MUST NOT be
+   used.
+8. Angular native APIs (`Title`, `Meta`, `DOCUMENT`, route data and `@angular/ssr`) MUST be preferred;
+   a new SEO dependency requires a measured need and approval from **rendimiento**.
 
-## Per-Festival Meta Template
+Reason: search engines and users must see the same accurate page identity. Conflicting signals create
+indexing failures and false festival information can cause real travel or purchase harm.
 
-- **Title**: `{nombreFestival} {año} — Cartel, fechas y entradas | festiVAL`
-- **Description**: `Descubre toda la información del {nombre}: fechas, ubicación en {ciudad}, cartel completo y precios.`
-- **OG image**: `1200×630` WebP, served from `src/assets/images/og-*.webp` (built by the [[performance-optimization]] converter pipeline) or from the Sanity CDN with `?fm=webp&w=1200&q=80`. Never PNG / JPEG.
+## Required reading by task
 
-## Hreflang (future)
+| Task | Mandatory reference |
+| --- | --- |
+| Rendering, indexability, statuses, redirects, robots, sitemap, filters | [Technical SEO](references/technical-seo.md) |
+| Title, description, OG, Twitter, canonical, fallbacks | [Route metadata](references/route-metadata.md) |
+| `MusicEvent`, breadcrumbs and site entities | [Structured data](references/structured-data.md) |
+| Festival, artist, geography, internal links, locales | [Content, local and international SEO](references/content-local-international.md) |
+| Core Web Vitals, images, fonts and editorial SEO | [Performance and editorial SEO](references/performance-editorial.md) |
+| Automated checks, release gates, evidence and final report | [Testing and Definition of Done](references/testing-definition-of-done.md) |
 
-When Valencian and English are introduced, emit `hreflang` alternates for each locale.
+Agents MUST read every reference relevant to the touched surface. A route launch normally requires all
+six.
 
----
+## Phase matrix
 
-## Examples
+| Requirement | MVP | Roadmap |
+| --- | :---: | :---: |
+| SSR/prerender, correct status, unique metadata, canonical, robots and sitemap | MUST | Maintain |
+| `MusicEvent` on verified festival detail pages | MUST | Maintain |
+| Province/city landings | MAY only with unique value | Expand from demand evidence |
+| Artist profiles | Not live | MUST when `/artistas/:slug` launches |
+| Spanish `es-ES` canonical content | MUST | Maintain |
+| Valencian and English locale URLs + reciprocal `hreflang` | MUST NOT advertise before launch | MUST at locale go-live |
+| Search Console, field CWV and seasonal content operations | SHOULD during launch | MUST in production operations |
 
-### Title + Meta — ResolveFn for festival detail
+“Roadmap” does not lower the quality bar. It means the feature is not emitted until all of its rules
+can pass together.
 
-```ts
-// src/app/features/festival-detail/data-access/festival-meta.resolver.ts
-import { inject } from '@angular/core';
-import { ResolveFn } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
-import { FestivalService } from '@shared/data-access/festival.service';
-import { firstValueFrom } from 'rxjs';
+## Ownership
 
-export const festivalMetaResolver: ResolveFn<void> = async (route) => {
-  const title   = inject(Title);
-  const meta    = inject(Meta);
-  const service = inject(FestivalService);
+| Area | Accountable owner | Required collaborators |
+| --- | --- | --- |
+| SEO policy, canonicals, schema, sitemap, robots, CWV | **rendimiento** | sistemas, prueba |
+| SSR routes, HTTP statuses, redirects, environment base URL | **sistemas** | rendimiento |
+| Verified facts, official names, meta copy, freshness | **contenido** | rendimiento |
+| Templates, headings, images, alt text, layout stability | **vistas** | contenido, rendimiento |
+| Unit/E2E/a11y/SSR checks and release evidence | **prueba** | rendimiento, sistemas |
 
-  const f = await firstValueFrom(service.getBySlug(route.params['slug']));
-  const year = new Date(f.fechaInicio).getFullYear();
+The feature owning a route owns its route-specific metadata source. Cross-route mechanics belong in
+`core/platform/`; reusable pure builders belong in `shared/util/` only after two real feature uses.
+Placement MUST follow [project-structure](../project-structure/SKILL.md).
 
-  title.setTitle(
-    `${f.nombre} ${year} — Cartel, fechas y entradas | festiVAL`,
-  );
-  meta.updateTag({
-    name: 'description',
-    content: `Descubre toda la información del ${f.nombre}: fechas, ubicación en ${f.ciudad}, cartel completo y precios desde ${f.precioDesde} €.`,
-  });
-  meta.updateTag({ property: 'og:title',       content: `${f.nombre} ${year} | festiVAL` });
-  meta.updateTag({ property: 'og:description', content: `${f.ciudad} · desde ${f.precioDesde} €` });
-  meta.updateTag({ property: 'og:image',       content: f.poster.src });
-  meta.updateTag({ property: 'og:type',        content: 'event' });
-};
+## Canonical implementation direction
+
+TuriaFest currently uses Angular 21 hybrid rendering. Route data MUST be resolved before metadata is
+applied so the server response contains the final head and visible body. Static routes SHOULD use
+prerender; content that must be fresh per request MAY use SSR. CSR is allowed only for non-indexable,
+user-specific experiences with a documented reason.
+
+```html
+<!-- Compliant server output for /festivales/arenal -->
+<title>Arenal Sound: guía del festival | TuriaFest</title>
+<meta name="description" content="Consulta la información verificada y las novedades oficiales de Arenal Sound.">
+<link rel="canonical" href="https://festival.rngheru.workers.dev/festivales/arenal">
 ```
 
-```ts
-// Wired in festival-detail.routes.ts
-export const FESTIVAL_DETAIL_ROUTES: Routes = [
-  {
-    path: '',
-    loadComponent: () => import('./feature/festival-detail.page').then(m => m.FestivalDetailPageComponent),
-    resolve: { meta: festivalMetaResolver },
-  },
-];
+```html
+<!-- Non-compliant: placeholder identity, relative canonical and unverified sales claim -->
+<title>TuriaFest</title>
+<meta name="description" content="Compra ya las últimas entradas al mejor precio">
+<link rel="canonical" href="/festivales/arenal?mes=7">
 ```
 
-### JSON-LD — Event schema injected from the page component
+## Existing implementation audit baseline (2026-07-17)
 
-```ts
-// src/app/features/festival-detail/feature/festival-detail.page.ts
-import { DOCUMENT } from '@angular/common';
+The following are known implementation gaps, not approved conventions:
 
-@Component({ /* ... */ })
-export class FestivalDetailPageComponent implements OnInit {
-  private readonly doc     = inject(DOCUMENT);
-  private readonly festival = input.required<Festival>();
+- `src/app/app.routes.server.ts` SSR-renders `/festivales/:slug` and prerenders `**`; unknown festival
+  slugs currently redirect to `/`, so a true `404` response remains required.
+- `HreflangService` currently emits `es`, `ca`, `en` and `x-default` to the same non-localized URL at
+  bootstrap. Those alternates MUST be disabled until distinct, translated, indexable locale URLs exist.
+- Only `/noticias` sets route metadata; indexable routes do not yet have a complete metadata service,
+  canonical links or structured data.
+- `public/robots.txt` and `public/sitemap.xml` do not yet exist.
+- `environment.prod.ts` currently uses a Workers URL. The production custom domain MUST replace it
+  before canonical URLs, sitemap or `hreflang` are released.
 
-  ngOnInit(): void {
-    this.injectJsonLd(this.festival());
-  }
+Documentation changes do not authorize fixes to those files. Application work requires a separate
+implementation task.
 
-  private injectJsonLd(f: Festival): void {
-    const script = this.doc.createElement('script');
-    script.type  = 'application/ld+json';
-    script.text  = JSON.stringify({
-      '@context':  'https://schema.org',
-      '@type':     'MusicEvent',
-      name:        f.nombre,
-      startDate:   f.fechaInicio,
-      endDate:     f.fechaFin,
-      location: {
-        '@type':  'Place',
-        name:     f.ciudad,
-        geo: { '@type': 'GeoCoordinates', latitude: f.ubicacion.lat, longitude: f.ubicacion.lng },
-      },
-      performer: f.cartel.map(a => ({ '@type': 'MusicGroup', name: a.nombre })),
-      offers: {
-        '@type':         'Offer',
-        price:           f.precioDesde,
-        priceCurrency:   'EUR',
-        url:             f.urlOficial,
-        availability:    'https://schema.org/InStock',
-      },
-      image:     f.poster.src,
-      url:       f.urlOficial,
-      eventStatus: 'https://schema.org/EventScheduled',
-    });
-    this.doc.head.appendChild(script);
-  }
-}
-```
+## Compliant decision example
 
-### Canonical URL — set in app shell or resolver
+If the official Arenal Sound site confirms dates but does not publish a price:
 
-```ts
-// Avoid duplicate-content penalties from filter query params
-meta.updateTag({
-  rel: 'canonical',
-  href: `https://festivalapp.com/festivales/${f.slug}`,
-});
-```
+- The visible page MAY say “Precio pendiente de confirmación”.
+- The description MUST omit price.
+- JSON-LD MUST omit `offers`.
+- The agent MUST record the official source and verification date.
+- The agent MUST NOT derive a price from a prior year or third-party reseller.
 
-## Related skills
+## Related project standards
 
-- [[performance-optimization]]
-- [[internationalization]]
-- [[routing-navigation]]
+- [Performance optimization](../performance-optimization/SKILL.md)
+- [Accessibility](../accessibility/SKILL.md)
+- [Internationalization](../internationalization/SKILL.md)
+- [Routing and navigation](../routing-navigation/SKILL.md)
+- [Testing patterns](../testing-patterns/SKILL.md)
+- [Project structure](../project-structure/SKILL.md)
+- [Asset organization](../asset-organization/SKILL.md)
+- [Sanity CMS](../sanity-cms/SKILL.md)
+
+## Primary external specifications
+
+- [Angular server-side and hybrid rendering](https://angular.dev/guide/prerendering)
+- [Google Search JavaScript SEO basics](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
+- [Google canonical URL guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls)
+- [Google Event structured data](https://developers.google.com/search/docs/appearance/structured-data/event)
+- [Schema.org MusicEvent](https://schema.org/MusicEvent)

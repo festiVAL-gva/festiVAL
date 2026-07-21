@@ -45,4 +45,27 @@ describe('FestivalHeroComponent', () => {
     const rating = fixture.nativeElement.querySelector('[data-testid="festival-hero-rating"]');
     expect(rating.textContent).toContain('(1 reseña)');
   });
+
+  it('covers photographic heroes with their intrinsic dimensions', () => {
+    fixture.detectChanges();
+    const image = fixture.nativeElement.querySelector(
+      '.festival-hero__image',
+    ) as HTMLImageElement;
+
+    expect(image.classList.contains('festival-hero__image--contain')).toBe(false);
+    expect(image.getAttribute('width')).toBe('1500');
+    expect(image.getAttribute('height')).toBe('843');
+  });
+
+  it('contains wide festival identities without cropping them', () => {
+    fixture.componentRef.setInput('entry', findFestivalDetailEntry('zevra')!);
+    fixture.detectChanges();
+    const image = fixture.nativeElement.querySelector(
+      '.festival-hero__image',
+    ) as HTMLImageElement;
+
+    expect(image.classList.contains('festival-hero__image--contain')).toBe(true);
+    expect(image.getAttribute('width')).toBe('3212');
+    expect(image.getAttribute('height')).toBe('1276');
+  });
 });

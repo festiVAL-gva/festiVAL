@@ -4,17 +4,17 @@
       <img
         class="nav-bar__brand-img nav-bar__brand-img--light"
         ngSrc="assets/branding/festi-val-logo.webp"
-        width="746"
-        height="334"
+        width="800"
+        height="580"
         priority
-        alt="festiVAL"
+        alt="TuriaFest"
       />
       <img
         class="nav-bar__brand-img nav-bar__brand-img--dark"
         ngSrc="assets/branding/festi-val-logo-dark.webp"
-        width="746"
-        height="334"
-        priority
+        width="800"
+        height="580"
+        loading="eager"
         alt=""
         aria-hidden="true"
       />
@@ -57,6 +57,18 @@
             [attr.aria-current]="rlaCalendario.isActive ? 'page' : null"
           >
             {{ 'nav.calendar' | t }}
+          </a>
+        </li>
+        <li>
+          <a
+            class="nav-bar__nav-link"
+            data-testid="nav-link-noticias"
+            routerLink="/noticias"
+            routerLinkActive="nav-bar__nav-link--active"
+            #rlaNoticias="routerLinkActive"
+            [attr.aria-current]="rlaNoticias.isActive ? 'page' : null"
+          >
+            {{ 'nav.news' | t }}
           </a>
         </li>
       </ul>

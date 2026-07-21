@@ -85,7 +85,7 @@ describe('NavBar', () => {
     expect(inicioLink?.getAttribute('href')).toBe('/');
   });
 
-  it('links Noticias to its route', () => {
+  it('links Noticias to the external news site', () => {
     const fixture = TestBed.createComponent(NavBar);
     fixture.detectChanges();
     const newsItem = (fixture.nativeElement as HTMLElement).querySelector(
@@ -93,7 +93,8 @@ describe('NavBar', () => {
     ) as HTMLAnchorElement;
 
     expect(newsItem?.tagName).toBe('A');
-    expect(newsItem?.getAttribute('href')).toBe('/noticias');
+    expect(newsItem?.getAttribute('href')).toBe('https://turiafestnoticias.es');
+    expect(newsItem?.getAttribute('rel')).toBe('noopener');
     expect(newsItem?.hasAttribute('aria-disabled')).toBe(false);
   });
 

@@ -833,19 +833,5 @@
       "body": "Try changing the month, province, or genre to bring back days with active festivals.",
       "cta": "Reset filters"
     }
-  },
-  "news": {
-    "meta": {
-      "title": "News — TuriaFest"
-    },
-    "eyebrow": "Festival updates",
-    "title": "News",
-    "description": "Updates, announcements, and current news from festivals across the Valencian Community.",
-    "empty": {
-      "ariaLabel": "News not available yet",
-      "title": "No news yet",
-      "description": "We are preparing this space to share the latest updates from the Valencian festival scene.",
-      "cta": "Explore festivals"
-    }
   }
 }

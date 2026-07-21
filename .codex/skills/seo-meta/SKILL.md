@@ -110,7 +110,7 @@ The following are known implementation gaps, not approved conventions:
   slugs currently redirect to `/`, so a true `404` response remains required.
 - `HreflangService` currently emits `es`, `ca`, `en` and `x-default` to the same non-localized URL at
   bootstrap. Those alternates MUST be disabled until distinct, translated, indexable locale URLs exist.
-- Only `/noticias` sets route metadata; indexable routes do not yet have a complete metadata service,
+- No route currently sets its own metadata; indexable routes do not yet have a complete metadata service,
   canonical links or structured data.
 - `public/robots.txt` and `public/sitemap.xml` do not yet exist.
 - `environment.prod.ts` currently uses a Workers URL. The production custom domain MUST replace it

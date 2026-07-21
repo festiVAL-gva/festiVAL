@@ -205,7 +205,6 @@ Slugs are **immutable once published** — breaking them breaks SEO. Any renamin
 | `/festivales/:slug`         | Festival detail                                 |
 | `/festivales/:slug/cartel`  | Full line-up                                    |
 | `/calendario`               | Calendar timeline by day                        |
-| `/noticias`                 | News hub (empty until articles are published)   |
 | `/artistas/:slug`           | Artist profile                                  |
 | `/provincia/:provincia`     | Listing filtered by province                    |
 | `/mapa`                     | Interactive festival map (MapLibre)             |

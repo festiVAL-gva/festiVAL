@@ -608,101 +608,92 @@ src/app/features/
 │   │   └── festival-list.page.spec.ts → Tests: número de tarjetas, testid por slug e imagen.
 │   └── festival-list.routes.ts     → Superficie pública. Expone FESTIVAL_LIST_ROUTES con loadComponent.
 │
-├── home/                → Página de inicio. Muestra festivales destacados, hero con glow
-│                          atmosférico, acceso rápido a búsqueda y filtros.
-│   ├── feature/
-│   │   ├── home.page.ts    → Página de inicio standalone. Orquesta el hero editorial, el calendario
-│   │   │                     `festival-calendar`, el carrusel `featured-festivals`, la FAQ
-│   │   │                     `home-faq` y el mapa interactivo `home-festival-map`, al que pasa
-│   │   │                     `FESTIVAL_LOCATIONS` (de `@shared/data-access`) vía el input `locations`.
-│   │   ├── home.page.html  → Hero con CTAs + calendario premium + carrusel de festivales + FAQ
-│   │   │                     editorial + mapa de pines.
-│   │   ├── home.page.scss  → Layout de la home: espaciado vertical, hero card y responsive.
-│   │   └── home.page.spec.ts → Tests del hero, calendario, sección de festivales, FAQ y sección de mapa.
-│   ├── ui/
-│   │   ├── festival-calendar/
-│   │   │   ├── festival-calendar.ts      → Componente local standalone del calendario editorial.
-│   │   │   │                               Presentacional: recibe `monthSegments` y `festivals` por
-│   │   │   │                               `input.required` desde home.page. Carrusel auto-rotativo
-│   │   │   │                               (5 s) con `activeIndex: signal`, `focusFestival()` para
-│   │   │   │                               hover sobre días destacados, selección tipada de días
-│   │   │   │                               rotulados y `afterNextRender` + `DestroyRef` (SSR-safe).
-│   │   │   ├── festival-calendar.html    → Header con título + subtítulo, fila de meses proporcional
-│   │   │   │                               (JUNIO/JULIO/AGOSTO 15/31/18), rail gradiente, ruler con
-│   │   │   │                               ticks + fechas de referencia y 5 cards posicionadas bajo
-│   │   │   │                               su fecha en desktop.
-│   │   │   ├── festival-calendar.scss    → Línea temporal horizontal con tokens semánticos, ticks
-│   │   │   │                               secundarios, días destacados decorados con ::before absoluto
-│   │   │   │                               (no expanden el grid), cards 10rem con fade entre slides y
-│   │   │   │                               fallback en grid para tablet/mobile.
-│   │   │   └── festival-calendar.spec.ts → Tests de render, días rotulados, índice activo, transición
-│   │   │                                   por `focusFestival()` y semántica del autoplay con fake timers.
-│   │   ├── featured-festivals/
-│   │   │   ├── featured-festivals.ts      → Componente local standalone con datos de festivales
-│   │   │   │                                destacados. Importa RouterLink: cada tarjeta enlaza a
-│   │   │   │                                `/festivales/:slug`.
-│   │   │   ├── featured-festivals.html    → Header "Festivales destacados" y tarjetas `<a>` con imagen,
-│   │   │   │                                fecha, nombre y ubicación, con routerLink por festival.
-│   │   │   ├── featured-festivals.scss    → Carrusel horizontal sin fondo propio: movimiento continuo
-│   │   │   │                                en desktop, avance cada 3 s en móvil y sin lift en hover.
-│   │   │   │                                `.featured-festivals__card` como bloque (display: block).
-│   │   │   └── featured-festivals.spec.ts → Tests de render y pista duplicada. Usa provideRouter([]).
-│   │   ├── home-faq/
-│   │   │   ├── home-faq.ts      → Componente standalone de FAQ editorial para la home. Mantiene
-│   │   │   │                      el estado abierto/cerrado con `signal<string|null>` y renderiza
-│   │   │   │                      6 preguntas frecuentes tipadas con claves i18n.
-│   │   │   ├── home-faq.html    → Sección con header editorial + grid responsive de acordeones
-│   │   │   │                      accesibles (`button`, `aria-expanded`, `aria-controls`).
-│   │   │   ├── home-faq.scss    → Tarjetas FAQ con borde, acento por item, icono plus rotado y
-│   │   │   │                      layout 1 columna móvil / 2 columnas tablet+.
-│   │   │   └── home-faq.spec.ts → Tests de render y toggle abrir/cerrar respuesta.
-│   │   ├── spotify-playlists/
-│   │   │   ├── spotify-playlists.ts      → Componente standalone que embebe playlists oficiales de
-│   │   │   │                               Spotify de cuatro festivales (Zevra, Medusa, Arenal Sound,
-│   │   │   │                               Latin Fest) mediante iframes. Usa DomSanitizer para
-│   │   │   │                               URLs seguras y TranslationKey tipada para i18n.
-│   │   │   ├── spotify-playlists.html    → Sección con título, subtítulo, grid responsivo (1/2/4 cols)
-│   │   │   │                               de tarjetas con logo del festival + iframe de Spotify.
-│   │   │   └── spotify-playlists.scss    → Glow radial, divisor sutil, tarjetas transparentes sobre
-│   │   │                                   fondo de página. Tokens semánticos y color-mix().
-│   │   └── home-festival-map/
-│   │       ├── home-festival-map.ts      → Componente interactivo de pines sobre imagen del mapa
-│   │       │                               valenciano. Recibe las localizaciones por
-│   │       │                               `input.required('locations')` (ui/ presentacional) y las
-│   │       │                               combina con su config local de pines/imágenes en un
-│   │       │                               `computed`. Signals para festival activo y panel visible.
-│   │       │                               Carrusel automático (setInterval 3 s) con
-│   │       │                               afterNextRender + DestroyRef.
-│   │       ├── home-festival-map.html    → Figura con imagen + lista de pines accesibles (aria-pressed)
-│   │       │                               + panel lateral con tarjeta del festival activo.
-│   │       ├── home-festival-map.scss    → Layout grid pane/panel; pines con tono por festival;
-│   │       │                               transiciones de tarjeta con blur. Sin tokens violeta.
-│   │       └── home-festival-map.spec.ts → Tests de render, pins, festival por defecto, activación
-│   │                                      y ciclo automático (vi.useFakeTimers).
-│   ├── data-access/
-│   │   ├── home-catalogue.ts → Catálogo estático de la home: CALENDAR_MONTH_SEGMENTS,
-│   │   │                       CALENDAR_FESTIVALS (7 entradas) y NEXT_FESTIVALS (countdown del
-│   │   │                       hero). Exporta los tipos CalendarMonth, CalendarMonthData,
-│   │   │                       CalendarFestivalEntry, CalendarTone, CalendarCardAlign y
-│   │   │                       NextFestivalEntry. home.page (feature/) lo consume y pasa los datos
-│   │   │                       a festival-calendar (ui/) por input. Los datos del carrusel destacado
-│   │   │                       viven en `@shared/data-access/festival-catalogue.ts` (compartido con
-│   │   │                       festival-list).
-│   │   └── festival-locations.ts → Array readonly de FestivalLocation con los 7 festivales semilla:
-│   │                           key (p. ej. `bigsound`, `reve`, `latinValencia`…), claves i18n,
-│   │                           startDate ISO, lat/lng, category, markerTone. Movido desde
-│   │                           shared/data-access (2026-07-04): su único consumidor es la feature
-│   │                           home (home.page → home-festival-map por input `locations`).
-│   └── home.routes.ts   → Superficie pública de la feature. Expone HOME_ROUTES con loadComponent
-│
-└── news/                → Página editorial de noticias (`/noticias`), inicialmente sin artículos.
+└── home/                → Página de inicio. Muestra festivales destacados, hero con glow
+                           atmosférico, acceso rápido a búsqueda y filtros.
     ├── feature/
-    │   ├── news.page.ts       → Página smart standalone (OnPush). Gestiona título y `noindex`
-    │   │                        mientras el catálogo está vacío.
-    │   ├── news.page.html     → Hero editorial + estado vacío accesible con acceso a festivales.
-    │   ├── news.page.scss     → Composición responsive con tokens y soporte light/dark.
-    │   └── news.page.spec.ts  → Tests de render, SEO temporal y navegación del estado vacío.
-    └── news.routes.ts         → Superficie pública. Expone NEWS_ROUTES con loadComponent.
+    │   ├── home.page.ts    → Página de inicio standalone. Orquesta el hero editorial, el calendario
+    │   │                     `festival-calendar`, el carrusel `featured-festivals`, la FAQ
+    │   │                     `home-faq` y el mapa interactivo `home-festival-map`, al que pasa
+    │   │                     `FESTIVAL_LOCATIONS` (de `@shared/data-access`) vía el input `locations`.
+    │   ├── home.page.html  → Hero con CTAs + calendario premium + carrusel de festivales + FAQ
+    │   │                     editorial + mapa de pines.
+    │   ├── home.page.scss  → Layout de la home: espaciado vertical, hero card y responsive.
+    │   └── home.page.spec.ts → Tests del hero, calendario, sección de festivales, FAQ y sección de mapa.
+    ├── ui/
+    │   ├── festival-calendar/
+    │   │   ├── festival-calendar.ts      → Componente local standalone del calendario editorial.
+    │   │   │                               Presentacional: recibe `monthSegments` y `festivals` por
+    │   │   │                               `input.required` desde home.page. Carrusel auto-rotativo
+    │   │   │                               (5 s) con `activeIndex: signal`, `focusFestival()` para
+    │   │   │                               hover sobre días destacados, selección tipada de días
+    │   │   │                               rotulados y `afterNextRender` + `DestroyRef` (SSR-safe).
+    │   │   ├── festival-calendar.html    → Header con título + subtítulo, fila de meses proporcional
+    │   │   │                               (JUNIO/JULIO/AGOSTO 15/31/18), rail gradiente, ruler con
+    │   │   │                               ticks + fechas de referencia y 5 cards posicionadas bajo
+    │   │   │                               su fecha en desktop.
+    │   │   ├── festival-calendar.scss    → Línea temporal horizontal con tokens semánticos, ticks
+    │   │   │                               secundarios, días destacados decorados con ::before absoluto
+    │   │   │                               (no expanden el grid), cards 10rem con fade entre slides y
+    │   │   │                               fallback en grid para tablet/mobile.
+    │   │   └── festival-calendar.spec.ts → Tests de render, días rotulados, índice activo, transición
+    │   │                                   por `focusFestival()` y semántica del autoplay con fake timers.
+    │   ├── featured-festivals/
+    │   │   ├── featured-festivals.ts      → Componente local standalone con datos de festivales
+    │   │   │                                destacados. Importa RouterLink: cada tarjeta enlaza a
+    │   │   │                                `/festivales/:slug`.
+    │   │   ├── featured-festivals.html    → Header "Festivales destacados" y tarjetas `<a>` con imagen,
+    │   │   │                                fecha, nombre y ubicación, con routerLink por festival.
+    │   │   ├── featured-festivals.scss    → Carrusel horizontal sin fondo propio: movimiento continuo
+    │   │   │                                en desktop, avance cada 3 s en móvil y sin lift en hover.
+    │   │   │                                `.featured-festivals__card` como bloque (display: block).
+    │   │   └── featured-festivals.spec.ts → Tests de render y pista duplicada. Usa provideRouter([]).
+    │   ├── home-faq/
+    │   │   ├── home-faq.ts      → Componente standalone de FAQ editorial para la home. Mantiene
+    │   │   │                      el estado abierto/cerrado con `signal<string|null>` y renderiza
+    │   │   │                      6 preguntas frecuentes tipadas con claves i18n.
+    │   │   ├── home-faq.html    → Sección con header editorial + grid responsive de acordeones
+    │   │   │                      accesibles (`button`, `aria-expanded`, `aria-controls`).
+    │   │   ├── home-faq.scss    → Tarjetas FAQ con borde, acento por item, icono plus rotado y
+    │   │   │                      layout 1 columna móvil / 2 columnas tablet+.
+    │   │   └── home-faq.spec.ts → Tests de render y toggle abrir/cerrar respuesta.
+    │   ├── spotify-playlists/
+    │   │   ├── spotify-playlists.ts      → Componente standalone que embebe playlists oficiales de
+    │   │   │                               Spotify de cuatro festivales (Zevra, Medusa, Arenal Sound,
+    │   │   │                               Latin Fest) mediante iframes. Usa DomSanitizer para
+    │   │   │                               URLs seguras y TranslationKey tipada para i18n.
+    │   │   ├── spotify-playlists.html    → Sección con título, subtítulo, grid responsivo (1/2/4 cols)
+    │   │   │                               de tarjetas con logo del festival + iframe de Spotify.
+    │   │   └── spotify-playlists.scss    → Glow radial, divisor sutil, tarjetas transparentes sobre
+    │   │                                   fondo de página. Tokens semánticos y color-mix().
+    │   └── home-festival-map/
+    │       ├── home-festival-map.ts      → Componente interactivo de pines sobre imagen del mapa
+    │       │                               valenciano. Recibe las localizaciones por
+    │       │                               `input.required('locations')` (ui/ presentacional) y las
+    │       │                               combina con su config local de pines/imágenes en un
+    │       │                               `computed`. Signals para festival activo y panel visible.
+    │       │                               Carrusel automático (setInterval 3 s) con
+    │       │                               afterNextRender + DestroyRef.
+    │       ├── home-festival-map.html    → Figura con imagen + lista de pines accesibles (aria-pressed)
+    │       │                               + panel lateral con tarjeta del festival activo.
+    │       ├── home-festival-map.scss    → Layout grid pane/panel; pines con tono por festival;
+    │       │                               transiciones de tarjeta con blur. Sin tokens violeta.
+    │       └── home-festival-map.spec.ts → Tests de render, pins, festival por defecto, activación
+    │                                      y ciclo automático (vi.useFakeTimers).
+    ├── data-access/
+    │   ├── home-catalogue.ts → Catálogo estático de la home: CALENDAR_MONTH_SEGMENTS,
+    │   │                       CALENDAR_FESTIVALS (7 entradas) y NEXT_FESTIVALS (countdown del
+    │   │                       hero). Exporta los tipos CalendarMonth, CalendarMonthData,
+    │   │                       CalendarFestivalEntry, CalendarTone, CalendarCardAlign y
+    │   │                       NextFestivalEntry. home.page (feature/) lo consume y pasa los datos
+    │   │                       a festival-calendar (ui/) por input. Los datos del carrusel destacado
+    │   │                       viven en `@shared/data-access/festival-catalogue.ts` (compartido con
+    │   │                       festival-list).
+    │   └── festival-locations.ts → Array readonly de FestivalLocation con los 7 festivales semilla:
+    │                           key (p. ej. `bigsound`, `reve`, `latinValencia`…), claves i18n,
+    │                           startDate ISO, lat/lng, category, markerTone. Movido desde
+    │                           shared/data-access (2026-07-04): su único consumidor es la feature
+    │                           home (home.page → home-festival-map por input `locations`).
+    └── home.routes.ts   → Superficie pública de la feature. Expone HOME_ROUTES con loadComponent
 ```
 
 > `artist-detail/`, `search/` y `about/` están en el roadmap del proyecto y todavía no existen en el árbol: se documentarán aquí cuando se creen sus scaffolds.
@@ -838,3 +829,4 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 | Fecha | Cambio | Motivo |
 | --- | --- | --- |
 | 2026-07-17 | Se añadieron seis referencias normativas bajo `.codex/skills/seo-meta/references/` y su espejo generado en `.claude/skills/seo-meta/references/`. | Convertir `seo-meta` en un estándar SEO mantenible y verificable sin crear una nueva jerarquía documental. |
+| 2026-07-21 | Se eliminó la feature `news/` y la ruta `/noticias`; el enlace «Noticias» del header apunta ahora al sitio externo `https://turiafestnoticias.es`. | Las noticias se publican en un portal propio; mantener una página vacía en la app duplicaba superficie sin contenido. |

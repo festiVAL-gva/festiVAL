@@ -107,7 +107,7 @@ fallback and appends tags in `ngOnInit`.
 
 ## Canonical and Spanish URL rules
 
-- MVP paths MUST remain Spanish and lowercase ASCII: `/festivales`, `/calendario`, `/noticias`.
+- MVP paths MUST remain Spanish and lowercase ASCII: `/festivales`, `/calendario`.
 - Slugs MUST be lowercase kebab-case and immutable after publication.
 - A route MUST NOT translate its Spanish path merely because visible copy changes language. The final
   locale URL strategy is a multilingual roadmap decision owned by **rendimiento + sistemas + contenido**.

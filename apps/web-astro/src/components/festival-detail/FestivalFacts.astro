@@ -1,0 +1,170 @@
+---
+import type { FestivalDetailFacts } from '@lib/domain/festival-detail-facts.model';
+import { t } from '@lib/i18n/t';
+
+interface Props {
+  facts: FestivalDetailFacts;
+}
+
+const { facts } = Astro.props;
+
+const locationPrimary = `${facts.location.city}, ${facts.location.province}`;
+const genreSecondary = facts.genre.tags.join(' · ');
+const priceLabel = new Intl.NumberFormat('es-ES', {
+  style: 'currency',
+  currency: 'EUR',
+  maximumFractionDigits: 0,
+}).format(facts.ticket.fromPrice);
+
+const hasAuthorization =
+  facts.age.authorizationRequiredFrom !== null &&
+  facts.age.authorizationRequiredTo !== null;
+
+const adultAreas =
+  facts.age.adultsOnlyAreas.length > 0
+    ? facts.age.adultsOnlyAreas.join(', ')
+    : null;
+---
+
+<section
+  class="festival-detail-facts"
+  aria-label={t('festival.detail.facts.ariaLabel')}
+  data-testid="festival-detail-facts"
+>
+  <article class="festival-detail-facts__card">
+    <div class="festival-detail-facts__body">
+      <p class="festival-detail-facts__eyebrow">{t('festival.detail.facts.location.label')}</p>
+      <p class="festival-detail-facts__value">{locationPrimary}</p>
+      <p class="festival-detail-facts__meta">{facts.location.country}</p>
+    </div>
+  </article>
+
+  <article class="festival-detail-facts__card">
+    <div class="festival-detail-facts__body">
+      <p class="festival-detail-facts__eyebrow">{t('festival.detail.facts.genre.label')}</p>
+      <p class="festival-detail-facts__value">{facts.genre.primary}</p>
+      <p class="festival-detail-facts__meta">{genreSecondary}</p>
+    </div>
+  </article>
+
+  <article class="festival-detail-facts__card">
+    <div class="festival-detail-facts__body">
+      <p class="festival-detail-facts__eyebrow">{t('festival.detail.facts.price.label')}</p>
+      <p class="festival-detail-facts__value">{priceLabel}</p>
+      <p class="festival-detail-facts__meta">
+        {
+          facts.ticket.feeIncluded
+            ? t('festival.detail.facts.price.feesIncluded')
+            : t('festival.detail.facts.price.feesExcluded')
+        }
+      </p>
+    </div>
+  </article>
+
+  <article class="festival-detail-facts__card">
+    <div class="festival-detail-facts__body">
+      <p class="festival-detail-facts__eyebrow">{t('festival.detail.facts.age.label')}</p>
+      <p class="festival-detail-facts__value">{facts.age.minimumAccess}+</p>
+      <p class="festival-detail-facts__meta">
+        {
+          hasAuthorization &&
+            t('festival.detail.facts.age.authorization', {
+              from: facts.age.authorizationRequiredFrom!,
+              to: facts.age.authorizationRequiredTo!,
+            })
+        }
+        {
+          adultAreas &&
+            t('festival.detail.facts.age.adultsOnly', {
+              area: adultAreas,
+            })
+        }
+      </p>
+    </div>
+  </article>
+
+  <article class="festival-detail-facts__card">
+    <div class="festival-detail-facts__body">
+      <p class="festival-detail-facts__eyebrow">{t('festival.detail.facts.schedule.label')}</p>
+      <p class="festival-detail-facts__value">
+        {
+          facts.schedule.published && facts.schedule.opensAt && facts.schedule.closesAt
+            ? `${facts.schedule.opensAt} – ${facts.schedule.closesAt}`
+            : t('festival.detail.facts.schedule.pendingPrimary')
+        }
+      </p>
+      <p class="festival-detail-facts__meta">
+        {
+          facts.schedule.published
+            ? t('festival.detail.facts.schedule.daily')
+            : t('festival.detail.facts.schedule.pendingSecondary')
+        }
+      </p>
+    </div>
+  </article>
+</section>
+
+<style lang="scss">
+  @use 'styles/breakpoints' as *;
+
+  .festival-detail-facts {
+    display: grid;
+    gap: var(--fv-space-3);
+    grid-template-columns: 1fr;
+    max-width: 1320px;
+    margin: 0 auto;
+
+    @include from(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include from(lg) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .festival-detail-facts__card {
+    display: grid;
+    gap: var(--fv-space-3);
+    min-height: 100%;
+    padding: var(--fv-space-4);
+    border-radius: var(--fv-radius-xl);
+    background: var(--fv-bg-card-light);
+    border: 1px solid var(--fv-border-nav);
+    box-shadow: var(--fv-shadow-card);
+  }
+
+  .festival-detail-facts__body {
+    display: grid;
+    gap: var(--fv-space-1);
+    min-width: 0;
+  }
+
+  .festival-detail-facts__eyebrow,
+  .festival-detail-facts__value,
+  .festival-detail-facts__meta {
+    margin: 0;
+  }
+
+  .festival-detail-facts__eyebrow {
+    color: var(--fv-text-footer-muted);
+    font-family: var(--fv-font-ui);
+    font-size: var(--fv-text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--fv-tracking-wide);
+  }
+
+  .festival-detail-facts__value {
+    color: var(--fv-text-nav);
+    font-family: var(--fv-font-heading);
+    font-size: var(--fv-text-lg);
+    font-weight: 700;
+  }
+
+  .festival-detail-facts__meta {
+    color: var(--fv-text-footer-muted);
+    font-family: var(--fv-font-ui);
+    font-size: var(--fv-text-sm);
+  }
+</style>

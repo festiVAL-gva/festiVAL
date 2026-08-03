@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import FestivalHero from '@components/festival-detail/FestivalHero.astro';
+import FestivalFacts from '@components/festival-detail/FestivalFacts.astro';
+import FestivalOverview from '@components/festival-detail/FestivalOverview.astro';
+import FestivalLocationMap from '@components/festival-detail/FestivalLocationMap.astro';
+import { festivalRepository } from '@lib/festivals';
+import { overviewKeys } from '@lib/festivals/catalogue';
+import { t } from '@lib/i18n/t';
+import { buildFestivalSeo } from '@lib/seo/festival-meta';
+import { buildBreadcrumbJsonLd, buildMusicEventJsonLd } from '@lib/seo/json-ld';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const slugs = await festivalRepository.listSlugs();
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const slug = Astro.params.slug!;
+const entry = await festivalRepository.getBySlug(slug);
+
+if (!entry) {
+  return new Response('Not Found', { status: 404, statusText: 'Not Found' });
+}
+
+const facts = await festivalRepository.getFacts(slug);
+const keys = overviewKeys(entry.slug);
+const overviewParagraph = t(keys.paragraph1);
+const baseUrl = (Astro.site?.origin ?? import.meta.env.PUBLIC_BASE_URL ?? 'http://localhost:4321').replace(
+  /\/$/,
+  '',
+);
+const seo = buildFestivalSeo(entry, facts, overviewParagraph, baseUrl);
+const jsonLd = [
+  buildMusicEventJsonLd(entry, facts, overviewParagraph, baseUrl),
+  buildBreadcrumbJsonLd(entry, t(entry.hero.breadcrumbCurrentKey), baseUrl),
+];
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  canonicalUrl={seo.canonicalUrl}
+  ogImage={seo.image}
+  indexable={seo.indexable}
+  jsonLd={jsonLd}
+>
+  <section class="festival-detail-page" data-testid="festival-detail-page">
+    <FestivalHero entry={entry} />
+    {facts && <FestivalFacts facts={facts} />}
+    <FestivalOverview entry={entry} />
+    <FestivalLocationMap entry={entry} />
+  </section>
+</BaseLayout>
+
+<style lang="scss">
+  @use 'styles/breakpoints' as *;
+
+  .festival-detail-page {
+    width: 100%;
+    background: var(--fv-bg-page);
+    padding: var(--fv-space-4) var(--fv-space-4) var(--fv-space-7);
+    display: grid;
+    gap: var(--fv-space-7);
+
+    @include from(md) {
+      padding: var(--fv-space-5) calc(var(--fv-space-6) + var(--fv-space-1)) var(--fv-space-8);
+    }
+
+    @include from(lg) {
+      gap: var(--fv-space-8);
+      padding: var(--fv-space-5) var(--fv-space-7) var(--fv-space-9);
+    }
+  }
+</style>

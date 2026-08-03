@@ -1,0 +1,67 @@
+---
+import type { FestivalDetailEntry } from '@lib/festivals/catalogue';
+import { t } from '@lib/i18n/t';
+
+interface Props {
+  entry: FestivalDetailEntry;
+}
+
+const { entry } = Astro.props;
+const festivalName = t(entry.map.nameKey);
+const mapTitle = t('festival.detail.locationMap.iframeTitle', {
+  festival: festivalName,
+});
+---
+
+<section
+  class="festival-location-map"
+  aria-label={t('festival.detail.locationMap.ariaLabel')}
+  data-testid="festival-location-map"
+>
+  <h2 class="festival-location-map__title">{t('festival.detail.locationMap.title')}</h2>
+
+  <iframe
+    class="festival-location-map__iframe"
+    src={entry.map.embedUrl}
+    title={mapTitle}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+  ></iframe>
+</section>
+
+<style lang="scss">
+  @use 'styles/breakpoints' as *;
+
+  .festival-location-map {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--fv-space-4);
+  }
+
+  .festival-location-map__title {
+    margin: 0;
+    color: var(--fv-text-nav);
+    font-family: var(--fv-font-heading);
+    font-size: clamp(var(--fv-text-3xl), 5vw, var(--fv-text-4xl));
+    font-weight: 700;
+    line-height: var(--fv-leading-tight);
+  }
+
+  .festival-location-map__iframe {
+    display: block;
+    width: 100%;
+    height: 22rem;
+    border: 0;
+    background: transparent;
+
+    @include from(md) {
+      height: 28rem;
+    }
+
+    @include from(lg) {
+      height: 34rem;
+    }
+  }
+</style>

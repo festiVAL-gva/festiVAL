@@ -21,11 +21,13 @@ TuriaFest/
 ├── .codex/             → Desarrollo asistido por IA para Codex (agentes, skills, commands)
 ├── .claude/            → Desarrollo asistido por IA para Claude Code (agentes, skills, workflows)
 ├── .vscode/            → Configuración del editor VS Code
+├── apps/               → Apps hermanas (migración). Angular en raíz sigue siendo producción
+│   └── web-astro/      → PoC Astro (islands Preact, Cloudflare, vertical `/festivales/[slug]`)
 ├── design/             → Assets de diseño (mockups, paletas de color, fuentes fuente)
 ├── docs/               → Documentación del proyecto
 ├── public/             → Ficheros estáticos servidos tal cual (favicon, fuentes runtime,
 │                          `festival-detail-{slug}.json` con datos verificados del festival)
-├── src/                → Código fuente de la aplicación
+├── src/                → Código fuente de la aplicación Angular
 ├── scripts/            → Scripts de utilidad Node.js no relacionados con el build de Angular
 ├── .editorconfig       → Reglas de formato del editor (indentación, charset, trailing whitespace)
 ├── angular.json        → Configuración de Angular CLI (build, serve, test, lint, budgets, SSR)
@@ -828,5 +830,6 @@ Estas reglas están forzadas por `eslint-plugin-boundaries` (configurado en `esl
 
 | Fecha | Cambio | Motivo |
 | --- | --- | --- |
+| 2026-08-03 | Se añade `apps/web-astro/` (PoC Astro + Cloudflare + Preact) como app hermana; Angular en raíz sigue en producción. | Migración Angular→Astro por fases sin romper el gate ni las URLs en producción. |
 | 2026-07-17 | Se añadieron seis referencias normativas bajo `.codex/skills/seo-meta/references/` y su espejo generado en `.claude/skills/seo-meta/references/`. | Convertir `seo-meta` en un estándar SEO mantenible y verificable sin crear una nueva jerarquía documental. |
 | 2026-07-21 | Se eliminó la feature `news/` y la ruta `/noticias`; el enlace «Noticias» del header apunta ahora al sitio externo `https://turiafestnoticias.es`. | Las noticias se publican en un portal propio; mantener una página vacía en la app duplicaba superficie sin contenido. |

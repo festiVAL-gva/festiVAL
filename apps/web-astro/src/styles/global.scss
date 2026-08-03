@@ -1,0 +1,15 @@
+// Global stylesheet entry for the Astro app.
+// Reuses the Angular design-system partials via Sass loadPaths → monorepo `src/`.
+
+@use 'styles/tokens';
+@use 'styles/semantic';
+@use 'styles/safari-compat';
+@use 'styles/typography';
+@use 'styles/fonts';
+@use 'styles/spacing';
+@use 'styles/radii';
+@use 'styles/shadows';
+@use 'styles/motion';
+@use 'styles/animations';
+@use 'styles/reset';
+@use 'styles/utilities/liquid-glass';

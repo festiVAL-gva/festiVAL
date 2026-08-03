@@ -1,0 +1,32 @@
+{
+  "name": "web-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "i18n:check": "node ../../scripts/i18n-sync.mjs --check"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.1.7",
+    "@astrojs/preact": "^6.0.2",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.1.6",
+    "date-fns": "^4.4.0",
+    "lucide": "^1.28.0",
+    "preact": "^10.29.8",
+    "sass": "^1.102.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "vitest": "^4.1.10"
+  }
+}

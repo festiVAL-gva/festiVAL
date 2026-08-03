@@ -1,0 +1,90 @@
+---
+import { t } from '@lib/i18n/t';
+---
+
+<header class="site-header" data-testid="site-header">
+  <a class="site-header__brand" href="/">TuriaFest</a>
+  <nav class="site-header__nav" aria-label={t('nav.aria.primary')}>
+    <a href="/festivales">{t('nav.festivals')}</a>
+    <a href="/calendario">{t('nav.calendar')}</a>
+  </nav>
+  <button
+    type="button"
+    class="site-header__theme"
+    data-theme-toggle
+    aria-pressed="false"
+    aria-label={t('nav.theme.toDark')}
+  >
+    Tema
+  </button>
+</header>
+
+<style lang="scss">
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: var(--fv-space-4);
+    padding: var(--fv-space-3) var(--fv-space-4);
+    background: var(--fv-bg-page);
+    border-bottom: 1px solid var(--fv-border-nav);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .site-header__brand {
+    font-family: var(--fv-font-heading);
+    font-weight: 700;
+    color: var(--fv-text-nav);
+    text-decoration: none;
+    letter-spacing: var(--fv-tracking-tight);
+  }
+
+  .site-header__nav {
+    display: flex;
+    gap: var(--fv-space-3);
+    flex: 1;
+
+    a {
+      color: var(--fv-text-footer-muted);
+      text-decoration: none;
+      font-family: var(--fv-font-ui);
+      font-size: var(--fv-text-sm);
+      font-weight: 600;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+
+      &:focus-visible {
+        outline: none;
+        box-shadow: var(--fv-shadow-focus);
+        border-radius: var(--fv-radius-sm);
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      a:hover {
+        color: var(--fv-text-nav);
+      }
+    }
+  }
+
+  .site-header__theme {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 var(--fv-space-3);
+    border-radius: var(--fv-radius-pill);
+    border: 1.5px solid var(--fv-border-nav);
+    background: transparent;
+    color: var(--fv-text-nav);
+    font-family: var(--fv-font-ui);
+    font-size: var(--fv-text-sm);
+    font-weight: 600;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: var(--fv-shadow-focus);
+    }
+  }
+</style>

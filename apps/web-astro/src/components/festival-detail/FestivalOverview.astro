@@ -1,0 +1,121 @@
+---
+import type { FestivalDetailEntry } from '@lib/festivals/catalogue';
+import { overviewKeys } from '@lib/festivals/catalogue';
+import { t } from '@lib/i18n/t';
+
+interface Props {
+  entry: FestivalDetailEntry;
+}
+
+const { entry } = Astro.props;
+const keys = overviewKeys(entry.slug);
+---
+
+<section
+  class="festival-overview"
+  aria-label={t('festival.detail.overview.ariaLabel')}
+  data-testid="festival-overview"
+>
+  <div class="festival-overview__copy">
+    <p class="festival-overview__eyebrow">{t('festival.detail.overview.title')}</p>
+    <p class="festival-overview__body">{t(keys.paragraph1)}</p>
+    <p class="festival-overview__body">{t(keys.paragraph2)}</p>
+  </div>
+
+  <ul
+    class="festival-overview__highlights"
+    aria-label={t('festival.detail.overview.highlightsAriaLabel')}
+  >
+    <li class="festival-overview__highlight">
+      <span>{t(keys.highlights.beach)}</span>
+    </li>
+    <li class="festival-overview__highlight">
+      <span>{t(keys.highlights.camping)}</span>
+    </li>
+    <li class="festival-overview__highlight">
+      <span>{t(keys.highlights.foodTrucks)}</span>
+    </li>
+    <li class="festival-overview__highlight">
+      <span>{t(keys.highlights.afterparties)}</span>
+    </li>
+    <li class="festival-overview__highlight">
+      <span>{t(keys.highlights.activities)}</span>
+    </li>
+  </ul>
+</section>
+
+<style lang="scss">
+  @use 'styles/breakpoints' as *;
+
+  .festival-overview {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--fv-space-5);
+
+    @include from(md) {
+      gap: var(--fv-space-6);
+    }
+  }
+
+  .festival-overview__copy {
+    display: grid;
+    gap: var(--fv-space-3);
+  }
+
+  .festival-overview__eyebrow,
+  .festival-overview__body {
+    margin: 0;
+  }
+
+  .festival-overview__eyebrow {
+    color: var(--fv-text-nav);
+    font-family: var(--fv-font-heading);
+    font-size: clamp(var(--fv-text-3xl), 5vw, var(--fv-text-4xl));
+    font-weight: 700;
+    line-height: var(--fv-leading-tight);
+  }
+
+  .festival-overview__body {
+    color: var(--fv-text-footer-muted);
+    font-family: var(--fv-font-ui);
+    font-size: var(--fv-text-base);
+    line-height: var(--fv-leading-relaxed);
+  }
+
+  .festival-overview__highlights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--fv-space-3);
+
+    @include from(md) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include from(lg) {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+
+  .festival-overview__highlight {
+    display: grid;
+    gap: var(--fv-space-2);
+    min-height: 44px;
+    max-width: 15rem;
+    padding: var(--fv-space-3);
+    border-radius: var(--fv-radius-xl);
+    background: color-mix(in srgb, var(--fv-bg-card-light) 72%, transparent);
+    color: var(--fv-text-nav);
+    border: 1px solid color-mix(in srgb, var(--fv-border-nav) 82%, transparent);
+
+    span {
+      font-family: var(--fv-font-ui);
+      font-size: var(--fv-text-sm);
+      font-weight: 600;
+      line-height: var(--fv-leading-snug);
+    }
+  }
+</style>

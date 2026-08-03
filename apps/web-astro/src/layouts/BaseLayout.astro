@@ -1,0 +1,87 @@
+---
+import '../styles/global.scss';
+import { THEME_ANTI_FOUC_SCRIPT, THEME_TOGGLE_SCRIPT } from '@lib/theme/theme-script';
+import SiteHeader from '@components/layout/SiteHeader.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  ogImage?: {
+    url: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  indexable?: boolean;
+  jsonLd?: readonly Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage,
+  indexable = true,
+  jsonLd = [],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es-ES">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Language" content="es" />
+    <meta name="theme-color" content="#F8F5F0" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {!indexable && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="TuriaFest" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {ogImage && (
+      <>
+        <meta property="og:image" content={ogImage.url} />
+        <meta property="og:image:alt" content={ogImage.alt} />
+        <meta property="og:image:width" content={String(ogImage.width)} />
+        <meta property="og:image:height" content={String(ogImage.height)} />
+      </>
+    )}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && (
+      <>
+        <meta name="twitter:image" content={ogImage.url} />
+        <meta name="twitter:image:alt" content={ogImage.alt} />
+      </>
+    )}
+
+    {/* MVP: only es is live — do not advertise ca/en hreflang yet (seo-meta). */}
+    <link rel="alternate" hreflang="es" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    {jsonLd.map((graph) => (
+      <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    ))}
+
+    <script is:inline set:html={THEME_ANTI_FOUC_SCRIPT} />
+  </head>
+  <body>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <script is:inline set:html={THEME_TOGGLE_SCRIPT} />
+  </body>
+</html>
